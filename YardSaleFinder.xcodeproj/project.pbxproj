@@ -12,6 +12,7 @@
 		4193CD571D075497008685AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD551D075497008685AF /* Main.storyboard */; };
 		4193CD591D075497008685AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD581D075497008685AF /* Assets.xcassets */; };
 		4193CD5C1D075497008685AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD5A1D075497008685AF /* LaunchScreen.storyboard */; };
+		928BF218AB76FF6170D313B5 /* Pods_YardSaleFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,9 @@
 		4193CD581D075497008685AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4193CD5B1D075497008685AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4193CD5D1D075497008685AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		800502DB398B446CA8380C0D /* Pods-YardSaleFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.debug.xcconfig"; sourceTree = "<group>"; };
+		C73DE1C6CD4B3188EE10090D /* Pods-YardSaleFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.release.xcconfig"; sourceTree = "<group>"; };
+		E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YardSaleFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928BF218AB76FF6170D313B5 /* Pods_YardSaleFinder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +45,8 @@
 			children = (
 				4193CD501D075497008685AF /* YardSaleFinder */,
 				4193CD4F1D075497008685AF /* Products */,
+				EE560BA9736935DEE0C666FD /* Pods */,
+				AD86B56FC559054EAA275C41 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +71,23 @@
 			path = YardSaleFinder;
 			sourceTree = "<group>";
 		};
+		AD86B56FC559054EAA275C41 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE560BA9736935DEE0C666FD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				800502DB398B446CA8380C0D /* Pods-YardSaleFinder.debug.xcconfig */,
+				C73DE1C6CD4B3188EE10090D /* Pods-YardSaleFinder.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4193CD601D075497008685AF /* Build configuration list for PBXNativeTarget "YardSaleFinder" */;
 			buildPhases = (
+				3674C20C626CCEBF2EC0680B /* [CP] Check Pods Manifest.lock */,
 				4193CD4A1D075497008685AF /* Sources */,
 				4193CD4B1D075497008685AF /* Frameworks */,
 				4193CD4C1D075497008685AF /* Resources */,
+				EFD5587B1C85F47D578FB463 /* [CP] Embed Pods Frameworks */,
+				836CEF1DBF3DC032D5E4790A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -129,6 +156,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3674C20C626CCEBF2EC0680B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		836CEF1DBF3DC032D5E4790A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EFD5587B1C85F47D578FB463 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4193CD4A1D075497008685AF /* Sources */ = {
@@ -249,6 +324,7 @@
 		};
 		4193CD611D075497008685AF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 800502DB398B446CA8380C0D /* Pods-YardSaleFinder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YardSaleFinder/Info.plist;
@@ -260,6 +336,7 @@
 		};
 		4193CD621D075497008685AF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C73DE1C6CD4B3188EE10090D /* Pods-YardSaleFinder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YardSaleFinder/Info.plist;
@@ -288,6 +365,7 @@
 				4193CD621D075497008685AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
