@@ -12,6 +12,7 @@
 		4193CD571D075497008685AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD551D075497008685AF /* Main.storyboard */; };
 		4193CD591D075497008685AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD581D075497008685AF /* Assets.xcassets */; };
 		4193CD5C1D075497008685AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD5A1D075497008685AF /* LaunchScreen.storyboard */; };
+		41AD58011D0A01DD00E26DF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */; };
 		928BF218AB76FF6170D313B5 /* Pods_YardSaleFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		4193CD581D075497008685AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4193CD5B1D075497008685AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4193CD5D1D075497008685AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		800502DB398B446CA8380C0D /* Pods-YardSaleFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		C73DE1C6CD4B3188EE10090D /* Pods-YardSaleFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.release.xcconfig"; sourceTree = "<group>"; };
 		E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YardSaleFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,14 +63,47 @@
 		4193CD501D075497008685AF /* YardSaleFinder */ = {
 			isa = PBXGroup;
 			children = (
-				4193CD511D075497008685AF /* AppDelegate.swift */,
-				4193CD531D075497008685AF /* ViewController.swift */,
-				4193CD551D075497008685AF /* Main.storyboard */,
-				4193CD581D075497008685AF /* Assets.xcassets */,
-				4193CD5A1D075497008685AF /* LaunchScreen.storyboard */,
-				4193CD5D1D075497008685AF /* Info.plist */,
+				41AD58051D0A021300E26DF8 /* Controllers */,
+				41AD58041D0A020600E26DF8 /* Views */,
+				41AD58021D0A01EB00E26DF8 /* Supporting Files */,
 			);
 			path = YardSaleFinder;
+			sourceTree = "<group>";
+		};
+		41AD58021D0A01EB00E26DF8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4193CD581D075497008685AF /* Assets.xcassets */,
+				4193CD5D1D075497008685AF /* Info.plist */,
+				41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		41AD58031D0A01FE00E26DF8 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				4193CD551D075497008685AF /* Main.storyboard */,
+				4193CD5A1D075497008685AF /* LaunchScreen.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		41AD58041D0A020600E26DF8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				41AD58031D0A01FE00E26DF8 /* Storyboard */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		41AD58051D0A021300E26DF8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4193CD511D075497008685AF /* AppDelegate.swift */,
+				4193CD531D075497008685AF /* ViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		AD86B56FC559054EAA275C41 /* Frameworks */ = {
@@ -150,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4193CD5C1D075497008685AF /* LaunchScreen.storyboard in Resources */,
+				41AD58011D0A01DD00E26DF8 /* GoogleService-Info.plist in Resources */,
 				4193CD591D075497008685AF /* Assets.xcassets in Resources */,
 				4193CD571D075497008685AF /* Main.storyboard in Resources */,
 			);
