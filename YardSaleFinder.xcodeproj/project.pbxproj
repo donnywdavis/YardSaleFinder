@@ -13,6 +13,12 @@
 		4193CD591D075497008685AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD581D075497008685AF /* Assets.xcassets */; };
 		4193CD5C1D075497008685AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD5A1D075497008685AF /* LaunchScreen.storyboard */; };
 		41AD58011D0A01DD00E26DF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */; };
+		41AD58081D0A02D600E26DF8 /* DataReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD58071D0A02D600E26DF8 /* DataReference.swift */; };
+		41AD580B1D0A058900E26DF8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580A1D0A058900E26DF8 /* User.swift */; };
+		41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580D1D0A082100E26DF8 /* DateExtensions.swift */; };
+		41AD58101D0A140E00E26DF8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */; };
+		41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5DA131D0A46AA00C9570F /* YardSale.swift */; };
+		41C5DA161D0A53F800C9570F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5DA151D0A53F800C9570F /* Group.swift */; };
 		928BF218AB76FF6170D313B5 /* Pods_YardSaleFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +31,12 @@
 		4193CD5B1D075497008685AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4193CD5D1D075497008685AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		41AD58071D0A02D600E26DF8 /* DataReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataReference.swift; sourceTree = "<group>"; };
+		41AD580A1D0A058900E26DF8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		41AD580D1D0A082100E26DF8 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		41C5DA131D0A46AA00C9570F /* YardSale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSale.swift; sourceTree = "<group>"; };
+		41C5DA151D0A53F800C9570F /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		800502DB398B446CA8380C0D /* Pods-YardSaleFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		C73DE1C6CD4B3188EE10090D /* Pods-YardSaleFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.release.xcconfig"; sourceTree = "<group>"; };
 		E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YardSaleFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +75,9 @@
 		4193CD501D075497008685AF /* YardSaleFinder */ = {
 			isa = PBXGroup;
 			children = (
+				41AD580C1D0A080A00E26DF8 /* Custom Extensions */,
+				41AD58091D0A057600E26DF8 /* Models */,
+				41AD58061D0A02BE00E26DF8 /* Data Reference */,
 				41AD58051D0A021300E26DF8 /* Controllers */,
 				41AD58041D0A020600E26DF8 /* Views */,
 				41AD58021D0A01EB00E26DF8 /* Supporting Files */,
@@ -104,6 +119,33 @@
 				4193CD531D075497008685AF /* ViewController.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		41AD58061D0A02BE00E26DF8 /* Data Reference */ = {
+			isa = PBXGroup;
+			children = (
+				41AD58071D0A02D600E26DF8 /* DataReference.swift */,
+			);
+			name = "Data Reference";
+			sourceTree = "<group>";
+		};
+		41AD58091D0A057600E26DF8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				41AD580A1D0A058900E26DF8 /* User.swift */,
+				41C5DA131D0A46AA00C9570F /* YardSale.swift */,
+				41C5DA151D0A53F800C9570F /* Group.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		41AD580C1D0A080A00E26DF8 /* Custom Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				41AD580D1D0A082100E26DF8 /* DateExtensions.swift */,
+				41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */,
+			);
+			name = "Custom Extensions";
 			sourceTree = "<group>";
 		};
 		AD86B56FC559054EAA275C41 /* Frameworks */ = {
@@ -246,8 +288,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41AD58101D0A140E00E26DF8 /* StringExtensions.swift in Sources */,
+				41AD580B1D0A058900E26DF8 /* User.swift in Sources */,
+				41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */,
+				41C5DA161D0A53F800C9570F /* Group.swift in Sources */,
 				4193CD541D075497008685AF /* ViewController.swift in Sources */,
 				4193CD521D075497008685AF /* AppDelegate.swift in Sources */,
+				41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */,
+				41AD58081D0A02D600E26DF8 /* DataReference.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
