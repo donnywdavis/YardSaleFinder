@@ -17,6 +17,7 @@
 		41AD580B1D0A058900E26DF8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580A1D0A058900E26DF8 /* User.swift */; };
 		41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580D1D0A082100E26DF8 /* DateExtensions.swift */; };
 		41AD58101D0A140E00E26DF8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */; };
+		41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5DA131D0A46AA00C9570F /* YardSale.swift */; };
 		928BF218AB76FF6170D313B5 /* Pods_YardSaleFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		41AD580A1D0A058900E26DF8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		41AD580D1D0A082100E26DF8 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		41C5DA131D0A46AA00C9570F /* YardSale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSale.swift; sourceTree = "<group>"; };
 		800502DB398B446CA8380C0D /* Pods-YardSaleFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		C73DE1C6CD4B3188EE10090D /* Pods-YardSaleFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.release.xcconfig"; sourceTree = "<group>"; };
 		E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YardSaleFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				41AD580A1D0A058900E26DF8 /* User.swift */,
+				41C5DA131D0A46AA00C9570F /* YardSale.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */,
 				4193CD541D075497008685AF /* ViewController.swift in Sources */,
 				4193CD521D075497008685AF /* AppDelegate.swift in Sources */,
+				41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */,
 				41AD58081D0A02D600E26DF8 /* DataReference.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
