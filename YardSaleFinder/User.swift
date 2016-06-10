@@ -13,6 +13,7 @@ import CoreLocation
 struct User: Decodable {
     var uid: String?
     var name: String?
+    var address: String?
     var latitude: Double?
     var longitude: Double?
     var yardSales: [String]?
@@ -21,6 +22,7 @@ struct User: Decodable {
     init?(json: JSON) {
         uid = "uid" <~~ json
         name = "name" <~~ json
+        address = "address" <~~ json
         latitude = "latitude" <~~ json
         longitude = "longitude" <~~ json
         yardSales = "yardSales" <~~ json
