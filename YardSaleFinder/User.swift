@@ -11,7 +11,7 @@ import Gloss
 import CoreLocation
 
 struct User: Decodable {
-    var uid: String?
+    var id: String?
     var name: String?
     var address: String?
     var latitude: Double?
@@ -20,7 +20,7 @@ struct User: Decodable {
     let created: NSDate?
     
     init?(json: JSON) {
-        uid = "uid" <~~ json
+        id = "id" <~~ json
         name = "name" <~~ json
         address = "address" <~~ json
         latitude = "latitude" <~~ json

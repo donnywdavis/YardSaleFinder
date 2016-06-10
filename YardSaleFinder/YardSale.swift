@@ -11,6 +11,7 @@ import Gloss
 
 
 struct YardSale: Decodable {
+    var id: String?
     var address: String?
     var latitude: Double?
     var longitude: Double?
@@ -26,6 +27,7 @@ struct YardSale: Decodable {
     var created: NSDate?
     
     init?(json: JSON) {
+        id = "id" <~~ json
         address = "address" <~~ json
         latitude = "latitude" <~~ json
         longitude = "longitude" <~~ json
