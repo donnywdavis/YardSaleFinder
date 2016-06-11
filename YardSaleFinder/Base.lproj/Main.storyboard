@@ -19,16 +19,30 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frq-NG-Oxn">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="delegate" destination="Kuc-in-UX0" id="xag-88-Nzv"/>
                                 </connections>
                             </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pOx-92-Vez">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem systemItem="reply" id="208-SI-LO2">
+                                        <connections>
+                                            <action selector="currentLocationButtonPressed:" destination="Kuc-in-UX0" id="dEJ-6V-RrD"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="frq-NG-Oxn" secondAttribute="trailing" id="7jV-oa-KxO"/>
+                            <constraint firstAttribute="trailing" secondItem="pOx-92-Vez" secondAttribute="trailing" id="JYz-np-dUe"/>
                             <constraint firstItem="QS0-LH-mbx" firstAttribute="top" secondItem="frq-NG-Oxn" secondAttribute="bottom" id="RMC-Jq-FIC"/>
+                            <constraint firstItem="QS0-LH-mbx" firstAttribute="top" secondItem="pOx-92-Vez" secondAttribute="bottom" id="Yhc-hd-I4z"/>
                             <constraint firstItem="frq-NG-Oxn" firstAttribute="top" secondItem="cWo-aZ-BEh" secondAttribute="top" id="Zd2-bA-03l"/>
+                            <constraint firstItem="pOx-92-Vez" firstAttribute="leading" secondItem="cWo-aZ-BEh" secondAttribute="leading" id="jyR-5h-Ka2"/>
                             <constraint firstItem="frq-NG-Oxn" firstAttribute="leading" secondItem="cWo-aZ-BEh" secondAttribute="leading" id="sbV-2C-Hiu"/>
                         </constraints>
                     </view>

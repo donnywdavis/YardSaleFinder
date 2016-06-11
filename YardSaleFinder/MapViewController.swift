@@ -29,9 +29,6 @@ class MapViewController: UIViewController {
         
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
-            if let location = mapView.userLocation.location {
-                centerOnLocation(location)
-            }
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
@@ -49,6 +46,18 @@ class MapViewController: UIViewController {
         return true
     }
 
+}
+
+// MARK: Button Actions
+
+extension MapViewController {
+    
+    @IBAction func currentLocationButtonPressed(sender: UIBarButtonItem) {
+        if let location = mapView.userLocation.location {
+            centerOnLocation(location)
+        }
+    }
+    
 }
 
 // MARK: Firebase Methods
@@ -82,12 +91,6 @@ extension MapViewController: MKMapViewDelegate {
     func centerOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000, 1000)
         mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        if let location = userLocation.location {
-            centerOnLocation(location)
-        }
     }
     
 }
