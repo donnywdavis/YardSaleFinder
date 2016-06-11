@@ -17,6 +17,7 @@ class DataReference {
     private let BASE_REF = FIRDatabase.database().reference()
     private let USERS_REF = FIRDatabase.database().reference().child("users")
     private let YARD_SALES_REF = FIRDatabase.database().reference().child("yardSales")
+    private let ACTIVE_YARD_SALES_REF = FIRDatabase.database().reference().child("active")
     private let GROUPS_REF = FIRDatabase.database().reference().child("groups")
     
     var baseRef: FIRDatabaseReference {
@@ -29,6 +30,10 @@ class DataReference {
     
     var yardSalesRef: FIRDatabaseReference {
         return YARD_SALES_REF
+    }
+    
+    var activeYardSalesRef: FIRDatabaseReference {
+        return ACTIVE_YARD_SALES_REF
     }
     
     var groupsRef: FIRDatabaseReference {

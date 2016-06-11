@@ -14,26 +14,26 @@ struct YardSale: Decodable, Glossy {
     var id: String?
     var address: String?
     var location: CLLocationCoordinate2D
+    var annotation: Annotation?
     var fromTime: NSDate?
     var toTime: NSDate?
     var items: [String]?
     var fromPrice: Double?
     var toPrice: Double?
     var photos: [String]?
-    var active: Bool?
     var created: NSDate?
     
     init?(json: JSON) {
         id = "id" <~~ json
         address = "address" <~~ json
         location = CLLocationCoordinate2DMake(("latitude" <~~ json)!, ("longitude" <~~ json)!)
+        annotation = Annotation(title: "Yard Sale", subtitle: address, coordinate: location)
         fromTime = NSDate.dateFromString("fromTime" <~~ json)
         toTime = NSDate.dateFromString("toTime" <~~ json)
         items = "items" <~~ json
         fromPrice = "fromPrice" <~~ json
         toPrice = "toPrice" <~~ json
         photos = "photos" <~~ json
-        active = "active" <~~ json
         created = NSDate.dateFromString("created" <~~ json)
     }
     
@@ -54,7 +54,6 @@ struct YardSale: Decodable, Glossy {
             "fromPrice" ~~> fromPrice,
             "toPrice" ~~> toPrice,
             "photos" ~~> photos,
-            "active" ~~> active,
             "created" ~~> created
         ])
     }
