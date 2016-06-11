@@ -29,6 +29,9 @@ class MapViewController: UIViewController {
         
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
+            if let location = mapView.userLocation.location {
+                centerOnLocation(location)
+            }
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
@@ -74,8 +77,17 @@ extension MapViewController {
 
 // MARK: Map Functions
 
-extension MapViewController {
+extension MapViewController: MKMapViewDelegate {
 
+    func centerOnLocation(location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000, 1000)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
     
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        if let location = userLocation.location {
+            centerOnLocation(location)
+        }
+    }
     
 }
