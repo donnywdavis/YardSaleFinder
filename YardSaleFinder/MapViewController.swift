@@ -93,4 +93,19 @@ extension MapViewController: MKMapViewDelegate {
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        var pin = mapView.dequeueReusableAnnotationViewWithIdentifier("YardSalePin")
+        if pin == nil {
+            pin = MKAnnotationView(annotation: annotation, reuseIdentifier: "YardSalePin")
+        } else {
+            pin?.annotation = annotation
+        }
+        
+        pin?.image = UIImage(named: "salesSign")
+        pin?.canShowCallout = true
+        pin?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+        
+        return pin
+    }
+    
 }
