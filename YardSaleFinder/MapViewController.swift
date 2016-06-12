@@ -94,6 +94,10 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
+        }
+        
         var pin = mapView.dequeueReusableAnnotationViewWithIdentifier("YardSalePin")
         if pin == nil {
             pin = MKAnnotationView(annotation: annotation, reuseIdentifier: "YardSalePin")
