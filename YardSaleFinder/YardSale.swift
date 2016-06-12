@@ -27,7 +27,7 @@ struct YardSale: Decodable, Glossy {
         id = "id" <~~ json
         address = "address" <~~ json
         location = CLLocationCoordinate2DMake(("latitude" <~~ json)!, ("longitude" <~~ json)!)
-        annotation = Annotation(title: "Yard Sale", subtitle: address, coordinate: location)
+        annotation = Annotation(title: "Yard Sale", subtitle: address, coordinate: location, id: id)
         fromTime = NSDate.dateFromString("fromTime" <~~ json)
         toTime = NSDate.dateFromString("toTime" <~~ json)
         items = "items" <~~ json

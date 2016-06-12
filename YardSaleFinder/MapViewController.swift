@@ -98,11 +98,12 @@ extension MapViewController: MKMapViewDelegate {
             return nil
         }
         
+        let yardSaleAnnotation = annotation as! Annotation
         var pin = mapView.dequeueReusableAnnotationViewWithIdentifier("YardSalePin")
         if pin == nil {
-            pin = MKAnnotationView(annotation: annotation, reuseIdentifier: "YardSalePin")
+            pin = MKAnnotationView(annotation: yardSaleAnnotation, reuseIdentifier: "YardSalePin")
         } else {
-            pin?.annotation = annotation
+            pin?.annotation = yardSaleAnnotation
         }
         
         pin?.image = UIImage(named: "salesSign")
