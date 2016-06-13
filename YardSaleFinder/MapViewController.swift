@@ -113,4 +113,10 @@ extension MapViewController: MKMapViewDelegate {
         return pin
     }
     
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let id = (view.annotation as! Annotation).id
+        print(id)
+        performSegueWithIdentifier("DetailSegue", sender: self)
+    }
+    
 }
