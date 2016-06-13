@@ -17,7 +17,7 @@ struct YardSale: Decodable, Glossy {
     var annotation: Annotation?
     var fromTime: NSDate?
     var toTime: NSDate?
-    var items: [String]?
+    var items: String?
     var fromPrice: Double?
     var toPrice: Double?
     var photos: [String]?

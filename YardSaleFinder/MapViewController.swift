@@ -21,6 +21,7 @@ class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     var yardSales = [String: YardSale]()
+    var selectedYardSale: String?
     
     // MARK: View Lifecycle
 
@@ -54,6 +55,18 @@ class MapViewController: UIViewController {
         return (navigationController?.navigationBarHidden)!
     }
 
+}
+
+// MARK: Navigation
+
+extension MapViewController {
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let detailVC = segue.destinationViewController as? DetailViewController {
+            detailVC.yardSaleID = selectedYardSale
+        }
+    }
+    
 }
 
 // MARK: Button Actions
@@ -122,8 +135,7 @@ extension MapViewController: MKMapViewDelegate {
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let id = (view.annotation as! Annotation).id
-        print(id)
+        selectedYardSale = (view.annotation as! Annotation).id
         performSegueWithIdentifier("DetailSegue", sender: self)
     }
     
