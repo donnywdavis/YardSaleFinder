@@ -37,13 +37,21 @@ class MapViewController: UIViewController {
 
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBarHidden = false
+        navigationController?.toolbarHidden = false
+        navigationController?.hidesBarsOnTap = true
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         DataReference.sharedInstance.activeYardSalesRef.removeAllObservers()
         DataReference.sharedInstance.yardSalesRef.removeAllObservers()
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return (navigationController?.navigationBarHidden)!
     }
 
 }
