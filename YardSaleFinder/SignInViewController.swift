@@ -12,6 +12,9 @@ class SignInViewController: UIViewController {
     
     // MARK: IBOutlets
     
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
     // MARK: Properties
     
     // MARK: View Lifecycle
@@ -22,4 +25,13 @@ class SignInViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+}
+
+// MARK: Button Actions
+
+extension SignInViewController {
+    
+    @IBAction func signInButtonTapped(sender: UIButton) {
+    }
+    
 }

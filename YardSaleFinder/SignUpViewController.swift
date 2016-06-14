@@ -12,6 +12,10 @@ class SignUpViewController: UIViewController {
 
     // MARK: IBOutlets
     
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var confirmPasswordTextField: UITextField!
+    
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
@@ -25,5 +29,14 @@ class SignUpViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+// MARK: Button Actions
+
+extension SignUpViewController {
+    
+    @IBAction func signUpButtonTapped(sender: UIButton) {
+    }
+    
 }
 
