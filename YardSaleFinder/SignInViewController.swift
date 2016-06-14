@@ -23,13 +23,3 @@ class SignInViewController: UIViewController {
     }
 
 }
-
-// MARK: Button Actions
-
-extension SignInViewController {
-    
-    @IBAction func cancelButtonTapped(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-}

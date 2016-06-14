@@ -24,12 +24,3 @@ class ProfileViewController: UIViewController {
 
 }
 
-// MARK: Button Actions
-
-extension ProfileViewController {
-
-    @IBAction func doneButtonTapped(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-}
