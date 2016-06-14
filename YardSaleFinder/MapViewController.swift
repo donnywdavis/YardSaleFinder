@@ -21,6 +21,7 @@ class MapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     var yardSales = [String: YardSale]()
+    var selectedYardSale: String?
     
     // MARK: View Lifecycle
 
@@ -29,9 +30,6 @@ class MapViewController: UIViewController {
         
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
-            if let location = mapView.userLocation.location {
-                centerOnLocation(location)
-            }
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
@@ -40,15 +38,47 @@ class MapViewController: UIViewController {
 
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBarHidden = false
+        navigationController?.toolbarHidden = false
+        navigationController?.hidesBarsOnTap = true
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         DataReference.sharedInstance.activeYardSalesRef.removeAllObservers()
         DataReference.sharedInstance.yardSalesRef.removeAllObservers()
     }
     
     override func prefersStatusBarHidden() -> Bool {
-        return true
+        return (navigationController?.navigationBarHidden)!
     }
 
+}
+
+// MARK: Navigation
+
+extension MapViewController {
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let detailVC = segue.destinationViewController as? DetailViewController {
+            detailVC.yardSaleID = selectedYardSale
+        }
+    }
+    
+}
+
+// MARK: Button Actions
+
+extension MapViewController {
+    
+    @IBAction func currentLocationButtonPressed(sender: UIBarButtonItem) {
+        if let location = mapView.userLocation.location {
+            centerOnLocation(location)
+        }
+    }
+    
 }
 
 // MARK: Firebase Methods
@@ -84,10 +114,29 @@ extension MapViewController: MKMapViewDelegate {
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        if let location = userLocation.location {
-            centerOnLocation(location)
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isKindOfClass(MKUserLocation) {
+            return nil
         }
+        
+        let yardSaleAnnotation = annotation as! Annotation
+        var pin = mapView.dequeueReusableAnnotationViewWithIdentifier("YardSalePin")
+        if pin == nil {
+            pin = MKAnnotationView(annotation: yardSaleAnnotation, reuseIdentifier: "YardSalePin")
+        } else {
+            pin?.annotation = yardSaleAnnotation
+        }
+        
+        pin?.image = UIImage(named: "salesSign")
+        pin?.canShowCallout = true
+        pin?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+        
+        return pin
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        selectedYardSale = (view.annotation as! Annotation).id
+        performSegueWithIdentifier("DetailSegue", sender: self)
     }
     
 }
