@@ -30,8 +30,8 @@ class SignUpViewController: UIViewController {
 // Mark: Button Actions
 
 extension SignUpViewController {
- 
-    @IBAction func CancelButtonTapped(sender: UIBarButtonItem) {
+
+    @IBAction func cancelButtonTapped(sender: UIButton) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     

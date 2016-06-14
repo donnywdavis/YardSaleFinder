@@ -1,14 +1,14 @@
 //
-//  SignInViewController.swift
+//  ProfileViewController.swift
 //  YardSaleFinder
 //
-//  Created by Donny Davis on 6/13/16.
+//  Created by Donny Davis on 6/14/16.
 //  Copyright © 2016 Donny Davis. All rights reserved.
 //
 
 import UIKit
 
-class SignInViewController: UIViewController {
+class ProfileViewController: UIViewController {
     
     // MARK: IBOutlets
     
@@ -26,9 +26,9 @@ class SignInViewController: UIViewController {
 
 // MARK: Button Actions
 
-extension SignInViewController {
-    
-    @IBAction func cancelButtonTapped(sender: UIButton) {
+extension ProfileViewController {
+
+    @IBAction func doneButtonTapped(sender: UIButton) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
