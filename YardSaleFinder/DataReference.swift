@@ -8,7 +8,7 @@
 
 import Foundation
 import Firebase
-
+import FirebaseAuth
 
 class DataReference {
     
@@ -19,6 +19,7 @@ class DataReference {
     private let YARD_SALES_REF = FIRDatabase.database().reference().child("yardSales")
     private let ACTIVE_YARD_SALES_REF = FIRDatabase.database().reference().child("active")
     private let GROUPS_REF = FIRDatabase.database().reference().child("groups")
+    private var CURRENT_USER: FIRUser?
     
     var baseRef: FIRDatabaseReference {
         return BASE_REF
@@ -38,6 +39,27 @@ class DataReference {
     
     var groupsRef: FIRDatabaseReference {
         return GROUPS_REF
+    }
+    
+    var currentUser: FIRUser? {
+        if let user = CURRENT_USER {
+            return user
+        } else {
+            return nil
+        }
+    }
+    
+    func setCurrentUserIfLoggedIn() {
+        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
+            if let user = user {
+                self.CURRENT_USER = user
+            }
+        })
+    }
+    
+    func signOut() {
+        try! FIRAuth.auth()?.signOut()
+        CURRENT_USER = nil
     }
     
 }

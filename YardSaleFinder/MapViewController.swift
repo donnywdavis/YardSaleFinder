@@ -77,6 +77,14 @@ extension MapViewController {
 
 extension MapViewController {
     
+    @IBAction func profileButtonTapped(sender: UIBarButtonItem) {
+        if DataReference.sharedInstance.currentUser != nil {
+            self.performSegueWithIdentifier("MapToProfileSegue", sender: nil)
+        } else {
+            self.performSegueWithIdentifier("MapToSignInSegue", sender: nil)
+        }
+    }
+    
     @IBAction func currentLocationButtonPressed(sender: UIBarButtonItem) {
         if let location = mapView.userLocation.location {
             centerOnLocation(location)
@@ -140,7 +148,7 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         selectedYardSale = (view.annotation as! Annotation).id
-        performSegueWithIdentifier("DetailSegue", sender: self)
+        performSegueWithIdentifier("MapToDetailSegue", sender: self)
     }
     
 }

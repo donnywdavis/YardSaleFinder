@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
@@ -32,7 +31,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController {
     
     @IBAction func logoutButtonPressed(sender: UIBarButtonItem) {
-        try! FIRAuth.auth()?.signOut()
+        DataReference.sharedInstance.signOut()
         performSegueWithIdentifier("UnwindToMapSegue", sender: nil)
     }
     

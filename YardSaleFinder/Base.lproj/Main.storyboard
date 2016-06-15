@@ -22,7 +22,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VqF-Ny-Rcq">
                                 <rect key="frame" x="60.5" y="235" width="480" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qRO-6T-vUI">
                                 <rect key="frame" x="60" y="285" width="480" height="30"/>
@@ -50,16 +50,7 @@
                                     <color key="titleColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="fah-6y-OAf" kind="presentation" modalPresentationStyle="overCurrentContext" id="vkY-UM-v9M"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gS1-MM-cYe">
-                                <rect key="frame" x="20" y="20" width="48" height="30"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="NwN-RC-fIN" kind="unwind" unwindAction="unwindToMapViewController:" id="8RC-wK-ljm"/>
+                                    <segue destination="tar-iM-hJe" kind="presentation" identifier="SignInToSignUpSegue" modalPresentationStyle="overCurrentContext" id="vkY-UM-v9M"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -70,32 +61,32 @@
                             <constraint firstItem="5LU-w6-pOd" firstAttribute="top" secondItem="qRO-6T-vUI" secondAttribute="bottom" constant="30" id="HOb-8b-WU5"/>
                             <constraint firstItem="qRO-6T-vUI" firstAttribute="top" secondItem="VqF-Ny-Rcq" secondAttribute="bottom" constant="20" id="I5x-Lg-fKB"/>
                             <constraint firstItem="VqF-Ny-Rcq" firstAttribute="width" secondItem="qRO-6T-vUI" secondAttribute="width" id="Mja-eN-iOx"/>
-                            <constraint firstItem="gS1-MM-cYe" firstAttribute="leading" secondItem="MJo-iT-9TO" secondAttribute="leadingMargin" id="Nqj-kX-ddZ"/>
                             <constraint firstItem="VqF-Ny-Rcq" firstAttribute="centerX" secondItem="qRO-6T-vUI" secondAttribute="centerX" id="gVA-gZ-ozm"/>
                             <constraint firstItem="qGW-mz-quJ" firstAttribute="top" secondItem="5LU-w6-pOd" secondAttribute="bottom" constant="30" id="iC3-T4-uRl"/>
                             <constraint firstItem="qRO-6T-vUI" firstAttribute="centerX" secondItem="MJo-iT-9TO" secondAttribute="centerX" id="lUB-e7-s7b"/>
                             <constraint firstItem="qRO-6T-vUI" firstAttribute="width" secondItem="MJo-iT-9TO" secondAttribute="width" multiplier="0.8" id="u4s-Ir-voM"/>
                             <constraint firstItem="5LU-w6-pOd" firstAttribute="width" secondItem="qRO-6T-vUI" secondAttribute="width" id="uSb-3D-q34"/>
-                            <constraint firstItem="gS1-MM-cYe" firstAttribute="leading" secondItem="MJo-iT-9TO" secondAttribute="leadingMargin" id="uv3-6p-vV6"/>
                             <constraint firstItem="qGW-mz-quJ" firstAttribute="centerX" secondItem="5LU-w6-pOd" secondAttribute="centerX" id="vwE-i3-6Fv"/>
-                            <constraint firstItem="gS1-MM-cYe" firstAttribute="top" secondItem="DUR-2K-tIE" secondAttribute="bottom" constant="20" id="xnO-2m-7gS"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="bQR-eR-fqN">
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="hpO-aJ-OFW">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="NwN-RC-fIN" kind="unwind" unwindAction="unwindToMapViewController:" id="mPA-kX-fWm"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="emailTextField" destination="VqF-Ny-Rcq" id="Ttt-Fu-wnC"/>
                         <outlet property="passwordTextField" destination="qRO-6T-vUI" id="lOH-Wu-GE7"/>
-                        <segue destination="PrY-Vh-0Xg" kind="presentation" identifier="SignInSegue" modalPresentationStyle="overCurrentContext" id="xCE-4N-vd4"/>
+                        <segue destination="PrY-Vh-0Xg" kind="presentation" identifier="SignInToProfileSegue" modalPresentationStyle="overCurrentContext" id="xCE-4N-vd4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yAb-WP-jGT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NwN-RC-fIN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3561" y="-1108"/>
+            <point key="canvasLocation" x="4255" y="-86"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="a9A-HB-h9V">
@@ -117,7 +108,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gp1-GH-Kfr">
                                 <rect key="frame" x="60.5" y="235" width="480" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GIB-uY-heH">
                                 <rect key="frame" x="60.5" y="335" width="480" height="30"/>
@@ -138,19 +129,9 @@
                                     <action selector="signUpButtonTapped:" destination="fah-6y-OAf" eventType="touchUpInside" id="zxA-iW-eGY"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eo3-yl-J1X">
-                                <rect key="frame" x="20" y="20" width="48" height="30"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancelButtonTapped:" destination="fah-6y-OAf" eventType="touchUpInside" id="ejj-Vu-cqe"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eo3-yl-J1X" firstAttribute="top" secondItem="DRd-Fd-OTw" secondAttribute="bottom" constant="20" id="8Rs-Qg-TBc"/>
                             <constraint firstItem="GIB-uY-heH" firstAttribute="centerX" secondItem="ZmE-0B-FQe" secondAttribute="centerX" id="Ccy-A3-j9f"/>
                             <constraint firstItem="mYW-0F-n9O" firstAttribute="width" secondItem="GIB-uY-heH" secondAttribute="width" id="MtZ-aF-MMd"/>
                             <constraint firstItem="Gp1-GH-Kfr" firstAttribute="width" secondItem="ZmE-0B-FQe" secondAttribute="width" id="N7b-y0-by2"/>
@@ -158,7 +139,6 @@
                             <constraint firstItem="Gp1-GH-Kfr" firstAttribute="centerX" secondItem="ZmE-0B-FQe" secondAttribute="centerX" id="Vok-bD-9rP"/>
                             <constraint firstItem="mYW-0F-n9O" firstAttribute="centerX" secondItem="GIB-uY-heH" secondAttribute="centerX" id="ZmM-ov-7cd"/>
                             <constraint firstItem="GIB-uY-heH" firstAttribute="top" secondItem="ZmE-0B-FQe" secondAttribute="bottom" constant="20" id="aRh-F6-McN"/>
-                            <constraint firstItem="eo3-yl-J1X" firstAttribute="leading" secondItem="cre-hr-NUd" secondAttribute="leadingMargin" id="dQF-D7-d0I"/>
                             <constraint firstItem="GIB-uY-heH" firstAttribute="width" secondItem="ZmE-0B-FQe" secondAttribute="width" id="fCL-Qq-BLg"/>
                             <constraint firstItem="mYW-0F-n9O" firstAttribute="top" secondItem="GIB-uY-heH" secondAttribute="bottom" constant="30" id="jeo-Lc-h5s"/>
                             <constraint firstItem="ZmE-0B-FQe" firstAttribute="width" secondItem="cre-hr-NUd" secondAttribute="width" multiplier="0.8" id="pwY-EM-hdo"/>
@@ -169,18 +149,22 @@
                     <navigationItem key="navigationItem" id="3Mu-BJ-2Wm">
                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="mQS-T3-v44">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="rPb-L0-TyP" kind="unwind" unwindAction="unwindToMapViewController:" id="0WV-8W-ApP"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="confirmPasswordTextField" destination="GIB-uY-heH" id="mLG-sO-ucX"/>
                         <outlet property="emailTextField" destination="Gp1-GH-Kfr" id="I1Y-Fq-G9h"/>
                         <outlet property="passwordTextField" destination="ZmE-0B-FQe" id="Mti-MC-6Se"/>
-                        <segue destination="PrY-Vh-0Xg" kind="presentation" identifier="SignUpSegue" modalPresentationStyle="overCurrentContext" id="AiY-n8-dEt"/>
+                        <segue destination="PrY-Vh-0Xg" kind="presentation" identifier="SignUpToProfileSegue" modalPresentationStyle="overCurrentContext" id="AiY-n8-dEt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LMe-Sn-WRb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="rPb-L0-TyP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3561" y="-368"/>
+            <point key="canvasLocation" x="4255" y="-895"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="WBU-7d-Oy3">
@@ -244,7 +228,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AaX-xG-VBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Hk0-Q4-dey" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5298" y="-748"/>
+            <point key="canvasLocation" x="5740" y="387"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="kwI-L3-ts7">
@@ -286,13 +270,15 @@
                         <barButtonItem key="leftBarButtonItem" image="user" id="7ar-CI-3vK">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="ybH-7V-sDn" kind="presentation" modalPresentationStyle="formSheet" id="4Di-ga-C5j"/>
+                                <action selector="profileButtonTapped:" destination="Kuc-in-UX0" id="qlM-GM-kfa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="frq-NG-Oxn" id="M13-ic-ubp"/>
-                        <segue destination="ehM-gf-KTo" kind="show" identifier="DetailSegue" id="KYQ-mt-UY6"/>
+                        <segue destination="ehM-gf-KTo" kind="show" identifier="MapToDetailSegue" id="KYQ-mt-UY6"/>
+                        <segue destination="i6u-KV-8IX" kind="presentation" identifier="MapToSignInSegue" modalPresentationStyle="formSheet" id="0EG-0h-KtX"/>
+                        <segue destination="PrY-Vh-0Xg" kind="presentation" identifier="MapToProfileSegue" modalPresentationStyle="formSheet" id="T8x-Ey-K1I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYo-yk-jrm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -522,7 +508,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UZT-de-KCb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3561" y="387"/>
+            <point key="canvasLocation" x="3561" y="765"/>
         </scene>
         <!--Map View Navigation Controller-->
         <scene sceneID="Sn7-SE-h8V">
@@ -572,7 +558,51 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXr-Ln-D8C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4486" y="-748"/>
+            <point key="canvasLocation" x="4996" y="387"/>
+        </scene>
+        <!--Sign In Navigation Controller-->
+        <scene sceneID="tIu-dT-09I">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="i6u-KV-8IX" userLabel="Sign In Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VAz-SP-uUy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ybH-7V-sDn" kind="relationship" relationship="rootViewController" id="xnj-ED-e2k"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1NT-mt-b7J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3561" y="-86"/>
+        </scene>
+        <!--Sign Up Navigation Controller-->
+        <scene sceneID="B5E-8l-4go">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tar-iM-hJe" userLabel="Sign Up Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ETO-97-Ptk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="fah-6y-OAf" kind="relationship" relationship="rootViewController" id="ygv-tD-zM9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vtq-BT-yVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3555" y="-895"/>
         </scene>
     </scenes>
     <resources>
@@ -580,6 +610,6 @@
         <image name="user" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xCE-4N-vd4"/>
+        <segue reference="AiY-n8-dEt"/>
     </inferredMetricsTieBreakers>
 </document>

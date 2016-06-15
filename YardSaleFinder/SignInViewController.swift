@@ -23,12 +23,6 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
-            if user != nil {
-                self.performSegueWithIdentifier("SignInSegue", sender: nil)
-            }
-        })
-        
         emailTextField.text = ""
         passwordTextField.text = ""
 
@@ -55,7 +49,7 @@ extension SignInViewController {
                 return
             }
             
-            self.performSegueWithIdentifier("SignInSegue", sender: nil)
+            self.performSegueWithIdentifier("SignInToProfileSegue", sender: nil)
             
         })
     }

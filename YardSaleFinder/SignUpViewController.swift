@@ -69,7 +69,7 @@ extension SignUpViewController {
                     return
                 }
                 
-                self.performSegueWithIdentifier("SignUpSegue", sender: nil)
+                self.performSegueWithIdentifier("SignUpToProfileSegue", sender: nil)
                 
             })
         })
