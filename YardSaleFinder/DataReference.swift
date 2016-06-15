@@ -9,12 +9,14 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import FirebaseStorage
 
 class DataReference {
     
     static let sharedInstance = DataReference()
     
     private let BASE_REF = FIRDatabase.database().reference()
+    private let BASE_STORAGE_REF = FIRStorage.storage().referenceForURL("gs://yard-sale-finder.appspot.com")
     private let USERS_REF = FIRDatabase.database().reference().child("users")
     private let YARD_SALES_REF = FIRDatabase.database().reference().child("yardSales")
     private let ACTIVE_YARD_SALES_REF = FIRDatabase.database().reference().child("active")
@@ -23,6 +25,10 @@ class DataReference {
     
     var baseRef: FIRDatabaseReference {
         return BASE_REF
+    }
+    
+    var baseStorageRef: FIRStorageReference {
+        return BASE_STORAGE_REF
     }
     
     var usersRef: FIRDatabaseReference {
@@ -47,6 +53,22 @@ class DataReference {
         } else {
             return nil
         }
+    }
+    
+    var userStorageRef: FIRStorageReference {
+        return baseStorageRef.child((currentUser?.uid)!)
+    }
+    
+    var userImagesRef: FIRStorageReference {
+        return userStorageRef.child("images")
+    }
+    
+    var profileImageRef: FIRStorageReference {
+        return userImagesRef.child("profile").child("profile.jpg")
+    }
+    
+    var yardSaleImagesRef: FIRStorageReference {
+        return userImagesRef.child("yardSale")
     }
     
     func setCurrentUserIfLoggedIn() {

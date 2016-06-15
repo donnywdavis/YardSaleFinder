@@ -101,7 +101,20 @@ extension ProfileViewController {
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
-        
+        if userProfile?.profilePhotoURL != updatedUserProfile?.profilePhotoURL {
+            DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: (updatedUserProfile?.profilePhotoURL)!), metadata: .None, completion: { (metaData, error) in
+                let changeRequest = DataReference.sharedInstance.currentUser?.profileChangeRequest()
+                changeRequest!.photoURL = NSURL(string: (self.updatedUserProfile?.profilePhotoURL)!)
+                changeRequest?.commitChangesWithCompletion({ (error) in
+                    if error != nil {
+                        print("Error: \(error)")
+                    } else {
+                        self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
+                        self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
+                    }
+                })
+            })
+        }
     }
     
 }
