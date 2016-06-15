@@ -16,6 +16,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    @IBOutlet weak var signUpButton: UIButton!
     
     // MARK: View Lifecycle
     
@@ -25,6 +26,8 @@ class SignUpViewController: UIViewController {
         emailTextField.text = ""
         passwordTextField.text = ""
         confirmPasswordTextField.text = ""
+        
+        signUpButton.layer.cornerRadius = 5
         
         // Set up a gesture to dismiss the keyboard when tapping outside of a text field
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnTap(_:)))

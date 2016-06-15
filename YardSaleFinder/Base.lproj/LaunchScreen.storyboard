@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,12 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapBackground" translatesAutoresizingMaskIntoConstraints="NO" id="fbg-kx-bPT">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signInBackground" translatesAutoresizingMaskIntoConstraints="NO" id="fbg-kx-bPT">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yard Sale Finder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edL-Ra-7DO">
-                                <rect key="frame" x="186" y="280.5" width="228" height="39"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <rect key="frame" x="30" y="116" width="540" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -30,8 +31,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="fbg-kx-bPT" secondAttribute="bottom" id="6Ue-rk-8AF"/>
+                            <constraint firstItem="edL-Ra-7DO" firstAttribute="width" secondItem="fbg-kx-bPT" secondAttribute="width" multiplier="0.9" id="AyI-Wp-r5O"/>
+                            <constraint firstItem="fbg-kx-bPT" firstAttribute="top" secondItem="edL-Ra-7DO" secondAttribute="bottom" constant="-164" id="QZJ-li-GZT"/>
                             <constraint firstItem="edL-Ra-7DO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="UbI-Ur-18r"/>
-                            <constraint firstItem="edL-Ra-7DO" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="X6B-c5-B5i"/>
                             <constraint firstAttribute="trailing" secondItem="fbg-kx-bPT" secondAttribute="trailing" id="eMK-m7-Ma4"/>
                             <constraint firstItem="fbg-kx-bPT" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="ffp-5a-DOY"/>
                             <constraint firstItem="fbg-kx-bPT" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="tzA-O3-Fmf"/>
@@ -44,6 +46,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="mapBackground" width="2048" height="1311"/>
+        <image name="signInBackground" width="5184" height="2912"/>
     </resources>
 </document>
