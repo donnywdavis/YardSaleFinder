@@ -38,14 +38,6 @@ class MapViewController: UIViewController {
 
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.navigationBarHidden = false
-        navigationController?.toolbarHidden = false
-        navigationController?.hidesBarsOnTap = true
-    }
-    
     override func viewWillDisappear(animated: Bool) {
         DataReference.sharedInstance.activeYardSalesRef.removeAllObservers()
         DataReference.sharedInstance.yardSalesRef.removeAllObservers()
@@ -68,7 +60,7 @@ extension MapViewController {
     }
     
     @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
-        
+        segue.sourceViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

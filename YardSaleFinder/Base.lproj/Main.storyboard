@@ -194,17 +194,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fBz-h8-smI">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fBz-h8-smI">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="CNV-3e-SFU">
-                                        <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfilePhotoCell" rowHeight="110" id="CNV-3e-SFU" customClass="ProfilePhotoTableViewCell" customModule="YardSaleFinder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="600" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CNV-3e-SFU" id="aTl-qC-atM">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="109.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LIx-t3-Pgw">
+                                                    <rect key="frame" x="250" y="8" width="100" height="100"/>
+                                                    <gestureRecognizers/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="2NL-Qc-BDY"/>
+                                                        <constraint firstAttribute="height" constant="100" id="qnU-Zy-xYI"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="LIx-t3-Pgw" firstAttribute="top" secondItem="aTl-qC-atM" secondAttribute="topMargin" id="0Bx-uY-Fa0"/>
+                                                <constraint firstItem="LIx-t3-Pgw" firstAttribute="centerX" secondItem="aTl-qC-atM" secondAttribute="centerX" id="9EZ-C6-DMy"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="LIx-t3-Pgw" secondAttribute="bottom" id="CI8-mp-zdO"/>
+                                                <constraint firstItem="LIx-t3-Pgw" firstAttribute="centerY" secondItem="aTl-qC-atM" secondAttribute="centerY" id="jNX-fc-Nsp"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="profileImageView" destination="LIx-t3-Pgw" id="wrh-SW-AzU"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
@@ -223,17 +242,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="qU8-bE-TUi">
-                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="MAf-eO-HNi">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="MAf-eO-HNi">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="logoutButtonPressed:" destination="ibW-vh-gXy" id="ws6-Tp-tO3"/>
-                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="arz-pW-Af6">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="Hk0-Q4-dey" kind="unwind" unwindAction="unwindToMapViewController:" id="qcH-tv-XTy"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -305,7 +318,7 @@
         <!--Detail View Controller-->
         <scene sceneID="yrP-fV-0gr">
             <objects>
-                <viewController id="ehM-gf-KTo" customClass="DetailViewController" customModule="YardSaleFinder" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="ehM-gf-KTo" customClass="DetailViewController" customModule="YardSaleFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="dEI-KE-AOT"/>
                         <viewControllerLayoutGuide type="bottom" id="Vav-Dv-kL2"/>
@@ -628,6 +641,6 @@
         <image name="user" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xCE-4N-vd4"/>
+        <segue reference="T8x-Ey-K1I"/>
     </inferredMetricsTieBreakers>
 </document>

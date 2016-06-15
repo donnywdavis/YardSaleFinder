@@ -11,6 +11,7 @@
 		4193CD571D075497008685AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD551D075497008685AF /* Main.storyboard */; };
 		4193CD591D075497008685AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD581D075497008685AF /* Assets.xcassets */; };
 		4193CD5C1D075497008685AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD5A1D075497008685AF /* LaunchScreen.storyboard */; };
+		41AA0F251D11949B003C7EC2 /* ProfilePhotoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AA0F241D11949B003C7EC2 /* ProfilePhotoTableViewCell.swift */; };
 		41AD58011D0A01DD00E26DF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */; };
 		41AD58081D0A02D600E26DF8 /* DataReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD58071D0A02D600E26DF8 /* DataReference.swift */; };
 		41AD580B1D0A058900E26DF8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580A1D0A058900E26DF8 /* User.swift */; };
@@ -40,6 +41,7 @@
 		4193CD581D075497008685AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4193CD5B1D075497008685AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4193CD5D1D075497008685AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		41AA0F241D11949B003C7EC2 /* ProfilePhotoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePhotoTableViewCell.swift; sourceTree = "<group>"; };
 		41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41AD58071D0A02D600E26DF8 /* DataReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataReference.swift; sourceTree = "<group>"; };
 		41AD580A1D0A058900E26DF8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				41D937071D0F521D00D37180 /* TimeTableViewCell.swift */,
 				41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */,
 				41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */,
+				41AA0F241D11949B003C7EC2 /* ProfilePhotoTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */,
 				41E403051D0F9EFD003E4BF8 /* SignUpViewController.swift in Sources */,
 				41D937021D0F079200D37180 /* AddressTableViewCell.swift in Sources */,
+				41AA0F251D11949B003C7EC2 /* ProfilePhotoTableViewCell.swift in Sources */,
 				41E403031D0F9B8D003E4BF8 /* SignInViewController.swift in Sources */,
 				41F76EC81D10753A008C329D /* ProfileViewController.swift in Sources */,
 				41D937001D0EEDA800D37180 /* MapTableViewCell.swift in Sources */,
