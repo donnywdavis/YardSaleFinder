@@ -104,11 +104,13 @@ extension ProfileViewController {
         DataReference.sharedInstance.updateUserProfile(updatedUserProfile)
         DataReference.sharedInstance.usersRef.child(updatedUserProfile!.id!).updateChildValues((updatedUserProfile?.toJSON())!)
         
-        DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath()), metadata: .None, completion: { (metaData, error) in
-                self.activityIndicator.stopAnimating()
-                self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
-                self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
-        })
+        if DirectoryServices.profileImageExists() {
+            DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath()), metadata: .None, completion: { (metaData, error) in
+                    self.activityIndicator.stopAnimating()
+                    self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
+                    self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
+            })
+        }
     }
     
 }
