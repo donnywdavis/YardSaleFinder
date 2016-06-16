@@ -38,7 +38,9 @@ struct User: Decodable, Glossy {
             profilePhotoURL = nil
         }
         address = "address" <~~ json
-        location = CLLocationCoordinate2DMake(("latitude" <~~ json)!, ("longitude" <~~ json)!)
+        if let latitude: Double = "latitude" <~~ json, let longitude: Double = "longitude" <~~ json {
+            location = CLLocationCoordinate2DMake(latitude, longitude)
+        }
         yardSales = "yardSales" <~~ json
         created = NSDate.dateFromString("created" <~~ json)
     }

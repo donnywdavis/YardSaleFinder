@@ -36,6 +36,8 @@ class ProfileViewController: UIViewController {
     var doneBarButtonItem: UIBarButtonItem?
     var cancelBarButtonItem: UIBarButtonItem?
     var saveBarButtonItem: UIBarButtonItem?
+    var updatingBarButtonItem: UIBarButtonItem?
+    var activityIndicator = UIActivityIndicatorView()
     
     // MARK: View Lifecycle
 
@@ -46,6 +48,7 @@ class ProfileViewController: UIViewController {
         doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneButtonTapped(_:)))
         cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelButtonTapped(_:)))
         saveBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveButtonTapped(_:)))
+        updatingBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         
         navigationItem.leftBarButtonItem = editBarButtonItem
         navigationItem.rightBarButtonItem = doneBarButtonItem
@@ -101,18 +104,27 @@ extension ProfileViewController {
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
+        let updatedItems = [String: AnyObject]()
+        
+        navigationItem.setRightBarButtonItem(updatingBarButtonItem, animated: true)
+        activityIndicator.startAnimating()
+        
+        
         if userProfile?.profilePhotoURL != updatedUserProfile?.profilePhotoURL {
             DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: (updatedUserProfile?.profilePhotoURL)!), metadata: .None, completion: { (metaData, error) in
                 let changeRequest = DataReference.sharedInstance.currentUser?.profileChangeRequest()
-                changeRequest!.photoURL = NSURL(string: (self.updatedUserProfile?.profilePhotoURL)!)
+                self.updatedUserProfile?.profilePhotoURL = DataReference.sharedInstance.profileImageRef.description
+                changeRequest!.photoURL = NSURL(string: DataReference.sharedInstance.profileImageRef.description)
                 changeRequest?.commitChangesWithCompletion({ (error) in
                     if error != nil {
                         print("Error: \(error)")
                     } else {
+                        self.activityIndicator.stopAnimating()
                         self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
                         self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
                     }
                 })
+                DataReference.sharedInstance.usersRef.child((DataReference.sharedInstance.currentUser?.uid)!).child("id").setValue((DataReference.sharedInstance.currentUser?.uid)!)
             })
         }
     }
@@ -180,15 +192,15 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let editedPhoto = info[UIImagePickerControllerEditedImage] as? UIImage {
-            writeImageToDirectory(editedPhoto)
-            updatedUserProfile?.profilePhotoURL = getImagePath()
+            DirectoryServices.writeImageToDirectory(editedPhoto)
+            updatedUserProfile?.profilePhotoURL = DirectoryServices.getImagePath()
             tableView.reloadData()
         } else if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            writeImageToDirectory(photo)
-            updatedUserProfile?.profilePhotoURL = getImagePath()
+            DirectoryServices.writeImageToDirectory(photo)
+            updatedUserProfile?.profilePhotoURL = DirectoryServices.getImagePath()
             tableView.reloadData()
         } else {
-            displayMessage("Image Error", message: "There was an error selecting the photo. Please try again.")
+            MessageServices.displayMessage("Image Error", message: "There was an error selecting the photo. Please try again.", presentingViewController: self)
         }
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -199,34 +211,3 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     
 }
 
-// MARK: Error Messages
-
-extension ProfileViewController {
-    
-    func displayMessage(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let okButton = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alertController.addAction(okButton)
-        presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-}
-
-// MARK: File System Paths
-
-extension ProfileViewController {
-    
-    func getDocumentsDirectory() -> NSURL {
-        return NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-    }
-    
-    func getImagePath() -> String {
-        return getDocumentsDirectory().URLByAppendingPathComponent("profile.jpg").path!
-    }
-    
-    func writeImageToDirectory(image: UIImage) {
-        let newImage = UIImageJPEGRepresentation(image, 1.0)
-        try! newImage?.writeToFile(getImagePath(), options: .AtomicWrite)
-    }
-    
-}

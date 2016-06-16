@@ -46,33 +46,20 @@ extension SignInViewController {
     @IBAction func signInButtonTapped() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             self.emailTextField.becomeFirstResponder()
-            self.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.")
+            MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
             return
         }
         
         FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (userInfo, error) in
             guard error == nil else {
                 self.emailTextField.becomeFirstResponder()
-                self.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.")
+                MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
                 return
             }
             
             self.performSegueWithIdentifier("SignInToProfileSegue", sender: nil)
             
         })
-    }
-    
-}
-
-// MARK: Error Messages
-
-extension SignInViewController {
-    
-    func displayMessage(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let okButton = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alertController.addAction(okButton)
-        presentViewController(alertController, animated: true, completion: nil)
     }
     
 }

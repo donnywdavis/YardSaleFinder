@@ -56,19 +56,19 @@ extension SignUpViewController {
         }
         
         guard password == passwordConfirmation else {
-            displayMessage("Passwords Don't Match", message: "Passwords entered do not match.")
+            MessageServices.displayMessage("Passwords Don't Match", message: "Passwords entered do not match.", presentingViewController: self)
             return
         }
         
         FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: { (userInfo, error) in
             guard error == nil else {
-                self.displayMessage("Error on Create", message: "There was a problem creating the account.")
+                MessageServices.displayMessage("Error on Create", message: "There was a problem creating the account.", presentingViewController: self)
                 return
             }
             
             FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (userInfo, error) in
                 guard error == nil else {
-                    self.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.")
+                    MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
                     return
                 }
                 
@@ -76,19 +76,6 @@ extension SignUpViewController {
                 
             })
         })
-    }
-    
-}
-
-// MARK: Error Messages
-
-extension SignUpViewController {
-    
-    func displayMessage(title: String, message: String) {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        let okButton = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alertController.addAction(okButton)
-        presentViewController(alertController, animated: true, completion: nil)
     }
     
 }
