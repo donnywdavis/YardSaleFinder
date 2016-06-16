@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseStorage
+import Gloss
 
 class DataReference {
     
@@ -22,6 +23,7 @@ class DataReference {
     private let ACTIVE_YARD_SALES_REF = FIRDatabase.database().reference().child("active")
     private let GROUPS_REF = FIRDatabase.database().reference().child("groups")
     private var CURRENT_USER: FIRUser?
+    private var USER_PROFILE: Profile?
     
     var baseRef: FIRDatabaseReference {
         return BASE_REF
@@ -55,6 +57,10 @@ class DataReference {
         }
     }
     
+    var userProfile: Profile? {
+        return USER_PROFILE
+    }
+    
     var userStorageRef: FIRStorageReference {
         return baseStorageRef.child((currentUser?.uid)!)
     }
@@ -75,6 +81,14 @@ class DataReference {
         FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
             if let user = user {
                 self.CURRENT_USER = user
+                self.usersRef.child(user.uid).observeSingleEventOfType(.Value, withBlock: { (snapshot: FIRDataSnapshot) in
+                    guard let json = snapshot.value as? JSON else {
+                        self.USER_PROFILE = Profile()
+                        return
+                    }
+                    
+                    self.USER_PROFILE = Profile(json: json)
+                })
             }
         })
     }
@@ -82,6 +96,10 @@ class DataReference {
     func signOut() {
         try! FIRAuth.auth()?.signOut()
         CURRENT_USER = nil
+    }
+    
+    func updateUserProfile(userProfile: Profile?) {
+        USER_PROFILE = userProfile
     }
     
 }

@@ -23,12 +23,12 @@ class ProfileViewController: UIViewController {
     // MARK: Properties
     
     var imagePicker = UIImagePickerController()
-    var userProfile: User? {
+    var updatedUserProfile: Profile? = Profile()
+    var userProfile: Profile? {
         didSet {
             updatedUserProfile = userProfile
         }
     }
-    var updatedUserProfile: User? = User()
     var tapGesture = UITapGestureRecognizer()
     var isEditingProfile = false
     
@@ -59,21 +59,14 @@ class ProfileViewController: UIViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 500.0
+        
+        userProfile = DataReference.sharedInstance.userProfile
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
-        
-        DataReference.sharedInstance.usersRef.child((DataReference.sharedInstance.currentUser?.uid)!).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
-            guard let json = snapshot.value as? JSON else {
-                return
-            }
-            
-            self.userProfile = User(json: json)
-            self.tableView.reloadData()
-        }
     }
 
 }
@@ -104,29 +97,18 @@ extension ProfileViewController {
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
-        let updatedItems = [String: AnyObject]()
         
         navigationItem.setRightBarButtonItem(updatingBarButtonItem, animated: true)
         activityIndicator.startAnimating()
         
+        DataReference.sharedInstance.updateUserProfile(updatedUserProfile)
+        DataReference.sharedInstance.usersRef.child(updatedUserProfile!.id!).updateChildValues((updatedUserProfile?.toJSON())!)
         
-        if userProfile?.profilePhotoURL != updatedUserProfile?.profilePhotoURL {
-            DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: (updatedUserProfile?.profilePhotoURL)!), metadata: .None, completion: { (metaData, error) in
-                let changeRequest = DataReference.sharedInstance.currentUser?.profileChangeRequest()
-                self.updatedUserProfile?.profilePhotoURL = DataReference.sharedInstance.profileImageRef.description
-                changeRequest!.photoURL = NSURL(string: DataReference.sharedInstance.profileImageRef.description)
-                changeRequest?.commitChangesWithCompletion({ (error) in
-                    if error != nil {
-                        print("Error: \(error)")
-                    } else {
-                        self.activityIndicator.stopAnimating()
-                        self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
-                        self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
-                    }
-                })
-                DataReference.sharedInstance.usersRef.child((DataReference.sharedInstance.currentUser?.uid)!).child("id").setValue((DataReference.sharedInstance.currentUser?.uid)!)
-            })
-        }
+        DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath()), metadata: .None, completion: { (metaData, error) in
+                self.activityIndicator.stopAnimating()
+                self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
+                self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
+        })
     }
     
 }
@@ -193,11 +175,9 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let editedPhoto = info[UIImagePickerControllerEditedImage] as? UIImage {
             DirectoryServices.writeImageToDirectory(editedPhoto)
-            updatedUserProfile?.profilePhotoURL = DirectoryServices.getImagePath()
             tableView.reloadData()
         } else if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage {
             DirectoryServices.writeImageToDirectory(photo)
-            updatedUserProfile?.profilePhotoURL = DirectoryServices.getImagePath()
             tableView.reloadData()
         } else {
             MessageServices.displayMessage("Image Error", message: "There was an error selecting the photo. Please try again.", presentingViewController: self)

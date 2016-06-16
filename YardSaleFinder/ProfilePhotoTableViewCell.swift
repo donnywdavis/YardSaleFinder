@@ -37,13 +37,13 @@ class ProfilePhotoTableViewCell: UITableViewCell {
 
 extension ProfilePhotoTableViewCell {
     
-    func configureCell(user: User?) {
-        guard let profilePhotoURL = user?.profilePhotoURL else {
+    func configureCell(userProfile: Profile?) {
+        guard DirectoryServices.profileImageExists() else {
             profileImageView.image = UIImage(named: "profile100")
             return
         }
         
-        profileImageView.image = UIImage(contentsOfFile: profilePhotoURL)
+        profileImageView.image = UIImage(contentsOfFile: DirectoryServices.getImagePath())
     }
     
     func setProfilePhoto(photo: UIImage) {

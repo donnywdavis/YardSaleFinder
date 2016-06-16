@@ -23,4 +23,8 @@ class DirectoryServices: AnyObject {
         try! newImage?.writeToFile(getImagePath(), options: .DataWritingAtomic)
     }
     
+    class func profileImageExists() -> Bool {
+        return NSFileManager.defaultManager().fileExistsAtPath(getImagePath())
+    }
+    
 }
