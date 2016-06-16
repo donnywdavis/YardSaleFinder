@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yard Sale Finder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edL-Ra-7DO">
-                                <rect key="frame" x="30" y="116" width="540" height="48"/>
+                                <rect key="frame" x="30" y="144" width="540" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -30,9 +30,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="edL-Ra-7DO" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="124" id="0E1-yQ-OTa"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="fbg-kx-bPT" secondAttribute="bottom" id="6Ue-rk-8AF"/>
                             <constraint firstItem="edL-Ra-7DO" firstAttribute="width" secondItem="fbg-kx-bPT" secondAttribute="width" multiplier="0.9" id="AyI-Wp-r5O"/>
-                            <constraint firstItem="fbg-kx-bPT" firstAttribute="top" secondItem="edL-Ra-7DO" secondAttribute="bottom" constant="-164" id="QZJ-li-GZT"/>
                             <constraint firstItem="edL-Ra-7DO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="UbI-Ur-18r"/>
                             <constraint firstAttribute="trailing" secondItem="fbg-kx-bPT" secondAttribute="trailing" id="eMK-m7-Ma4"/>
                             <constraint firstItem="fbg-kx-bPT" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="ffp-5a-DOY"/>

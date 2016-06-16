@@ -20,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         
         FIRDatabase.database().persistenceEnabled = true
-        DataReference.sharedInstance.setCurrentUserIfLoggedIn()
         
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()

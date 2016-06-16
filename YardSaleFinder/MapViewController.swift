@@ -49,17 +49,13 @@ class MapViewController: UIViewController {
             profileButton.clipsToBounds = true
             profileButton.setImage(UIImage(contentsOfFile: DirectoryServices.getImagePath()), forState: .Normal)
         } else {
-            profileButton.setImage(UIImage(named: "profile"), forState: .Normal)
+            profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
         }
     }
     
     override func viewWillDisappear(animated: Bool) {
         DataReference.sharedInstance.activeYardSalesRef.removeAllObservers()
         DataReference.sharedInstance.yardSalesRef.removeAllObservers()
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return (navigationController?.navigationBarHidden)!
     }
 
 }
@@ -75,7 +71,6 @@ extension MapViewController {
     }
     
     @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
-        segue.sourceViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

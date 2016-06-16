@@ -77,19 +77,15 @@ class DataReference {
         return userImagesRef.child("yardSale")
     }
     
-    func setCurrentUserIfLoggedIn() {
-        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
-            if let user = user {
-                self.CURRENT_USER = user
-                self.usersRef.child(user.uid).observeSingleEventOfType(.Value, withBlock: { (snapshot: FIRDataSnapshot) in
-                    guard let json = snapshot.value as? JSON else {
-                        self.USER_PROFILE = Profile()
-                        return
-                    }
-                    
-                    self.USER_PROFILE = Profile(json: json)
-                })
+    func setUserProfile(userProfile: FIRUser?) {
+        self.CURRENT_USER = userProfile
+        self.usersRef.child(userProfile!.uid).observeSingleEventOfType(.Value, withBlock: { (snapshot: FIRDataSnapshot) in
+            guard let json = snapshot.value as? JSON else {
+                self.USER_PROFILE = Profile()
+                return
             }
+            
+            self.USER_PROFILE = Profile(json: json)
         })
     }
     

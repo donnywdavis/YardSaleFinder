@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="JWR-yf-7at">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="j9K-sf-vSa">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -332,12 +332,12 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="2sD-Y1-W0x">
                         <barButtonItem key="backBarButtonItem" title="Map" id="h7T-R8-aHR"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="cNb-Kz-riG">
+                        <barButtonItem key="leftBarButtonItem" id="cNb-Kz-riG">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cs8-7q-KIb">
                                 <rect key="frame" x="20" y="6" width="32" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="profile"/>
+                                <state key="normal" image="profile32"/>
                                 <connections>
                                     <action selector="profileButtonTapped:" destination="Kuc-in-UX0" eventType="touchUpInside" id="BHR-Wf-ZOx"/>
                                 </connections>
@@ -582,6 +582,54 @@
             </objects>
             <point key="canvasLocation" x="3561" y="765"/>
         </scene>
+        <!--Launch View Controller-->
+        <scene sceneID="aUg-Fj-Bih">
+            <objects>
+                <viewController id="j9K-sf-vSa" customClass="LaunchViewController" customModule="YardSaleFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8YW-Rl-QOZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="6vi-Pz-1ME"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JqR-nM-t6p">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signInBackground" translatesAutoresizingMaskIntoConstraints="NO" id="lgC-h2-e36">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yard Sale Finder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKX-eL-Qfv">
+                                <rect key="frame" x="30" y="144" width="540" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Ukm-IS-dE3">
+                                <rect key="frame" x="282" y="191" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lgC-h2-e36" secondAttribute="trailing" id="1eQ-nc-dD9"/>
+                            <constraint firstItem="qKX-eL-Qfv" firstAttribute="centerX" secondItem="JqR-nM-t6p" secondAttribute="centerX" id="2kz-mj-tvT"/>
+                            <constraint firstItem="Ukm-IS-dE3" firstAttribute="centerX" secondItem="JqR-nM-t6p" secondAttribute="centerX" id="Efl-hj-Fr6"/>
+                            <constraint firstItem="lgC-h2-e36" firstAttribute="top" secondItem="JqR-nM-t6p" secondAttribute="top" id="Fgr-Lw-jO5"/>
+                            <constraint firstItem="qKX-eL-Qfv" firstAttribute="top" secondItem="8YW-Rl-QOZ" secondAttribute="bottom" constant="124" id="T87-3Y-I9C"/>
+                            <constraint firstItem="qKX-eL-Qfv" firstAttribute="width" secondItem="lgC-h2-e36" secondAttribute="width" multiplier="0.9" id="XbW-ff-Xfg"/>
+                            <constraint firstItem="Ukm-IS-dE3" firstAttribute="top" secondItem="qKX-eL-Qfv" secondAttribute="bottom" constant="-1" id="brg-j9-3qQ"/>
+                            <constraint firstItem="lgC-h2-e36" firstAttribute="leading" secondItem="JqR-nM-t6p" secondAttribute="leading" id="l5w-hC-9dT"/>
+                            <constraint firstItem="6vi-Pz-1ME" firstAttribute="top" secondItem="lgC-h2-e36" secondAttribute="bottom" id="zOd-1J-jXI"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Ukm-IS-dE3" id="Z4E-eb-m14"/>
+                        <segue destination="JWR-yf-7at" kind="show" identifier="LaunchToMapSegue" id="tMF-9V-AII"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yOs-xe-jiW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1271" y="387"/>
+        </scene>
         <!--Map View Navigation Controller-->
         <scene sceneID="Sn7-SE-h8V">
             <objects>
@@ -679,10 +727,10 @@
     </scenes>
     <resources>
         <image name="locationArrow" width="32" height="32"/>
-        <image name="profile" width="32" height="32"/>
+        <image name="profile32" width="32" height="32"/>
         <image name="signInBackground" width="5184" height="2912"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="T8x-Ey-K1I"/>
+        <segue reference="xCE-4N-vd4"/>
     </inferredMetricsTieBreakers>
 </document>
