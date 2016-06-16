@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
     // MARK: IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var profileButton: UIButton!
     
     // MARK: Properties
     
@@ -36,6 +37,20 @@ class MapViewController: UIViewController {
 
         self.listenForEvents()
 
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if DataReference.sharedInstance.isUserLoggedIn() && DirectoryServices.profileImageExists() {
+            profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
+            profileButton.layer.borderWidth = 2.0
+            profileButton.layer.borderColor = UIColor.whiteColor().CGColor
+            profileButton.clipsToBounds = true
+            profileButton.setImage(UIImage(contentsOfFile: DirectoryServices.getImagePath()), forState: .Normal)
+        } else {
+            profileButton.setImage(UIImage(named: "profile"), forState: .Normal)
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -69,7 +84,7 @@ extension MapViewController {
 
 extension MapViewController {
     
-    @IBAction func profileButtonTapped(sender: UIBarButtonItem) {
+    @IBAction func profileButtonTapped(sender: UIButton) {
         if DataReference.sharedInstance.currentUser != nil {
             self.performSegueWithIdentifier("MapToProfileSegue", sender: nil)
         } else {

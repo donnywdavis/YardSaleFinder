@@ -93,6 +93,10 @@ class DataReference {
         })
     }
     
+    func isUserLoggedIn() -> Bool {
+        return CURRENT_USER != nil
+    }
+    
     func signOut() {
         try! FIRAuth.auth()?.signOut()
         CURRENT_USER = nil

@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         
+        FIRDatabase.database().persistenceEnabled = true
         DataReference.sharedInstance.setCurrentUserIfLoggedIn()
         
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         
         return true

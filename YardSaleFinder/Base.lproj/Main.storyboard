@@ -197,6 +197,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fBz-h8-smI">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfilePhotoCell" rowHeight="110" id="CNV-3e-SFU" customClass="ProfilePhotoTableViewCell" customModule="YardSaleFinder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="600" height="110"/>
@@ -223,6 +224,40 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="profileImageView" destination="LIx-t3-Pgw" id="wrh-SW-AzU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NameCell" rowHeight="75" id="MYE-AH-jJ2" customClass="NameTableViewCell" customModule="YardSaleFinder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="182" width="600" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MYE-AH-jJ2" id="EwW-fB-J7t">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="74.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjY-TB-frn">
+                                                    <rect key="frame" x="8" y="27" width="48" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lE5-m8-DYI">
+                                                    <rect key="frame" x="76" y="17.5" width="516" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="LHO-ao-sPL"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="lE5-m8-DYI" firstAttribute="leading" secondItem="gjY-TB-frn" secondAttribute="trailing" constant="20" id="Ebl-z9-UU9"/>
+                                                <constraint firstItem="lE5-m8-DYI" firstAttribute="centerY" secondItem="EwW-fB-J7t" secondAttribute="centerY" id="JUF-si-ZBo"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="lE5-m8-DYI" secondAttribute="trailing" id="M6u-yP-LBY"/>
+                                                <constraint firstItem="gjY-TB-frn" firstAttribute="centerY" secondItem="EwW-fB-J7t" secondAttribute="centerY" id="bqD-zV-tTC"/>
+                                                <constraint firstItem="gjY-TB-frn" firstAttribute="leading" secondItem="EwW-fB-J7t" secondAttribute="leadingMargin" id="sAA-OG-Kx7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameTextField" destination="lE5-m8-DYI" id="hn5-oj-VGu"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -297,15 +332,22 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="2sD-Y1-W0x">
                         <barButtonItem key="backBarButtonItem" title="Map" id="h7T-R8-aHR"/>
-                        <barButtonItem key="leftBarButtonItem" image="user" id="7ar-CI-3vK">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="cNb-Kz-riG">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cs8-7q-KIb">
+                                <rect key="frame" x="20" y="6" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="profile"/>
+                                <connections>
+                                    <action selector="profileButtonTapped:" destination="Kuc-in-UX0" eventType="touchUpInside" id="BHR-Wf-ZOx"/>
+                                </connections>
+                            </button>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="profileButtonTapped:" destination="Kuc-in-UX0" id="qlM-GM-kfa"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="frq-NG-Oxn" id="M13-ic-ubp"/>
+                        <outlet property="profileButton" destination="cs8-7q-KIb" id="oua-BX-sgr"/>
                         <segue destination="ehM-gf-KTo" kind="show" identifier="MapToDetailSegue" id="KYQ-mt-UY6"/>
                         <segue destination="i6u-KV-8IX" kind="presentation" identifier="MapToSignInSegue" modalPresentationStyle="formSheet" id="0EG-0h-KtX"/>
                         <segue destination="PrY-Vh-0Xg" kind="presentation" identifier="MapToProfileSegue" modalPresentationStyle="formSheet" id="T8x-Ey-K1I"/>
@@ -637,8 +679,8 @@
     </scenes>
     <resources>
         <image name="locationArrow" width="32" height="32"/>
+        <image name="profile" width="32" height="32"/>
         <image name="signInBackground" width="5184" height="2912"/>
-        <image name="user" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="T8x-Ey-K1I"/>

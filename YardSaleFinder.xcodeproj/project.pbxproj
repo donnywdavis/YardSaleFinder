@@ -32,6 +32,7 @@
 		41E403051D0F9EFD003E4BF8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E403041D0F9EFD003E4BF8 /* SignUpViewController.swift */; };
 		41F1993A1D12E2EB00878AF0 /* DirectoryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F199391D12E2EB00878AF0 /* DirectoryServices.swift */; };
 		41F1993E1D12E3F300878AF0 /* MessageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1993D1D12E3F300878AF0 /* MessageServices.swift */; };
+		41F199401D130BAE00878AF0 /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1993F1D130BAE00878AF0 /* NameTableViewCell.swift */; };
 		41F76EC81D10753A008C329D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F76EC71D10753A008C329D /* ProfileViewController.swift */; };
 		928BF218AB76FF6170D313B5 /* Pods_YardSaleFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,7 @@
 		41E403041D0F9EFD003E4BF8 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		41F199391D12E2EB00878AF0 /* DirectoryServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryServices.swift; sourceTree = "<group>"; };
 		41F1993D1D12E3F300878AF0 /* MessageServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageServices.swift; sourceTree = "<group>"; };
+		41F1993F1D130BAE00878AF0 /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		41F76EC71D10753A008C329D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		800502DB398B446CA8380C0D /* Pods-YardSaleFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		C73DE1C6CD4B3188EE10090D /* Pods-YardSaleFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */,
 				41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */,
 				41AA0F241D11949B003C7EC2 /* ProfilePhotoTableViewCell.swift */,
+				41F1993F1D130BAE00878AF0 /* NameTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				41AD58101D0A140E00E26DF8 /* StringExtensions.swift in Sources */,
+				41F199401D130BAE00878AF0 /* NameTableViewCell.swift in Sources */,
 				41AD580B1D0A058900E26DF8 /* Profile.swift in Sources */,
 				41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */,
 				41C5DA161D0A53F800C9570F /* Group.swift in Sources */,

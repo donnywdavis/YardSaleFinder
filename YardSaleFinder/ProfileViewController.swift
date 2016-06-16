@@ -12,6 +12,7 @@ import Firebase
 
 enum ProfileTableCellsReference {
     case ProfilePhoto
+    case Name
 }
 
 class ProfileViewController: UIViewController {
@@ -32,6 +33,7 @@ class ProfileViewController: UIViewController {
     var tapGesture = UITapGestureRecognizer()
     var isEditingProfile = false
     
+    var logoutBarButtonItem: UIBarButtonItem?
     var editBarButtonItem: UIBarButtonItem?
     var doneBarButtonItem: UIBarButtonItem?
     var cancelBarButtonItem: UIBarButtonItem?
@@ -44,6 +46,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logoutButtonTapped(_:)))
         editBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editButtonTapped(_:)))
         doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneButtonTapped(_:)))
         cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelButtonTapped(_:)))
@@ -51,7 +54,7 @@ class ProfileViewController: UIViewController {
         updatingBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         
         navigationItem.leftBarButtonItem = editBarButtonItem
-        navigationItem.rightBarButtonItem = doneBarButtonItem
+        navigationItem.rightBarButtonItems = [doneBarButtonItem!, logoutBarButtonItem!]
 
         imagePicker.delegate = self
         
@@ -75,7 +78,7 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController {
     
-    @IBAction func logoutButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func logoutButtonTapped(sender: UIBarButtonItem) {
         DataReference.sharedInstance.signOut()
         performSegueWithIdentifier("UnwindToMapSegue", sender: nil)
     }
@@ -83,7 +86,7 @@ extension ProfileViewController {
     @IBAction func editButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = true
         navigationItem.setLeftBarButtonItem(cancelBarButtonItem, animated: true)
-        navigationItem.setRightBarButtonItem(saveBarButtonItem, animated: true)
+        navigationItem.setRightBarButtonItems([saveBarButtonItem!], animated: true)
     }
     
     @IBAction func doneButtonTapped(sender: UIBarButtonItem) {
@@ -93,13 +96,17 @@ extension ProfileViewController {
     @IBAction func cancelButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = false
         navigationItem.setLeftBarButtonItem(editBarButtonItem, animated: true)
-        navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: true)
+        navigationItem.setRightBarButtonItems([doneBarButtonItem!, logoutBarButtonItem!], animated: true)
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         
-        navigationItem.setRightBarButtonItem(updatingBarButtonItem, animated: true)
+        navigationItem.setRightBarButtonItems([updatingBarButtonItem!], animated: true)
         activityIndicator.startAnimating()
+        
+        let indexPath = NSIndexPath(forRow: 1, inSection: 0)
+        let nameCell = tableView.cellForRowAtIndexPath(indexPath) as? NameTableViewCell
+        updatedUserProfile?.name = nameCell!.nameTextField.text
         
         DataReference.sharedInstance.updateUserProfile(updatedUserProfile)
         DataReference.sharedInstance.usersRef.child(updatedUserProfile!.id!).updateChildValues((updatedUserProfile?.toJSON())!)
@@ -108,7 +115,7 @@ extension ProfileViewController {
             DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath()), metadata: .None, completion: { (metaData, error) in
                     self.activityIndicator.stopAnimating()
                     self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
-                    self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
+                    self.navigationItem.setRightBarButtonItems([self.doneBarButtonItem!, self.logoutBarButtonItem!], animated: true)
             })
         }
     }
@@ -120,7 +127,7 @@ extension ProfileViewController {
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -132,6 +139,12 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 profilePhotoCell.configureCell(updatedUserProfile)
                 profilePhotoCell.profileImageView.addGestureRecognizer(tapGesture)
                 cell = profilePhotoCell
+            }
+            
+        case ProfileTableCellsReference.Name.hashValue:
+            if let nameCell = tableView.dequeueReusableCellWithIdentifier("NameCell", forIndexPath: indexPath) as? NameTableViewCell {
+                nameCell.configureCell(updatedUserProfile)
+                cell = nameCell
             }
             
         default:
