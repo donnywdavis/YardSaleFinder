@@ -158,9 +158,16 @@ extension ProfileViewController {
                 self.imagePicker.navigationBar.barTintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
+            let removePhoto = UIAlertAction(title: "Remove Photo", style: .Default, handler: { (action) in
+                DirectoryServices.removeImage()
+                DataReference.sharedInstance.profileImageRef.deleteWithCompletion({ (error) in
+                })
+                self.tableView.reloadData()
+            })
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             
             imageOptions.addAction(choosePhoto)
+            imageOptions.addAction(removePhoto)
             imageOptions.addAction(cancel)
             
             presentViewController(imageOptions, animated: true, completion: nil)

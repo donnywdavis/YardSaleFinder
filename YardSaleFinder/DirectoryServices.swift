@@ -27,4 +27,8 @@ class DirectoryServices: AnyObject {
         return NSFileManager.defaultManager().fileExistsAtPath(getImagePath())
     }
     
+    class func removeImage() {
+        try! NSFileManager.defaultManager().removeItemAtPath(getImagePath())
+    }
+    
 }
