@@ -247,13 +247,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjY-TB-frn">
-                                                    <rect key="frame" x="8" y="27" width="48" height="21.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <rect key="frame" x="16" y="28" width="43" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lE5-m8-DYI">
-                                                    <rect key="frame" x="76" y="17.5" width="516" height="40"/>
+                                                    <rect key="frame" x="79" y="17.5" width="513" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="LHO-ao-sPL"/>
                                                     </constraints>
@@ -266,11 +266,32 @@
                                                 <constraint firstItem="lE5-m8-DYI" firstAttribute="centerY" secondItem="EwW-fB-J7t" secondAttribute="centerY" id="JUF-si-ZBo"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="lE5-m8-DYI" secondAttribute="trailing" id="M6u-yP-LBY"/>
                                                 <constraint firstItem="gjY-TB-frn" firstAttribute="centerY" secondItem="EwW-fB-J7t" secondAttribute="centerY" id="bqD-zV-tTC"/>
-                                                <constraint firstItem="gjY-TB-frn" firstAttribute="leading" secondItem="EwW-fB-J7t" secondAttribute="leadingMargin" id="sAA-OG-Kx7"/>
+                                                <constraint firstItem="gjY-TB-frn" firstAttribute="leading" secondItem="EwW-fB-J7t" secondAttribute="leadingMargin" constant="8" id="sAA-OG-Kx7"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="nameTextField" destination="lE5-m8-DYI" id="hn5-oj-VGu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YardSalesCell" textLabel="QgQ-Qx-0Pm" rowHeight="75" style="IBUITableViewCellStyleDefault" id="hRu-4e-Oji">
+                                        <rect key="frame" x="0.0" y="257" width="600" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hRu-4e-Oji" id="29A-ZR-IDt">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="74.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Yard Sales" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QgQ-Qx-0Pm">
+                                                    <rect key="frame" x="15" y="0.0" width="550" height="74.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <segue destination="4uU-tB-Nnd" kind="show" identifier="ProfileToYardSalesSegue" id="FC6-jW-RIZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -306,6 +327,84 @@
                 <exit id="Hk0-Q4-dey" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5740" y="387"/>
+        </scene>
+        <!--Yard Sales View Controller-->
+        <scene sceneID="gOE-SA-8ed">
+            <objects>
+                <viewController id="4uU-tB-Nnd" userLabel="Yard Sales View Controller" customClass="YardSalesViewController" customModule="YardSaleFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EPP-xl-RMs"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZxN-gP-EaI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dQK-Vr-iJd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z42-Hs-Uht">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YardSaleCell" id="vOa-7A-SVE">
+                                        <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vOa-7A-SVE" id="tjU-ar-djL">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <segue destination="lU9-bR-hyy" kind="show" identifier="YardSaleDetailSegue" id="b9h-Ag-dfi"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="4uU-tB-Nnd" id="2aW-rC-9fi"/>
+                                    <outlet property="delegate" destination="4uU-tB-Nnd" id="mCI-zy-oUy"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZxN-gP-EaI" firstAttribute="top" secondItem="Z42-Hs-Uht" secondAttribute="bottom" id="BEs-sa-9sA"/>
+                            <constraint firstItem="Z42-Hs-Uht" firstAttribute="leading" secondItem="dQK-Vr-iJd" secondAttribute="leading" id="BqJ-xh-hFf"/>
+                            <constraint firstItem="Z42-Hs-Uht" firstAttribute="top" secondItem="dQK-Vr-iJd" secondAttribute="top" id="YcJ-Zj-Vhd"/>
+                            <constraint firstAttribute="trailing" secondItem="Z42-Hs-Uht" secondAttribute="trailing" id="rVf-vm-mMw"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="bS2-sH-OYj">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ktd-x0-TDv">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="lU9-bR-hyy" kind="show" identifier="AddYardSaleSegue" id="YbM-hN-lel"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="Z42-Hs-Uht" id="azS-Pj-W6H"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fTF-D7-Uk7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6526" y="387"/>
+        </scene>
+        <!--Yard Sale Detail View Controller-->
+        <scene sceneID="zMr-nt-0N3">
+            <objects>
+                <viewController id="lU9-bR-hyy" customClass="YardSaleDetailViewController" customModule="YardSaleFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="34y-HF-k4k"/>
+                        <viewControllerLayoutGuide type="bottom" id="drI-1s-aRE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="m9m-0T-SPW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Mf-Fh-s1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7331" y="387"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="kwI-L3-ts7">
@@ -679,6 +778,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qLq-TY-Y55">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -745,5 +845,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="AiY-n8-dEt"/>
+        <segue reference="b9h-Ag-dfi"/>
     </inferredMetricsTieBreakers>
 </document>

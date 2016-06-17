@@ -13,6 +13,7 @@ import Firebase
 enum ProfileTableCellsReference {
     case ProfilePhoto
     case Name
+    case YardSales
 }
 
 class ProfileViewController: UIViewController {
@@ -59,9 +60,6 @@ class ProfileViewController: UIViewController {
         imagePicker.delegate = self
         
         tapGesture.addTarget(self, action: #selector(profileTapGesture(_:)))
-        
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 500.0
         
         userProfile = DataReference.sharedInstance.userProfile
     }
@@ -129,7 +127,7 @@ extension ProfileViewController {
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -149,6 +147,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 cell = nameCell
             }
             
+        case ProfileTableCellsReference.YardSales.hashValue:
+            cell = tableView.dequeueReusableCellWithIdentifier("YardSalesCell", forIndexPath: indexPath)
+            
         default:
             break
         }
@@ -156,6 +157,18 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         cell.tag = indexPath.row
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 500.0
     }
     
 }
