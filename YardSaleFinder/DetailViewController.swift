@@ -40,10 +40,6 @@ class DetailViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        navigationController?.navigationBarHidden = false
-        navigationController?.toolbarHidden = true
-        navigationController?.hidesBarsOnTap = false
-        
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
         if let yardSaleID = yardSaleID {

@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
     // MARK: IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var profileButton: UIButton!
     
     // MARK: Properties
     
@@ -34,25 +35,27 @@ class MapViewController: UIViewController {
             locationManager.requestWhenInUseAuthorization()
         }
 
-        self.listenForEvents()
-
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        navigationController?.navigationBarHidden = false
-        navigationController?.toolbarHidden = false
-        navigationController?.hidesBarsOnTap = true
+        self.listenForEvents()
+        
+        if DataReference.sharedInstance.isUserLoggedIn() && DirectoryServices.profileImageExists() {
+            profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
+            profileButton.layer.borderWidth = 2.0
+            profileButton.layer.borderColor = UIColor.whiteColor().CGColor
+            profileButton.clipsToBounds = true
+            profileButton.setImage(UIImage(contentsOfFile: DirectoryServices.getImagePath()), forState: .Normal)
+        } else {
+            profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
         DataReference.sharedInstance.activeYardSalesRef.removeAllObservers()
         DataReference.sharedInstance.yardSalesRef.removeAllObservers()
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return (navigationController?.navigationBarHidden)!
     }
 
 }
@@ -67,11 +70,31 @@ extension MapViewController {
         }
     }
     
+    @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
+        if DataReference.sharedInstance.isUserLoggedIn() && DirectoryServices.profileImageExists() {
+            profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
+            profileButton.layer.borderWidth = 2.0
+            profileButton.layer.borderColor = UIColor.whiteColor().CGColor
+            profileButton.clipsToBounds = true
+            profileButton.setImage(UIImage(contentsOfFile: DirectoryServices.getImagePath()), forState: .Normal)
+        } else {
+            profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
+        }
+    }
+    
 }
 
 // MARK: Button Actions
 
 extension MapViewController {
+    
+    @IBAction func profileButtonTapped(sender: UIButton) {
+        if DataReference.sharedInstance.currentUser != nil {
+            self.performSegueWithIdentifier("MapToProfileSegue", sender: nil)
+        } else {
+            self.performSegueWithIdentifier("MapToSignInSegue", sender: nil)
+        }
+    }
     
     @IBAction func currentLocationButtonPressed(sender: UIBarButtonItem) {
         if let location = mapView.userLocation.location {
@@ -136,7 +159,7 @@ extension MapViewController: MKMapViewDelegate {
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         selectedYardSale = (view.annotation as! Annotation).id
-        performSegueWithIdentifier("DetailSegue", sender: self)
+        performSegueWithIdentifier("MapToDetailSegue", sender: self)
     }
     
 }
