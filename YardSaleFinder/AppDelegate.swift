@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRDatabase.database().persistenceEnabled = true
         
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         
         return true
