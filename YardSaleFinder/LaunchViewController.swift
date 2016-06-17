@@ -32,7 +32,7 @@ class LaunchViewController: UIViewController {
                     DataReference.sharedInstance.setUserProfile(user)
                     DataReference.sharedInstance.profileImageRef.writeToFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath())) { (url, error) in
                         if error != nil && DirectoryServices.profileImageExists() {
-                            
+                            DirectoryServices.removeImage()
                         }
                         self.activityIndicator.stopAnimating()
                         self.performSegueWithIdentifier("LaunchToMapSegue", sender: nil)

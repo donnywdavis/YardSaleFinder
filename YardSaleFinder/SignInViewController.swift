@@ -16,6 +16,7 @@ class SignInViewController: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: Properties
     
@@ -30,6 +31,7 @@ class SignInViewController: UIViewController {
         passwordTextField.text = ""
         
         signInButton.layer.cornerRadius = 5
+        signInButton.enabled = true
 
         // Set up a gesture to dismiss the keyboard when tapping outside of a text field
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnTap(_:)))
@@ -50,14 +52,26 @@ extension SignInViewController {
             return
         }
         
+        signInButton.enabled = false
+        signInButton.setTitle("", forState: .Normal)
+        activityIndicator.startAnimating()
+        
         FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (userInfo, error) in
             guard error == nil else {
+                self.activityIndicator.stopAnimating()
                 self.emailTextField.becomeFirstResponder()
                 MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
                 return
             }
+            
             DataReference.sharedInstance.setUserProfile(userInfo)
-            self.performSegueWithIdentifier("SignInToProfileSegue", sender: nil)
+            DataReference.sharedInstance.profileImageRef.writeToFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath())) { (url, error) in
+                if error != nil && DirectoryServices.profileImageExists() {
+                    DirectoryServices.removeImage()
+                }
+                self.activityIndicator.stopAnimating()
+                self.performSegueWithIdentifier("SignInToProfileSegue", sender: nil)
+            }
         })
     }
     

@@ -96,6 +96,7 @@ class DataReference {
     func signOut() {
         try! FIRAuth.auth()?.signOut()
         CURRENT_USER = nil
+        USER_PROFILE = nil
     }
     
     func updateUserProfile(userProfile: Profile?) {

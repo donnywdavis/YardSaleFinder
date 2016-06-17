@@ -17,6 +17,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: View Lifecycle
     
@@ -28,6 +29,7 @@ class SignUpViewController: UIViewController {
         confirmPasswordTextField.text = ""
         
         signUpButton.layer.cornerRadius = 5
+        signUpButton.enabled = true
         
         // Set up a gesture to dismiss the keyboard when tapping outside of a text field
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnTap(_:)))
@@ -60,13 +62,20 @@ extension SignUpViewController {
             return
         }
         
+        activityIndicator.startAnimating()
+        signUpButton.enabled = false
+        signUpButton.setTitle("", forState: .Normal)
+        
         FIRAuth.auth()?.createUserWithEmail(email, password: password, completion: { (userInfo, error) in
             guard error == nil else {
+                self.activityIndicator.stopAnimating()
                 MessageServices.displayMessage("Error on Create", message: "There was a problem creating the account.", presentingViewController: self)
                 return
             }
             
             FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (userInfo, error) in
+                self.activityIndicator.stopAnimating()
+                
                 guard error == nil else {
                     MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
                     return

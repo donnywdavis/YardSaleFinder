@@ -101,6 +101,7 @@ extension ProfileViewController {
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = false
+        cancelBarButtonItem?.enabled = false
         navigationItem.setRightBarButtonItems([updatingBarButtonItem!], animated: true)
         activityIndicator.startAnimating()
         
@@ -113,9 +114,10 @@ extension ProfileViewController {
         
         if DirectoryServices.profileImageExists() {
             DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath()), metadata: .None, completion: { (metaData, error) in
-                    self.activityIndicator.stopAnimating()
-                    self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
-                    self.navigationItem.setRightBarButtonItems([self.doneBarButtonItem!, self.logoutBarButtonItem!], animated: true)
+                self.activityIndicator.stopAnimating()
+                self.cancelBarButtonItem?.enabled = true
+                self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
+                self.navigationItem.setRightBarButtonItems([self.doneBarButtonItem!, self.logoutBarButtonItem!], animated: true)
             })
         }
     }
