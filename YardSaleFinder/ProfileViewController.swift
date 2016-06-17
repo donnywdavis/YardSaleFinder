@@ -100,7 +100,7 @@ extension ProfileViewController {
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
-        
+        isEditingProfile = false
         navigationItem.setRightBarButtonItems([updatingBarButtonItem!], animated: true)
         activityIndicator.startAnimating()
         
@@ -197,9 +197,11 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let editedPhoto = info[UIImagePickerControllerEditedImage] as? UIImage {
             DirectoryServices.writeImageToDirectory(editedPhoto)
+            updatedUserProfile?.profilePhotoUpdated = true
             tableView.reloadData()
         } else if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage {
             DirectoryServices.writeImageToDirectory(photo)
+            updatedUserProfile?.profilePhotoUpdated = true
             tableView.reloadData()
         } else {
             MessageServices.displayMessage("Image Error", message: "There was an error selecting the photo. Please try again.", presentingViewController: self)

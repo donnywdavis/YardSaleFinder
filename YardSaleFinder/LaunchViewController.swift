@@ -15,6 +15,10 @@ class LaunchViewController: UIViewController {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    // MARK: Properties
+    
+    var authListener: FIRAuthStateDidChangeListenerHandle?
+    
     // MARK: View Lifecycle
 
     override func viewDidLoad() {
@@ -22,13 +26,28 @@ class LaunchViewController: UIViewController {
 
         activityIndicator.startAnimating()
         
-        FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
+        authListener = FIRAuth.auth()!.addAuthStateDidChangeListener({ (auth, user) in
             if let user = user {
-                DataReference.sharedInstance.setUserProfile(user)
+                if DataReference.sharedInstance.currentUser == nil {
+                    DataReference.sharedInstance.setUserProfile(user)
+                    DataReference.sharedInstance.profileImageRef.writeToFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath())) { (url, error) in
+                        if error != nil && DirectoryServices.profileImageExists() {
+                            
+                        }
+                        self.activityIndicator.stopAnimating()
+                        self.performSegueWithIdentifier("LaunchToMapSegue", sender: nil)
+                    }
+                }
+            } else {
+                self.activityIndicator.stopAnimating()
+                self.performSegueWithIdentifier("LaunchToMapSegue", sender: nil)
             }
-            self.activityIndicator.stopAnimating()
-            self.performSegueWithIdentifier("LaunchToMapSegue", sender: nil)
         })
     }
 
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        FIRAuth.auth()?.removeAuthStateDidChangeListener(authListener!)
+    }
 }

@@ -56,9 +56,8 @@ extension SignInViewController {
                 MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
                 return
             }
-            
+            DataReference.sharedInstance.setUserProfile(userInfo)
             self.performSegueWithIdentifier("SignInToProfileSegue", sender: nil)
-            
         })
     }
     
