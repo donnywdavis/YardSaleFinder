@@ -35,12 +35,12 @@ class MapViewController: UIViewController {
             locationManager.requestWhenInUseAuthorization()
         }
 
-        self.listenForEvents()
-
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.listenForEvents()
         
         if DataReference.sharedInstance.isUserLoggedIn() && DirectoryServices.profileImageExists() {
             profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
@@ -71,6 +71,15 @@ extension MapViewController {
     }
     
     @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
+        if DataReference.sharedInstance.isUserLoggedIn() && DirectoryServices.profileImageExists() {
+            profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
+            profileButton.layer.borderWidth = 2.0
+            profileButton.layer.borderColor = UIColor.whiteColor().CGColor
+            profileButton.clipsToBounds = true
+            profileButton.setImage(UIImage(contentsOfFile: DirectoryServices.getImagePath()), forState: .Normal)
+        } else {
+            profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
+        }
     }
     
 }
