@@ -16,15 +16,13 @@ struct Profile: Decodable, Glossy {
     var address: String?
     var location: CLLocationCoordinate2D?
     var yardSales: [String: Bool]?
-    var profilePhotoUpdated: Bool?
     
     init(){
-        id = DataReference.sharedInstance.currentUser?.uid
+        id = DataServices.currentUser?.uid
         name = nil
         address = nil
         location = nil
         yardSales = nil
-        profilePhotoUpdated = nil
     }
     
     init?(json: JSON) {
@@ -35,7 +33,6 @@ struct Profile: Decodable, Glossy {
             location = CLLocationCoordinate2DMake(latitude, longitude)
         }
         yardSales = "yardSales" <~~ json
-        profilePhotoUpdated = "profilePhotoUpdated" <~~ json
     }
     
     func toJSON() -> JSON? {
@@ -49,7 +46,6 @@ struct Profile: Decodable, Glossy {
             "latitude" ~~> latitude,
             "longitude" ~~> longitude,
             "yardSales" ~~> yardSales,
-            "profilePhotoUpdated" ~~> profilePhotoUpdated,
         ])
     }
 }

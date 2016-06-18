@@ -63,7 +63,7 @@ class ProfileViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 500.0
         
-        userProfile = DataReference.sharedInstance.userProfile
+        userProfile = DataServices.userProfile
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -79,7 +79,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController {
     
     @IBAction func logoutButtonTapped(sender: UIBarButtonItem) {
-        DataReference.sharedInstance.signOut()
+        DataServices.signOut()
         performSegueWithIdentifier("UnwindToMapSegue", sender: nil)
     }
     
@@ -109,11 +109,11 @@ extension ProfileViewController {
         let nameCell = tableView.cellForRowAtIndexPath(indexPath) as? NameTableViewCell
         updatedUserProfile?.name = nameCell!.nameTextField.text
         
-        DataReference.sharedInstance.updateUserProfile(updatedUserProfile)
-        DataReference.sharedInstance.usersRef.child(updatedUserProfile!.id!).updateChildValues((updatedUserProfile?.toJSON())!)
+        DataServices.updateUserProfile(updatedUserProfile!)
+        DataServices.updateRemoteUserProfile(updatedUserProfile!)
         
         if DirectoryServices.profileImageExists() {
-            DataReference.sharedInstance.profileImageRef.putFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath()), metadata: .None, completion: { (metaData, error) in
+            DataServices.uploadProfileImage(updatedUserProfile!.id!, fromPath: NSURL(fileURLWithPath: DirectoryServices.getImagePath()), completion: { (metadata, error) in
                 self.activityIndicator.stopAnimating()
                 self.cancelBarButtonItem?.enabled = true
                 self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
@@ -177,7 +177,7 @@ extension ProfileViewController {
             }
             let removePhoto = UIAlertAction(title: "Remove Photo", style: .Default, handler: { (action) in
                 DirectoryServices.removeImage()
-                DataReference.sharedInstance.profileImageRef.deleteWithCompletion({ (error) in
+                DataServices.removeRemoteProfileImage(self.updatedUserProfile!.id!, completion: { (error) in
                 })
                 self.tableView.reloadData()
             })
@@ -199,11 +199,9 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let editedPhoto = info[UIImagePickerControllerEditedImage] as? UIImage {
             DirectoryServices.writeImageToDirectory(editedPhoto)
-            updatedUserProfile?.profilePhotoUpdated = true
             tableView.reloadData()
         } else if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage {
             DirectoryServices.writeImageToDirectory(photo)
-            updatedUserProfile?.profilePhotoUpdated = true
             tableView.reloadData()
         } else {
             MessageServices.displayMessage("Image Error", message: "There was an error selecting the photo. Please try again.", presentingViewController: self)

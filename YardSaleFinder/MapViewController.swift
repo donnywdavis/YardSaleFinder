@@ -42,15 +42,7 @@ class MapViewController: UIViewController {
         
         self.listenForEvents()
         
-        if DataReference.sharedInstance.isUserLoggedIn() && DirectoryServices.profileImageExists() {
-            profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
-            profileButton.layer.borderWidth = 2.0
-            profileButton.layer.borderColor = UIColor.whiteColor().CGColor
-            profileButton.clipsToBounds = true
-            profileButton.setImage(UIImage(contentsOfFile: DirectoryServices.getImagePath()), forState: .Normal)
-        } else {
-            profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
-        }
+        setProfileButtonImage()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -71,15 +63,7 @@ extension MapViewController {
     }
     
     @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
-        if DataReference.sharedInstance.isUserLoggedIn() && DirectoryServices.profileImageExists() {
-            profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
-            profileButton.layer.borderWidth = 2.0
-            profileButton.layer.borderColor = UIColor.whiteColor().CGColor
-            profileButton.clipsToBounds = true
-            profileButton.setImage(UIImage(contentsOfFile: DirectoryServices.getImagePath()), forState: .Normal)
-        } else {
-            profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
-        }
+        setProfileButtonImage()
     }
     
 }
@@ -89,7 +73,7 @@ extension MapViewController {
 extension MapViewController {
     
     @IBAction func profileButtonTapped(sender: UIButton) {
-        if DataReference.sharedInstance.currentUser != nil {
+        if DataServices.currentUser != nil {
             self.performSegueWithIdentifier("MapToProfileSegue", sender: nil)
         } else {
             self.performSegueWithIdentifier("MapToSignInSegue", sender: nil)
@@ -99,6 +83,24 @@ extension MapViewController {
     @IBAction func currentLocationButtonPressed(sender: UIBarButtonItem) {
         if let location = mapView.userLocation.location {
             centerOnLocation(location)
+        }
+    }
+    
+}
+
+// MARK: Utility Methods
+
+extension MapViewController {
+    
+    func setProfileButtonImage() {
+        if DataServices.isUserLoggedIn() && DirectoryServices.profileImageExists() {
+            profileButton.layer.cornerRadius = profileButton.frame.size.width / 2
+            profileButton.layer.borderWidth = 2.0
+            profileButton.layer.borderColor = UIColor.whiteColor().CGColor
+            profileButton.clipsToBounds = true
+            profileButton.setImage(UIImage(contentsOfFile: DirectoryServices.getImagePath()), forState: .Normal)
+        } else {
+            profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
         }
     }
     

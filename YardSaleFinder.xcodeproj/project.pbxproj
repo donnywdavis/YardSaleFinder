@@ -28,6 +28,7 @@
 		41D937061D0F125000D37180 /* PriceRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */; };
 		41D937081D0F521D00D37180 /* TimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D937071D0F521D00D37180 /* TimeTableViewCell.swift */; };
 		41D9370A1D0F55A800D37180 /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */; };
+		41E37CD51D14AD03001186F2 /* DataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E37CD41D14AD03001186F2 /* DataServices.swift */; };
 		41E403031D0F9B8D003E4BF8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E403021D0F9B8D003E4BF8 /* SignInViewController.swift */; };
 		41E403051D0F9EFD003E4BF8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E403041D0F9EFD003E4BF8 /* SignUpViewController.swift */; };
 		41F1993A1D12E2EB00878AF0 /* DirectoryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F199391D12E2EB00878AF0 /* DirectoryServices.swift */; };
@@ -62,6 +63,7 @@
 		41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceRangeTableViewCell.swift; sourceTree = "<group>"; };
 		41D937071D0F521D00D37180 /* TimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableViewCell.swift; sourceTree = "<group>"; };
 		41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsTableViewCell.swift; sourceTree = "<group>"; };
+		41E37CD41D14AD03001186F2 /* DataServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServices.swift; sourceTree = "<group>"; };
 		41E403021D0F9B8D003E4BF8 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		41E403041D0F9EFD003E4BF8 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		41F199391D12E2EB00878AF0 /* DirectoryServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryServices.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			children = (
 				41F199391D12E2EB00878AF0 /* DirectoryServices.swift */,
 				41F1993D1D12E3F300878AF0 /* MessageServices.swift */,
+				41E37CD41D14AD03001186F2 /* DataServices.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				41AD580B1D0A058900E26DF8 /* Profile.swift in Sources */,
 				41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */,
 				41C5DA161D0A53F800C9570F /* Group.swift in Sources */,
+				41E37CD51D14AD03001186F2 /* DataServices.swift in Sources */,
 				4193CD521D075497008685AF /* AppDelegate.swift in Sources */,
 				41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */,
 				41F199421D1352ED00878AF0 /* LaunchViewController.swift in Sources */,
