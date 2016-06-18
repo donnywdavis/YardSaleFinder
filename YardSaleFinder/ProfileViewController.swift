@@ -61,7 +61,7 @@ class ProfileViewController: UIViewController {
         
         tapGesture.addTarget(self, action: #selector(profileTapGesture(_:)))
         
-        userProfile = DataReference.sharedInstance.userProfile
+        userProfile = DataServices.userProfile
     }
     
     override func viewWillAppear(animated: Bool) {

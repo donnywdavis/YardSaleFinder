@@ -65,7 +65,7 @@ extension YardSalesViewController: UITableViewDelegate, UITableViewDataSource {
 extension YardSalesViewController {
     
     func loadYardSales() {
-        DataReference.sharedInstance.usersRef.child((DataReference.sharedInstance.currentUser?.uid)!).child("yardSales").observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
+        DataReference.sharedInstance.usersRef.child((DataServices.userProfile?.id)!).child("yardSales").observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
             if let values = snapshot.value as? [String: Bool] {
                 for key in values.keys {
                     DataReference.sharedInstance.yardSalesRef.child(key).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
