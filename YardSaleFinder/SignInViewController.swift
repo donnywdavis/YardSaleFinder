@@ -64,14 +64,15 @@ extension SignInViewController {
                 return
             }
             
-            DataReference.sharedInstance.setUserProfile(userInfo)
-            DataReference.sharedInstance.profileImageRef.writeToFile(NSURL(fileURLWithPath: DirectoryServices.getImagePath())) { (url, error) in
-                if error != nil && DirectoryServices.profileImageExists() {
-                    DirectoryServices.removeImage()
-                }
-                self.activityIndicator.stopAnimating()
-                self.performSegueWithIdentifier("SignInToProfileSegue", sender: nil)
-            }
+            DataServices.updateCurrentUser(userInfo!)
+            DataServices.getRemoteProfileData(userInfo!.uid, completion: { (userProfile) in
+                DataServices.updateUserProfile(userProfile!)
+                
+                DataServices.downloadProfileImage(userProfile!.id!, toPath: NSURL(fileURLWithPath: DirectoryServices.getImagePath()), completion: { (url, error) in
+                    self.activityIndicator.stopAnimating()
+                    self.performSegueWithIdentifier("SignInToProfileSegue", sender: nil)
+                })
+            })
         })
     }
     
