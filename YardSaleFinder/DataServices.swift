@@ -14,6 +14,7 @@ import FirebaseAuth
 class DataServices: AnyObject {
     
     static var userProfile: Profile?
+    static var usersYardSales: [YardSale]?
     static weak var currentUser: FIRUser?
     
     class func isUserLoggedIn() -> Bool {
@@ -58,6 +59,11 @@ class DataServices: AnyObject {
                 return
             }
             
+            getYardSalesForOwner(uid, success: { (yardSales) in
+                self.usersYardSales = yardSales
+                }, failure: { (error) in
+                    self.usersYardSales = [YardSale]()
+            })
             completion(Profile(json: json))
         }
     }
@@ -86,6 +92,22 @@ class DataServices: AnyObject {
     
     class func updateRemoteUserProfile(userProfile: Profile) {
         DataReference.sharedInstance.usersRef.child(userProfile.id!).updateChildValues(userProfile.toJSON()!)
+    }
+    
+    class func getYardSalesForOwner(uid: String, success: ([YardSale]?) -> Void, failure: (NSError?) -> Void) {
+        var yardSales = [YardSale]()
+        
+        DataReference.sharedInstance.yardSalesRef.queryOrderedByChild("owner").queryEqualToValue(uid).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
+            guard let snapshotValue = snapshot.value else {
+                failure(snapshot.value?.error)
+                return
+            }
+            for (_, yardSale) in snapshotValue as! [String: AnyObject] {
+                yardSales.append(YardSale(json: yardSale as! JSON)!)
+            }
+            
+            success(yardSales)
+        }
     }
     
 }

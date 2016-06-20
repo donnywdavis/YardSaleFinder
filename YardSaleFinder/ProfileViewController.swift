@@ -34,7 +34,6 @@ class ProfileViewController: UIViewController {
     var tapGesture = UITapGestureRecognizer()
     var isEditingProfile = false
     
-    var logoutBarButtonItem: UIBarButtonItem?
     var editBarButtonItem: UIBarButtonItem?
     var doneBarButtonItem: UIBarButtonItem?
     var cancelBarButtonItem: UIBarButtonItem?
@@ -47,7 +46,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        logoutBarButtonItem = UIBarButtonItem(title: "Logout", style: .Plain, target: self, action: #selector(logoutButtonTapped(_:)))
         editBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(editButtonTapped(_:)))
         doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneButtonTapped(_:)))
         cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelButtonTapped(_:)))
@@ -55,7 +53,7 @@ class ProfileViewController: UIViewController {
         updatingBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         
         navigationItem.leftBarButtonItem = editBarButtonItem
-        navigationItem.rightBarButtonItems = [doneBarButtonItem!, logoutBarButtonItem!]
+        navigationItem.rightBarButtonItem = doneBarButtonItem
 
         imagePicker.delegate = self
         
@@ -84,7 +82,7 @@ extension ProfileViewController {
     @IBAction func editButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = true
         navigationItem.setLeftBarButtonItem(cancelBarButtonItem, animated: true)
-        navigationItem.setRightBarButtonItems([saveBarButtonItem!], animated: true)
+        navigationItem.setRightBarButtonItem(saveBarButtonItem, animated: true)
     }
     
     @IBAction func doneButtonTapped(sender: UIBarButtonItem) {
@@ -94,13 +92,13 @@ extension ProfileViewController {
     @IBAction func cancelButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = false
         navigationItem.setLeftBarButtonItem(editBarButtonItem, animated: true)
-        navigationItem.setRightBarButtonItems([doneBarButtonItem!, logoutBarButtonItem!], animated: true)
+        navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: true)
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = false
         cancelBarButtonItem?.enabled = false
-        navigationItem.setRightBarButtonItems([updatingBarButtonItem!], animated: true)
+        navigationItem.setRightBarButtonItem(updatingBarButtonItem, animated: true)
         activityIndicator.startAnimating()
         
         let indexPath = NSIndexPath(forRow: 1, inSection: 0)
@@ -115,7 +113,7 @@ extension ProfileViewController {
                 self.activityIndicator.stopAnimating()
                 self.cancelBarButtonItem?.enabled = true
                 self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
-                self.navigationItem.setRightBarButtonItems([self.doneBarButtonItem!, self.logoutBarButtonItem!], animated: true)
+                self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
             })
         }
     }

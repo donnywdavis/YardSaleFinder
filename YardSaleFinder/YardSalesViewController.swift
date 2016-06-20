@@ -29,7 +29,9 @@ class YardSalesViewController: UIViewController {
         dateFormatter.dateStyle = .MediumStyle
         dateFormatter.timeStyle = .ShortStyle
         
-        loadYardSales()
+        if let yardSales = DataServices.usersYardSales {
+            self.yardSales = yardSales
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -56,26 +58,6 @@ extension YardSalesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = dateFormatter.stringFromDate(yardSale.fromTime!)
         
         return cell
-    }
-    
-}
-
-// MARK: Firebase Methods
-
-extension YardSalesViewController {
-    
-    func loadYardSales() {
-        DataReference.sharedInstance.usersRef.child((DataServices.userProfile?.id)!).child("yardSales").observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
-            if let values = snapshot.value as? [String: Bool] {
-                for key in values.keys {
-                    DataReference.sharedInstance.yardSalesRef.child(key).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
-                        self.yardSales.append(YardSale(json: snapshot.value as! JSON)!)
-                        self.tableView.reloadData()
-                    }
-                }
-                self.tableView.reloadData()
-            }
-        }
     }
     
 }

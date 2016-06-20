@@ -208,7 +208,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="110" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fBz-h8-smI">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -253,7 +253,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lE5-m8-DYI">
-                                                    <rect key="frame" x="79" y="17.5" width="513" height="40"/>
+                                                    <rect key="frame" x="79" y="17" width="513" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="LHO-ao-sPL"/>
                                                     </constraints>
@@ -263,9 +263,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lE5-m8-DYI" firstAttribute="leading" secondItem="gjY-TB-frn" secondAttribute="trailing" constant="20" id="Ebl-z9-UU9"/>
-                                                <constraint firstItem="lE5-m8-DYI" firstAttribute="centerY" secondItem="EwW-fB-J7t" secondAttribute="centerY" id="JUF-si-ZBo"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="lE5-m8-DYI" secondAttribute="trailing" id="M6u-yP-LBY"/>
-                                                <constraint firstItem="gjY-TB-frn" firstAttribute="centerY" secondItem="EwW-fB-J7t" secondAttribute="centerY" id="bqD-zV-tTC"/>
+                                                <constraint firstItem="lE5-m8-DYI" firstAttribute="top" secondItem="EwW-fB-J7t" secondAttribute="topMargin" constant="9.5" id="PdF-63-hBT"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="lE5-m8-DYI" secondAttribute="bottom" constant="9" id="pel-6C-0Ob"/>
+                                                <constraint firstItem="gjY-TB-frn" firstAttribute="centerY" secondItem="lE5-m8-DYI" secondAttribute="centerY" id="pj1-u8-tz3"/>
                                                 <constraint firstItem="gjY-TB-frn" firstAttribute="leading" secondItem="EwW-fB-J7t" secondAttribute="leadingMargin" constant="8" id="sAA-OG-Kx7"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -310,6 +311,13 @@
                             <constraint firstItem="fBz-h8-smI" firstAttribute="leading" secondItem="BxG-6S-N8J" secondAttribute="leading" id="kqS-QL-8um"/>
                         </constraints>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Logout" id="fFg-Ic-Ib5">
+                            <connections>
+                                <action selector="logoutButtonTapped:" destination="ibW-vh-gXy" id="wP4-Lt-QXp"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Profile" id="qU8-bE-TUi">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="MAf-eO-HNi">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -341,7 +349,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z42-Hs-Uht">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -773,7 +781,7 @@
         <!--Profile Navigation Controller-->
         <scene sceneID="XO5-2t-DfU">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PrY-Vh-0Xg" userLabel="Profile Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="PrY-Vh-0Xg" userLabel="Profile Navigation Controller" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qLq-TY-Y55">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -785,6 +793,12 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="hXF-b4-aJy">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </toolbar>
                     <connections>
                         <segue destination="ibW-vh-gXy" kind="relationship" relationship="rootViewController" id="uYY-hc-Ep9"/>
                     </connections>
