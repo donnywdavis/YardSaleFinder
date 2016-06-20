@@ -22,6 +22,7 @@ struct YardSale: Decodable, Glossy {
     var toPrice: Double?
     var photos: [String]?
     var owner: String?
+    var active: Bool?
     
     init() {
         owner = DataServices.currentUser?.uid
@@ -39,6 +40,7 @@ struct YardSale: Decodable, Glossy {
         toPrice = "toPrice" <~~ json
         photos = "photos" <~~ json
         owner = "owner" <~~ json
+        active = "active" <~~ json
     }
     
     func toJSON() -> JSON? {
@@ -58,7 +60,8 @@ struct YardSale: Decodable, Glossy {
             "fromPrice" ~~> fromPrice,
             "toPrice" ~~> toPrice,
             "photos" ~~> photos,
-            "owner" ~~> owner
+            "owner" ~~> owner,
+            "active" ~~> active
         ])
     }
 

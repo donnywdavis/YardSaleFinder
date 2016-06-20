@@ -13,8 +13,9 @@ class YardSaleDetailTableViewController: UITableViewController {
 
     // MARK: IBOutlets
     
-    @IBOutlet weak var street1TextField: UITextField!
-    @IBOutlet weak var street2TextField: UITextField!
+    @IBOutlet weak var activeSwitch: UISwitch!
+    @IBOutlet weak var streetTextField: UITextField!
+    @IBOutlet weak var aptSuiteTextField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
@@ -31,6 +32,8 @@ class YardSaleDetailTableViewController: UITableViewController {
     var doneBarButtonItem: UIBarButtonItem?
     var cancelBarButtonItem: UIBarButtonItem?
     var saveBarButtonItem: UIBarButtonItem?
+    var updatingBarButtonItem: UIBarButtonItem?
+    var activityIndicator = UIActivityIndicatorView()
     
     // MARK: View Lifecycle
     
@@ -40,6 +43,7 @@ class YardSaleDetailTableViewController: UITableViewController {
         doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(cancelDoneButtonTapped(_:)))
         cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelDoneButtonTapped(_:)))
         saveBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveButtonTapped(_:)))
+        updatingBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         navigationItem.leftBarButtonItem = cancelBarButtonItem
         navigationItem.rightBarButtonItem = saveBarButtonItem
         
@@ -57,7 +61,7 @@ class YardSaleDetailTableViewController: UITableViewController {
 extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 1 {
+        if indexPath.section == 2 {
             toggleDateTimePicker(indexPath.row)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) {
                 updateDateTimeLabel(cell, row: indexPath.row)
@@ -86,10 +90,10 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 0:
+        case 1:
             return "Location"
             
-        case 1:
+        case 2:
             return "Date/Time"
             
         default:
@@ -99,13 +103,13 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (1, 1) where !isDatePickerVisible:
+        case (2, 1) where !isDatePickerVisible:
             return 0
             
-        case (1, 3) where !isStartTimePickerVisible:
+        case (2, 3) where !isStartTimePickerVisible:
             return 0
             
-        case (1, 5) where !isEndTimePickerVisible:
+        case (2, 5) where !isEndTimePickerVisible:
             return 0
             
         default:
@@ -163,19 +167,19 @@ extension YardSaleDetailTableViewController {
     }
     
     @IBAction func dateSelection(sender: UIDatePicker) {
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1)) {
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 2)) {
             updateDateTimeLabel(cell, row: 0)
         }
     }
     
     @IBAction func startTimeSelection(sender: UIDatePicker) {
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 1)) {
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 2)) {
             updateDateTimeLabel(cell, row: 2)
         }
     }
     
     @IBAction func endTimeSelection(sender: UIDatePicker) {
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 1)) {
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 2)) {
             updateDateTimeLabel(cell, row: 4)
         }
     }
@@ -191,31 +195,37 @@ extension YardSaleDetailTableViewController {
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
+        navigationItem.rightBarButtonItem = updatingBarButtonItem
+        activityIndicator.startAnimating()
+        
         var newYardSale = YardSale()
-        if let street1 = street1TextField.text {
-            newYardSale.address = "\(street1):"
+        if streetTextField.text != "" {
+            newYardSale.address = "\(streetTextField.text):"
         }
-        if let street2 = street2TextField.text {
-            newYardSale.address = "\(newYardSale.address!)\(street2):"
+        if aptSuiteTextField.text != "" {
+            newYardSale.address = "\(newYardSale.address!)\(aptSuiteTextField.text):"
         }
-        if let city = cityTextField.text {
-            newYardSale.address = "\(newYardSale.address!)\(city), "
+        if cityTextField.text != "" {
+            newYardSale.address = "\(newYardSale.address!)\(cityTextField.text), "
         }
-        if let state = stateTextField.text {
-            newYardSale.address = "\(newYardSale.address!)\(state) "
+        if stateTextField.text != "" {
+            newYardSale.address = "\(newYardSale.address!)\(stateTextField.text) "
         }
-        if let zipCode = zipCodeTextField.text {
-            newYardSale.address = "\(newYardSale.address!)\(zipCode)"
+        if zipCodeTextField.text != "" {
+            newYardSale.address = "\(newYardSale.address!)\(zipCodeTextField.text)"
         }
         newYardSale.startTime = startTimePicker.date
         newYardSale.endTime = endTimePicker.date
+        newYardSale.active = activeSwitch.on
         
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(newYardSale.address!) { (placemarks, error) in
             let placemark = placemarks?.last
             newYardSale.location = CLLocationCoordinate2DMake((placemark?.location?.coordinate.latitude)!, (placemark?.location?.coordinate.longitude)!)
-            DataServices.addNewYardSale(newYardSale)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            DataServices.addNewYardSale(newYardSale) {
+                self.activityIndicator.stopAnimating()
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
         }
         
     }
