@@ -39,7 +39,7 @@ extension MapTableViewCell {
     
     func configureCell(yardSale: YardSale) {
         mapView.addAnnotation(yardSale.annotation!)
-        centerOnLocation(CLLocation(latitude: yardSale.location.latitude, longitude: yardSale.location.longitude))
+        centerOnLocation(CLLocation(latitude: yardSale.location!.latitude, longitude: yardSale.location!.longitude))
     }
     
 }

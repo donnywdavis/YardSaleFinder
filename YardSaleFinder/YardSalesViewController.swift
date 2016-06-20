@@ -55,7 +55,7 @@ extension YardSalesViewController: UITableViewDelegate, UITableViewDataSource {
         
         let yardSale = yardSales[indexPath.row]
         
-        cell.textLabel?.text = dateFormatter.stringFromDate(yardSale.fromTime!)
+        cell.textLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
         
         return cell
     }

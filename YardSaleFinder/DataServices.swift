@@ -110,4 +110,12 @@ class DataServices: AnyObject {
         }
     }
     
+    class func addNewYardSale(yardSale: YardSale) {
+        var newYardSale = yardSale
+        let newKey = DataReference.sharedInstance.yardSalesRef.childByAutoId().key
+        newYardSale.id = newKey
+        newYardSale.annotation = Annotation(title: "Yard Sale", subtitle: newYardSale.address, coordinate: newYardSale.location!, id: newYardSale.id)
+        DataReference.sharedInstance.yardSalesRef.child(newKey).updateChildValues(newYardSale.toJSON()!)
+        DataServices.usersYardSales?.append(newYardSale)
+    }
 }

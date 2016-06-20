@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         
-        FIRDatabase.database().persistenceEnabled = true
+//        FIRDatabase.database().persistenceEnabled = true
         
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         

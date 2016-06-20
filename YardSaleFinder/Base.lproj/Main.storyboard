@@ -619,7 +619,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="215.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VDV-DK-e4r">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="VDV-DK-e4r">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="215"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="488138534.80872101">
                                                         <!--2016-06-20 18:02:14 +0000-->
@@ -666,51 +666,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWI-DF-7XL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="7293" y="837"/>
-        </scene>
-        <!--Yard Sale Detail View Controller-->
-        <scene sceneID="zMr-nt-0N3">
-            <objects>
-                <viewController id="lU9-bR-hyy" customClass="YardSaleDetailViewController" customModule="YardSaleFinder" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="34y-HF-k4k"/>
-                        <viewControllerLayoutGuide type="bottom" id="drI-1s-aRE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="m9m-0T-SPW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="beU-Jb-SAI">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="50" id="33r-xP-Klt">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="50"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="33r-xP-Klt" id="HkL-Vt-qa1">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="beU-Jb-SAI" firstAttribute="top" secondItem="m9m-0T-SPW" secondAttribute="top" id="66E-uQ-2bx"/>
-                            <constraint firstItem="drI-1s-aRE" firstAttribute="top" secondItem="beU-Jb-SAI" secondAttribute="bottom" id="FeE-jT-TuP"/>
-                            <constraint firstItem="beU-Jb-SAI" firstAttribute="leading" secondItem="m9m-0T-SPW" secondAttribute="leading" id="RP5-YO-6PU"/>
-                            <constraint firstAttribute="trailing" secondItem="beU-Jb-SAI" secondAttribute="trailing" id="Xna-BO-H45"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="bcJ-aA-vir">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lnJ-qQ-s5O"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="D4I-gR-eIL"/>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2Mf-Fh-s1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6615" y="1540"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="kwI-L3-ts7">
