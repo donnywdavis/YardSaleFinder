@@ -353,7 +353,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YardSaleCell" id="vOa-7A-SVE">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YardSaleCell" id="vOa-7A-SVE">
                                         <rect key="frame" x="0.0" y="72" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vOa-7A-SVE" id="tjU-ar-djL">
@@ -361,6 +361,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <color key="tintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <segue destination="UUd-Zt-enw" kind="show" identifier="YardSaleDetailSegue" id="ZCT-9U-JZu"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -381,7 +384,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Ktd-x0-TDv">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <segue destination="UUd-Zt-enw" kind="show" id="HTJ-pR-QlE"/>
+                                <segue destination="UUd-Zt-enw" kind="show" identifier="YardSaleAddSegue" id="HTJ-pR-QlE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1151,5 +1154,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="AiY-n8-dEt"/>
+        <segue reference="ZCT-9U-JZu"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -61,3 +61,17 @@ extension YardSalesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+// MARK: Navigation
+
+extension YardSalesViewController {
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "YardSaleDetailSegue" {
+            if let yardSaleDetailVC = segue.destinationViewController as? YardSaleDetailTableViewController, let indexPath = tableView.indexPathForSelectedRow {
+                yardSaleDetailVC.yardSale = yardSales[indexPath.row]
+            }
+        }
+    }
+    
+}

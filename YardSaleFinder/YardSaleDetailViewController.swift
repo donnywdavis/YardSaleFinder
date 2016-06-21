@@ -25,6 +25,7 @@ class YardSaleDetailTableViewController: UITableViewController {
     
     // MARK: Properties
     
+    var yardSale: YardSale?
     var isDatePickerVisible = false
     var isStartTimePickerVisible = false
     var isEndTimePickerVisible = false
@@ -52,6 +53,23 @@ class YardSaleDetailTableViewController: UITableViewController {
         endTimePicker.minimumDate = NSDate()
 
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        if let yardSale = yardSale {
+            loadDetailData(yardSale)
+        }
+    }
+    
+    func loadDetailData(yardSale: YardSale) {
+        if let active = yardSale.active {
+            activeSwitch.on = active
+        }
+        let dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))
+        let startTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 2))
+        let endTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 2))
+            
+        dateCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .MediumStyle, timeStyle: .NoStyle)
+        startTimeCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+        endTimeCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.endTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
     }
 
 }
@@ -77,15 +95,21 @@ extension YardSaleDetailTableViewController {
 
 extension YardSaleDetailTableViewController {
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30.0
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let title = UILabel()
+        title.textColor = UIColor.whiteColor()
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = title.textColor
+        header.contentView.backgroundColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.width, 30.0))
-        headerView.backgroundColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
-        
-        return headerView
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 0.0
+        } else {
+            return 35.0
+        }
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -167,19 +191,19 @@ extension YardSaleDetailTableViewController {
     }
     
     @IBAction func dateSelection(sender: UIDatePicker) {
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 2)) {
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) {
             updateDateTimeLabel(cell, row: 0)
         }
     }
     
     @IBAction func startTimeSelection(sender: UIDatePicker) {
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 2)) {
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 2)) {
             updateDateTimeLabel(cell, row: 2)
         }
     }
     
     @IBAction func endTimeSelection(sender: UIDatePicker) {
-        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 2)) {
+        if let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 2)) {
             updateDateTimeLabel(cell, row: 4)
         }
     }

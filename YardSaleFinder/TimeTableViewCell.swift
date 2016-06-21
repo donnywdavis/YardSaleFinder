@@ -34,7 +34,9 @@ class TimeTableViewCell: UITableViewCell {
 extension TimeTableViewCell {
     
     func configureCell(yardSale: YardSale) {
-        timeLabel.text = "08:00 - 12:00"
+        let startTime = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+        let endTime = NSDateFormatter.localizedStringFromDate(yardSale.endTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+        timeLabel.text = "\(startTime) - \(endTime)"
     }
     
 }

@@ -30,6 +30,9 @@ class DataServices: AnyObject {
     class func setupUserProfileIfLoggedIn(completion: () -> Void) {
         FIRAuth.auth()?.addAuthStateDidChangeListener({ (auth, user) in
             guard let user = user where currentUser == nil else {
+                if auth.currentUser == nil {
+                    completion()
+                }
                 return
             }
             
