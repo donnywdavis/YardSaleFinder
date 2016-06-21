@@ -31,8 +31,14 @@ struct YardSale: Decodable, Glossy {
     init?(json: JSON) {
         id = "id" <~~ json
         address = "address" <~~ json
-        location = CLLocationCoordinate2DMake(("latitude" <~~ json)!, ("longitude" <~~ json)!)
-        annotation = Annotation(title: "Yard Sale", subtitle: address, coordinate: location!, id: id)
+        if let latitude: Double = "latitude" <~~ json, let longitude: Double = "longitude" <~~ json {
+            location = CLLocationCoordinate2DMake(latitude, longitude)
+        } else {
+            location = nil
+        }
+        if location != nil {
+            annotation = Annotation(title: "Yard Sale", subtitle: address, coordinate: location!, id: id)
+        }
         startTime = NSDate.dateFromString("startTime" <~~ json)
         endTime = NSDate.dateFromString("endTime" <~~ json)
         items = "items" <~~ json
@@ -44,15 +50,19 @@ struct YardSale: Decodable, Glossy {
     }
     
     func toJSON() -> JSON? {
-        let latitude = location!.latitude
-        let longitude = location!.longitude
+        var latitude = 0.0
+        var longitude = 0.0
+        if location != nil {
+            latitude = location!.latitude
+            longitude = location!.longitude
+        }
         let startTime = String.stringFromDate(self.startTime)
         let endTime = String.stringFromDate(self.endTime)
         
         return jsonify([
             "id" ~~> id,
             "address" ~~> address,
-            "laitude" ~~> latitude,
+            "latitude" ~~> latitude,
             "longitude" ~~> longitude,
             "startTime" ~~> startTime,
             "endTime" ~~> endTime,

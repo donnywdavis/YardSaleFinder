@@ -94,15 +94,16 @@ class DataServices: AnyObject {
         DataReference.sharedInstance.usersRef.child(userProfile.id!).updateChildValues(userProfile.toJSON()!)
     }
     
-    class func getYardSalesForOwner(uid: String, success: ([YardSale]?) -> Void, failure: (NSError?) -> Void) {
+    class func getYardSalesForOwner(uid: String, success: ([YardSale]?) -> Void, failure: (String?) -> Void) {
         var yardSales = [YardSale]()
         
         DataReference.sharedInstance.yardSalesRef.queryOrderedByChild("owner").queryEqualToValue(uid).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
-            guard let snapshotValue = snapshot.value else {
-                failure(snapshot.value?.error)
+            guard let snapshotValue = snapshot.value as? [String: AnyObject] else {
+                failure("No yard sales found.")
                 return
             }
-            for (_, yardSale) in snapshotValue as! [String: AnyObject] {
+            
+            for (_, yardSale) in snapshotValue {
                 yardSales.append(YardSale(json: yardSale as! JSON)!)
             }
             
@@ -116,6 +117,7 @@ class DataServices: AnyObject {
         newYardSale.id = newKey
         newYardSale.annotation = Annotation(title: "Yard Sale", subtitle: newYardSale.address, coordinate: newYardSale.location!, id: newYardSale.id)
         DataServices.usersYardSales?.append(newYardSale)
+        DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("yardSales").child(newKey).setValue(true)
         DataReference.sharedInstance.yardSalesRef.child(newKey).updateChildValues(newYardSale.toJSON()!)
         if newYardSale.active! {
             DataReference.sharedInstance.activeYardSalesRef.child(newKey).setValue(true)

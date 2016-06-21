@@ -200,19 +200,19 @@ extension YardSaleDetailTableViewController {
         
         var newYardSale = YardSale()
         if streetTextField.text != "" {
-            newYardSale.address = "\(streetTextField.text):"
+            newYardSale.address = "\(streetTextField.text!):"
         }
         if aptSuiteTextField.text != "" {
-            newYardSale.address = "\(newYardSale.address!)\(aptSuiteTextField.text):"
+            newYardSale.address = "\(newYardSale.address!)\(aptSuiteTextField.text!):"
         }
         if cityTextField.text != "" {
-            newYardSale.address = "\(newYardSale.address!)\(cityTextField.text), "
+            newYardSale.address = "\(newYardSale.address!)\(cityTextField.text!), "
         }
         if stateTextField.text != "" {
-            newYardSale.address = "\(newYardSale.address!)\(stateTextField.text) "
+            newYardSale.address = "\(newYardSale.address!)\(stateTextField.text!) "
         }
         if zipCodeTextField.text != "" {
-            newYardSale.address = "\(newYardSale.address!)\(zipCodeTextField.text)"
+            newYardSale.address = "\(newYardSale.address!)\(zipCodeTextField.text!)"
         }
         newYardSale.startTime = startTimePicker.date
         newYardSale.endTime = endTimePicker.date
