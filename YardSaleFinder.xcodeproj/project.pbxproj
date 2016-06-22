@@ -19,6 +19,7 @@
 		41AD58101D0A140E00E26DF8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */; };
 		41B20D821D0AE83E00B6F988 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B20D811D0AE83E00B6F988 /* MapViewController.swift */; };
 		41B20D841D0B38D200B6F988 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B20D831D0B38D200B6F988 /* Annotation.swift */; };
+		41B603351D1AC25800BDE76E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B603341D1AC25800BDE76E /* Address.swift */; };
 		41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5DA131D0A46AA00C9570F /* YardSale.swift */; };
 		41C5DA161D0A53F800C9570F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5DA151D0A53F800C9570F /* Group.swift */; };
 		41D717D51D1473EA003A9487 /* YardSalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D717D41D1473EA003A9487 /* YardSalesViewController.swift */; };
@@ -57,6 +58,7 @@
 		41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		41B20D811D0AE83E00B6F988 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		41B20D831D0B38D200B6F988 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		41B603341D1AC25800BDE76E /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		41C5DA131D0A46AA00C9570F /* YardSale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSale.swift; sourceTree = "<group>"; };
 		41C5DA151D0A53F800C9570F /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		41D717D41D1473EA003A9487 /* YardSalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSalesViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 				41C5DA131D0A46AA00C9570F /* YardSale.swift */,
 				41C5DA151D0A53F800C9570F /* Group.swift */,
 				41B20D831D0B38D200B6F988 /* Annotation.swift */,
+				41B603341D1AC25800BDE76E /* Address.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				41E37CD51D14AD03001186F2 /* DataServices.swift in Sources */,
 				4193CD521D075497008685AF /* AppDelegate.swift in Sources */,
 				41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */,
+				41B603351D1AC25800BDE76E /* Address.swift in Sources */,
 				41F199421D1352ED00878AF0 /* LaunchViewController.swift in Sources */,
 				41E403051D0F9EFD003E4BF8 /* SignUpViewController.swift in Sources */,
 				41D937021D0F079200D37180 /* AddressTableViewCell.swift in Sources */,
