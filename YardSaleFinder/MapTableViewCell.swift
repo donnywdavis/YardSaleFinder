@@ -39,7 +39,7 @@ extension MapTableViewCell {
     
     func configureCell(yardSale: YardSale) {
         mapView.addAnnotation(yardSale.annotation!)
-        centerOnLocation(CLLocation(latitude: yardSale.location.latitude, longitude: yardSale.location.longitude))
+        centerOnLocation(CLLocation(latitude: yardSale.location!.latitude, longitude: yardSale.location!.longitude))
     }
     
 }
@@ -49,7 +49,7 @@ extension MapTableViewCell {
 extension MapTableViewCell: MKMapViewDelegate {
     
     func centerOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 300, 300)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 100, 100)
         mapView.setRegion(coordinateRegion, animated: false)
     }
     

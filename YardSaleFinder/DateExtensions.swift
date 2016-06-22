@@ -17,6 +17,7 @@ extension NSDate {
         }
         
         let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         return dateFormatter.dateFromString(string)
     }
     

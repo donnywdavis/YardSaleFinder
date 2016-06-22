@@ -34,7 +34,7 @@ class DateTableViewCell: UITableViewCell {
 extension DateTableViewCell {
     
     func configureCell(yardSale: YardSale) {
-        dateLabel.text = "Sat 06/18/16"
+        dateLabel.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .ShortStyle, timeStyle: .NoStyle)
     }
     
 }

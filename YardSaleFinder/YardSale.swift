@@ -13,48 +13,65 @@ import CoreLocation
 struct YardSale: Decodable, Glossy {
     var id: String?
     var address: String?
-    var location: CLLocationCoordinate2D
+    var location: CLLocationCoordinate2D?
     var annotation: Annotation?
-    var fromTime: NSDate?
-    var toTime: NSDate?
+    var startTime: NSDate?
+    var endTime: NSDate?
     var items: String?
     var fromPrice: Double?
     var toPrice: Double?
     var photos: [String]?
-    var created: NSDate?
+    var owner: String?
+    var active: Bool?
+    
+    init() {
+        owner = DataServices.currentUser?.uid
+    }
     
     init?(json: JSON) {
         id = "id" <~~ json
         address = "address" <~~ json
-        location = CLLocationCoordinate2DMake(("latitude" <~~ json)!, ("longitude" <~~ json)!)
-        annotation = Annotation(title: "Yard Sale", subtitle: address, coordinate: location, id: id)
-        fromTime = NSDate.dateFromString("fromTime" <~~ json)
-        toTime = NSDate.dateFromString("toTime" <~~ json)
+        if let latitude: Double = "latitude" <~~ json, let longitude: Double = "longitude" <~~ json {
+            location = CLLocationCoordinate2DMake(latitude, longitude)
+        } else {
+            location = nil
+        }
+        if location != nil {
+            annotation = Annotation(title: "Yard Sale", subtitle: address, coordinate: location!, id: id)
+        }
+        startTime = NSDate.dateFromString("startTime" <~~ json)
+        endTime = NSDate.dateFromString("endTime" <~~ json)
         items = "items" <~~ json
         fromPrice = "fromPrice" <~~ json
         toPrice = "toPrice" <~~ json
         photos = "photos" <~~ json
-        created = NSDate.dateFromString("created" <~~ json)
+        owner = "owner" <~~ json
+        active = "active" <~~ json
     }
     
     func toJSON() -> JSON? {
-        let latitude = location.latitude
-        let longitude = location.longitude
-        let fromTime = String.stringFromDate(self.fromTime)
-        let toTime = String.stringFromDate(self.toTime)
+        var latitude = 0.0
+        var longitude = 0.0
+        if location != nil {
+            latitude = location!.latitude
+            longitude = location!.longitude
+        }
+        let startTime = String.stringFromDate(self.startTime)
+        let endTime = String.stringFromDate(self.endTime)
         
         return jsonify([
             "id" ~~> id,
             "address" ~~> address,
-            "laitude" ~~> latitude,
+            "latitude" ~~> latitude,
             "longitude" ~~> longitude,
-            "fromTime" ~~> fromTime,
-            "toTime" ~~> toTime,
+            "startTime" ~~> startTime,
+            "endTime" ~~> endTime,
             "items" ~~> items,
             "fromPrice" ~~> fromPrice,
             "toPrice" ~~> toPrice,
             "photos" ~~> photos,
-            "created" ~~> created
+            "owner" ~~> owner,
+            "active" ~~> active
         ])
     }
 

@@ -22,8 +22,6 @@ class DataReference {
     private let YARD_SALES_REF = FIRDatabase.database().reference().child("yardSales")
     private let ACTIVE_YARD_SALES_REF = FIRDatabase.database().reference().child("active")
     private let GROUPS_REF = FIRDatabase.database().reference().child("groups")
-    private var CURRENT_USER: FIRUser?
-    private var USER_PROFILE: Profile?
     
     var baseRef: FIRDatabaseReference {
         return BASE_REF
@@ -49,58 +47,16 @@ class DataReference {
         return GROUPS_REF
     }
     
-    var currentUser: FIRUser? {
-        if let user = CURRENT_USER {
-            return user
-        } else {
-            return nil
-        }
+    func userImagesRef(uid: String) -> FIRStorageReference {
+        return baseStorageRef.child(uid).child("images")
     }
     
-    var userProfile: Profile? {
-        return USER_PROFILE
+    func profileImageRef(uid: String) -> FIRStorageReference {
+        return userImagesRef(uid).child("profile").child("profile.jpg")
     }
     
-    var userStorageRef: FIRStorageReference {
-        return baseStorageRef.child((currentUser?.uid)!)
-    }
-    
-    var userImagesRef: FIRStorageReference {
-        return userStorageRef.child("images")
-    }
-    
-    var profileImageRef: FIRStorageReference {
-        return userImagesRef.child("profile").child("profile.jpg")
-    }
-    
-    var yardSaleImagesRef: FIRStorageReference {
-        return userImagesRef.child("yardSale")
-    }
-    
-    func setUserProfile(userProfile: FIRUser?) {
-        self.CURRENT_USER = userProfile
-        self.usersRef.child(userProfile!.uid).observeSingleEventOfType(.Value, withBlock: { (snapshot: FIRDataSnapshot) in
-            guard let json = snapshot.value as? JSON else {
-                self.USER_PROFILE = Profile()
-                return
-            }
-            
-            self.USER_PROFILE = Profile(json: json)
-        })
-    }
-    
-    func isUserLoggedIn() -> Bool {
-        return CURRENT_USER != nil
-    }
-    
-    func signOut() {
-        try! FIRAuth.auth()?.signOut()
-        CURRENT_USER = nil
-        USER_PROFILE = nil
-    }
-    
-    func updateUserProfile(userProfile: Profile?) {
-        USER_PROFILE = userProfile
+    func yardSaleImagesRef(uid: String) -> FIRStorageReference {
+        return userImagesRef(uid).child("yardSale")
     }
     
 }

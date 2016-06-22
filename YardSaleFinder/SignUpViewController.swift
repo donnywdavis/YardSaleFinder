@@ -52,7 +52,7 @@ extension SignUpViewController {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func signUpButtonTapped(sender: UIButton) {
+    @IBAction func signUpButtonTapped() {
         guard let email = emailTextField.text, let password = passwordTextField.text, let passwordConfirmation = confirmPasswordTextField.text else {
             return
         }
@@ -81,7 +81,11 @@ extension SignUpViewController {
                     return
                 }
                 
-                self.performSegueWithIdentifier("SignUpToProfileSegue", sender: nil)
+                DataServices.updateCurrentUser(userInfo!)
+                DataServices.getRemoteProfileData(userInfo!.uid, completion: { (userProfile) in
+                    DataServices.updateUserProfile(userProfile!)
+                    self.performSegueWithIdentifier("SignUpToProfileSegue", sender: nil)
+                })
                 
             })
         })
@@ -95,6 +99,26 @@ extension SignUpViewController {
     
     func dismissKeyboardOnTap(tap: UITapGestureRecognizer) {
         view.endEditing(true)
+    }
+    
+}
+
+// MARK: Text Field Delegates
+
+extension SignUpViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if emailTextField.isFirstResponder() {
+            emailTextField.resignFirstResponder()
+            passwordTextField.becomeFirstResponder()
+        } else if passwordTextField.isFirstResponder() {
+            passwordTextField.resignFirstResponder()
+            confirmPasswordTextField.becomeFirstResponder()
+        } else if confirmPasswordTextField.isFirstResponder() {
+            confirmPasswordTextField.resignFirstResponder()
+            signUpButtonTapped()
+        }
+        return true
     }
     
 }
