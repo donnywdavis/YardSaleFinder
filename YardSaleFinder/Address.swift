@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import Gloss
 
-struct Address {
-    var street: String
+struct Address: Decodable, Glossy {
+    var street: String?
     var aptSuite: String?
-    var city: String
-    var state: String
-    var zipCode: Int
+    var city: String?
+    var state: String?
+    var zipCode: String?
     
     var oneLineDescription: String {
         if aptSuite != nil {
@@ -29,5 +30,27 @@ struct Address {
         } else {
             return "\(street)\n\(city), \(state) \(zipCode)"
         }
+    }
+    
+    init?(json: JSON) {
+        guard let address: JSON = json else {
+            return nil
+        }
+        
+        street = "street" <~~ address
+        aptSuite = "aptSuite" <~~ address
+        city = "city" <~~ address
+        state = "state" <~~ address
+        zipCode = "zipCode" <~~ address
+    }
+    
+    func toJSON() -> JSON? {
+        return jsonify([
+            "street" ~~> street,
+            "aptSuite" ~~> aptSuite,
+            "city" ~~> city,
+            "state" ~~> state,
+            "zipCode" ~~> zipCode
+            ])
     }
 }

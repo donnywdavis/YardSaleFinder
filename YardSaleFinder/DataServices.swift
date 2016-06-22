@@ -118,7 +118,7 @@ class DataServices: AnyObject {
         var newYardSale = yardSale
         let newKey = DataReference.sharedInstance.yardSalesRef.childByAutoId().key
         newYardSale.id = newKey
-        newYardSale.annotation = Annotation(title: "Yard Sale", subtitle: newYardSale.address, coordinate: newYardSale.location!, id: newYardSale.id)
+        newYardSale.annotation = Annotation(title: "Yard Sale", subtitle: newYardSale.address?.oneLineDescription, coordinate: newYardSale.location!, id: newYardSale.id)
         DataServices.usersYardSales?.append(newYardSale)
         DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("yardSales").child(newKey).setValue(true)
         DataReference.sharedInstance.yardSalesRef.child(newKey).updateChildValues(newYardSale.toJSON()!)

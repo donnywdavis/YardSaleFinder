@@ -223,27 +223,17 @@ extension YardSaleDetailTableViewController {
         activityIndicator.startAnimating()
         
         var newYardSale = YardSale()
-        if streetTextField.text != "" {
-            newYardSale.address = "\(streetTextField.text!):"
-        }
-        if aptSuiteTextField.text != "" {
-            newYardSale.address = "\(newYardSale.address!)\(aptSuiteTextField.text!):"
-        }
-        if cityTextField.text != "" {
-            newYardSale.address = "\(newYardSale.address!)\(cityTextField.text!), "
-        }
-        if stateTextField.text != "" {
-            newYardSale.address = "\(newYardSale.address!)\(stateTextField.text!) "
-        }
-        if zipCodeTextField.text != "" {
-            newYardSale.address = "\(newYardSale.address!)\(zipCodeTextField.text!)"
-        }
+        newYardSale.address?.street = streetTextField.text
+        newYardSale.address?.aptSuite = aptSuiteTextField.text
+        newYardSale.address?.city = cityTextField.text
+        newYardSale.address?.state = stateTextField.text
+        newYardSale.address?.zipCode = zipCodeTextField.text
         newYardSale.startTime = startTimePicker.date
         newYardSale.endTime = endTimePicker.date
         newYardSale.active = activeSwitch.on
         
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(newYardSale.address!) { (placemarks, error) in
+        geoCoder.geocodeAddressString(newYardSale.address!.oneLineDescription) { (placemarks, error) in
             let placemark = placemarks?.last
             newYardSale.location = CLLocationCoordinate2DMake((placemark?.location?.coordinate.latitude)!, (placemark?.location?.coordinate.longitude)!)
             DataServices.addNewYardSale(newYardSale) {
