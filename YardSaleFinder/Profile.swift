@@ -13,7 +13,7 @@ import CoreLocation
 struct Profile: Decodable, Glossy {
     var id: String?
     var name: String?
-    var address: String?
+    var address: Address?
     var location: CLLocationCoordinate2D?
     var yardSales: [String: Bool]?
     
@@ -28,7 +28,9 @@ struct Profile: Decodable, Glossy {
     init?(json: JSON) {
         id = "id" <~~ json
         name = "name" <~~ json
-        address = "address" <~~ json
+        if let addressJSON: JSON = "address" <~~ json {
+            address = Address(json: addressJSON)
+        }
         if let latitude: Double = "latitude" <~~ json, let longitude: Double = "longitude" <~~ json {
             location = CLLocationCoordinate2DMake(latitude, longitude)
         }
@@ -42,7 +44,7 @@ struct Profile: Decodable, Glossy {
         return jsonify([
             "id" ~~> id,
             "name" ~~> name,
-            "address" ~~> address,
+            "address" ~~> address?.toJSON(),
             "latitude" ~~> latitude,
             "longitude" ~~> longitude,
             "yardSales" ~~> yardSales,

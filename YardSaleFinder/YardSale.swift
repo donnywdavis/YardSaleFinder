@@ -12,7 +12,7 @@ import CoreLocation
 
 struct YardSale: Decodable, Glossy {
     var id: String?
-    var address: String?
+    var address: Address?
     var location: CLLocationCoordinate2D?
     var annotation: Annotation?
     var startTime: NSDate?
@@ -30,14 +30,16 @@ struct YardSale: Decodable, Glossy {
     
     init?(json: JSON) {
         id = "id" <~~ json
-        address = "address" <~~ json
+        if let addressJSON: JSON = "address" <~~ json {
+            address = Address(json: addressJSON)
+        }
         if let latitude: Double = "latitude" <~~ json, let longitude: Double = "longitude" <~~ json {
             location = CLLocationCoordinate2DMake(latitude, longitude)
         } else {
             location = nil
         }
         if location != nil {
-            annotation = Annotation(title: "Yard Sale", subtitle: address, coordinate: location!, id: id)
+            annotation = Annotation(title: "Yard Sale", subtitle: address?.oneLineDescription, coordinate: location!, id: id)
         }
         startTime = NSDate.dateFromString("startTime" <~~ json)
         endTime = NSDate.dateFromString("endTime" <~~ json)
@@ -61,7 +63,7 @@ struct YardSale: Decodable, Glossy {
         
         return jsonify([
             "id" ~~> id,
-            "address" ~~> address,
+            "address" ~~> address?.toJSON(),
             "latitude" ~~> latitude,
             "longitude" ~~> longitude,
             "startTime" ~~> startTime,

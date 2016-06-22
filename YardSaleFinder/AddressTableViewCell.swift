@@ -34,7 +34,7 @@ class AddressTableViewCell: UITableViewCell {
 extension AddressTableViewCell {
     
     func configureCell(yardSale: YardSale) {
-        addressLabel.text = yardSale.address?.stringByReplacingOccurrencesOfString(":", withString: "\n")
+        addressLabel.text = yardSale.address?.multiLineDescription
     }
     
 }
