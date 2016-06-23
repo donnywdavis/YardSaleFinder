@@ -25,6 +25,8 @@ class YardSaleDetailTableViewController: UITableViewController {
     
     // MARK: Properties
     
+    let dateFormatter = NSDateFormatter()
+    
     var yardSale: YardSale?
     var isDatePickerVisible = false
     var isStartTimePickerVisible = false
@@ -49,8 +51,8 @@ class YardSaleDetailTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = saveBarButtonItem
         
         datePicker.minimumDate = NSDate()
-        startTimePicker.minimumDate = NSDate()
-        endTimePicker.minimumDate = NSDate()
+        startTimePicker.minimumDate = datePicker.date
+        endTimePicker.minimumDate = datePicker.date
 
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
@@ -66,10 +68,13 @@ class YardSaleDetailTableViewController: UITableViewController {
         let dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))
         let startTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 2))
         let endTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 2))
-            
-        dateCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .MediumStyle, timeStyle: .NoStyle)
-        startTimeCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
-        endTimeCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.endTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+        
+        dateCell?.detailTextLabel?.text = dateFormatter.formatDate(yardSale.startTime)
+        startTimeCell?.detailTextLabel?.text = dateFormatter.formatTime(yardSale.startTime)!
+        endTimeCell?.detailTextLabel?.text = dateFormatter.formatTime(yardSale.endTime)
+//        dateCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .MediumStyle, timeStyle: .NoStyle)
+//        startTimeCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+//        endTimeCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.endTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
     }
 
 }
@@ -175,15 +180,18 @@ extension YardSaleDetailTableViewController {
     func updateDateTimeLabel(cell: UITableViewCell, row: Int) {
         switch row {
         case 0:
-            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(datePicker.date, dateStyle: .MediumStyle, timeStyle: .NoStyle)
+            cell.detailTextLabel?.text = dateFormatter.formatDate(datePicker.date)
+//            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(datePicker.date, dateStyle: .MediumStyle, timeStyle: .NoStyle)
             startTimePicker.date = datePicker.date
             endTimePicker.date = datePicker.date
             
         case 2:
-            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(startTimePicker.date, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+            cell.detailTextLabel?.text = dateFormatter.formatTime(startTimePicker.date)
+//            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(startTimePicker.date, dateStyle: .NoStyle, timeStyle: .ShortStyle)
             
         case 4:
-            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(endTimePicker.date, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+            cell.detailTextLabel?.text = dateFormatter.formatTime(endTimePicker.date)
+//            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(endTimePicker.date, dateStyle: .NoStyle, timeStyle: .ShortStyle)
             
         default:
             return
