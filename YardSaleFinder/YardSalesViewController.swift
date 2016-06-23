@@ -26,15 +26,20 @@ class YardSalesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let yardSales = DataServices.usersYardSales {
-            self.yardSales = yardSales
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        DataServices.getYardSalesForOwner(DataServices.currentUser!.uid, success: { (yardSales) in
+            self.yardSales = yardSales!
+            self.tableView.reloadData()
+            }, failure: { (error) in
+                self.yardSales = [YardSale]()
+                self.tableView.reloadData()
+        })
     }
 
 }

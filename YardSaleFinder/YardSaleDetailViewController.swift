@@ -78,6 +78,10 @@ class YardSaleDetailTableViewController: UITableViewController {
         stateTextField.text = yardSale.address?.state
         zipCodeTextField.text = yardSale.address?.zipCode
         
+        datePicker.setDate(yardSale.startTime!, animated: false)
+        startTimePicker.setDate(yardSale.startTime!, animated: false)
+        endTimePicker.setDate(yardSale.endTime!, animated: false)
+        
         let dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))
         let startTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 2))
         let endTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 2))
@@ -238,6 +242,10 @@ extension YardSaleDetailTableViewController {
         activityIndicator.startAnimating()
         
         var yardSale = YardSale()
+        if let currentYardSale = self.yardSale {
+            yardSale = currentYardSale
+        }
+        
         yardSale.address = Address(street: streetTextField.text, aptSuite: aptSuiteTextField.text, city: cityTextField.text, state: stateTextField.text, zipCode: zipCodeTextField.text)
         yardSale.startTime = startTimePicker.date
         yardSale.endTime = endTimePicker.date
