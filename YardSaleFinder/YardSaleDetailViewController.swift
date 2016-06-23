@@ -247,9 +247,16 @@ extension YardSaleDetailTableViewController {
         geoCoder.geocodeAddressString(yardSale.address!.oneLineDescription) { (placemarks, error) in
             let placemark = placemarks?.last
             yardSale.location = CLLocationCoordinate2DMake((placemark?.location?.coordinate.latitude)!, (placemark?.location?.coordinate.longitude)!)
-            DataServices.addNewYardSale(yardSale) {
-                self.activityIndicator.stopAnimating()
-                self.dismissViewControllerAnimated(true, completion: nil)
+            if self.yardSale == nil {
+                DataServices.addNewYardSale(yardSale) {
+                    self.activityIndicator.stopAnimating()
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            } else {
+                DataServices.updateYardSale(yardSale) {
+                    self.activityIndicator.stopAnimating()
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
             }
         }
         

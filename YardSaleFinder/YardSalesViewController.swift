@@ -51,11 +51,8 @@ extension YardSalesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("YardSaleCell", forIndexPath: indexPath) as! YardSaleDateTableViewCell
         
         let yardSale = yardSales[indexPath.row]
-//        let startTime = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
-//        let endTime = NSDateFormatter.localizedStringFromDate(yardSale.endTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
         
         cell.configureCell(yardSale.formattedDateTime)
-//        cell.configureCell("\(dateFormatter.formatDate(yardSale.startTime)!)\n\(dateFormatter.formatTime(yardSale.startTime)!)-\(endTime)")
         
         return cell
     }

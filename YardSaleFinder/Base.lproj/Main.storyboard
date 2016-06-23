@@ -228,6 +228,10 @@
                                                 <constraint firstItem="gcm-Zq-fWm" firstAttribute="centerY" secondItem="KgE-FJ-mUb" secondAttribute="centerY" id="soE-Ek-1aO"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Rzb-d4-ale" appends="YES" id="Zn0-k9-Gq9"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NameCell" rowHeight="60" id="wql-zG-8pJ">
                                         <rect key="frame" x="0.0" y="154" width="600" height="60"/>
@@ -422,10 +426,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4MA-ZH-UfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="VY4-qx-aRK" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="kGO-Ki-4K1">
+                <tapGestureRecognizer id="Rzb-d4-ale">
                     <connections>
-                        <action selector="profileTapGesture:" destination="z0n-Ji-Vbi" id="AXD-zK-qHx"/>
-                        <outlet property="delegate" destination="gcm-Zq-fWm" id="SwS-WP-rek"/>
+                        <action selector="profileTapGesture:" destination="z0n-Ji-Vbi" id="MHp-Bg-Cdv"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

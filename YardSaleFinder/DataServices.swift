@@ -128,4 +128,15 @@ class DataServices: AnyObject {
         
         completion()
     }
+    
+    class func updateYardSale(yardSale: YardSale, completion: () -> Void) {
+        var newYardSale = yardSale
+        newYardSale.annotation = Annotation(title: "Yard Sale", subtitle: newYardSale.address?.oneLineDescription, coordinate: newYardSale.location!, id: newYardSale.id)
+        DataReference.sharedInstance.yardSalesRef.child(newYardSale.id!).updateChildValues(newYardSale.toJSON()!)
+        if newYardSale.active! {
+            DataReference.sharedInstance.activeYardSalesRef.child(newYardSale.id!).setValue(true)
+        } else {
+            DataReference.sharedInstance.activeYardSalesRef.child(newYardSale.id!).removeValue()
+        }
+    }
 }
