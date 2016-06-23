@@ -12,6 +12,7 @@
 		4193CD591D075497008685AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD581D075497008685AF /* Assets.xcassets */; };
 		4193CD5C1D075497008685AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD5A1D075497008685AF /* LaunchScreen.storyboard */; };
 		41A9AA9F1D1B73B900978684 /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A9AA9E1D1B73B900978684 /* ProfileTableViewController.swift */; };
+		41AA2BFD1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AA2BFC1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift */; };
 		41AD58011D0A01DD00E26DF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */; };
 		41AD58081D0A02D600E26DF8 /* DataReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD58071D0A02D600E26DF8 /* DataReference.swift */; };
 		41AD580B1D0A058900E26DF8 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580A1D0A058900E26DF8 /* Profile.swift */; };
@@ -38,7 +39,6 @@
 		41F1993A1D12E2EB00878AF0 /* DirectoryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F199391D12E2EB00878AF0 /* DirectoryServices.swift */; };
 		41F1993E1D12E3F300878AF0 /* MessageServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F1993D1D12E3F300878AF0 /* MessageServices.swift */; };
 		41F199421D1352ED00878AF0 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F199411D1352ED00878AF0 /* LaunchViewController.swift */; };
-		41F76EC81D10753A008C329D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41F76EC71D10753A008C329D /* ProfileViewController.swift */; };
 		928BF218AB76FF6170D313B5 /* Pods_YardSaleFinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +50,7 @@
 		4193CD5B1D075497008685AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4193CD5D1D075497008685AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		41A9AA9E1D1B73B900978684 /* ProfileTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		41AA2BFC1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSaleDateTableViewCell.swift; sourceTree = "<group>"; };
 		41AD58001D0A01DD00E26DF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		41AD58071D0A02D600E26DF8 /* DataReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataReference.swift; sourceTree = "<group>"; };
 		41AD580A1D0A058900E26DF8 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		41F199391D12E2EB00878AF0 /* DirectoryServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryServices.swift; sourceTree = "<group>"; };
 		41F1993D1D12E3F300878AF0 /* MessageServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageServices.swift; sourceTree = "<group>"; };
 		41F199411D1352ED00878AF0 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
-		41F76EC71D10753A008C329D /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		800502DB398B446CA8380C0D /* Pods-YardSaleFinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.debug.xcconfig"; sourceTree = "<group>"; };
 		C73DE1C6CD4B3188EE10090D /* Pods-YardSaleFinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YardSaleFinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-YardSaleFinder/Pods-YardSaleFinder.release.xcconfig"; sourceTree = "<group>"; };
 		E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YardSaleFinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +155,7 @@
 				41D937071D0F521D00D37180 /* TimeTableViewCell.swift */,
 				41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */,
 				41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */,
+				41AA2BFC1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -168,7 +169,6 @@
 				41D936FD1D0EE6E400D37180 /* DetailViewController.swift */,
 				41E403021D0F9B8D003E4BF8 /* SignInViewController.swift */,
 				41E403041D0F9EFD003E4BF8 /* SignUpViewController.swift */,
-				41F76EC71D10753A008C329D /* ProfileViewController.swift */,
 				41A9AA9E1D1B73B900978684 /* ProfileTableViewController.swift */,
 				41D717D41D1473EA003A9487 /* YardSalesViewController.swift */,
 				41D717D61D147492003A9487 /* YardSaleDetailViewController.swift */,
@@ -365,13 +365,13 @@
 				41A9AA9F1D1B73B900978684 /* ProfileTableViewController.swift in Sources */,
 				41E37CD51D14AD03001186F2 /* DataServices.swift in Sources */,
 				4193CD521D075497008685AF /* AppDelegate.swift in Sources */,
+				41AA2BFD1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift in Sources */,
 				41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */,
 				41B603351D1AC25800BDE76E /* Address.swift in Sources */,
 				41F199421D1352ED00878AF0 /* LaunchViewController.swift in Sources */,
 				41E403051D0F9EFD003E4BF8 /* SignUpViewController.swift in Sources */,
 				41D937021D0F079200D37180 /* AddressTableViewCell.swift in Sources */,
 				41E403031D0F9B8D003E4BF8 /* SignInViewController.swift in Sources */,
-				41F76EC81D10753A008C329D /* ProfileViewController.swift in Sources */,
 				41D937001D0EEDA800D37180 /* MapTableViewCell.swift in Sources */,
 				41D9370A1D0F55A800D37180 /* ItemsTableViewCell.swift in Sources */,
 				41AD58081D0A02D600E26DF8 /* DataReference.swift in Sources */,

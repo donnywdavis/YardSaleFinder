@@ -10,6 +10,8 @@ import Foundation
 import Gloss
 import CoreLocation
 
+private let dateFormatter = NSDateFormatter()
+
 struct YardSale: Decodable, Glossy {
     var id: String?
     var address: Address?
@@ -23,6 +25,22 @@ struct YardSale: Decodable, Glossy {
     var photos: [String]?
     var owner: String?
     var active: Bool?
+    
+    var formattedDate: String {
+        return "\(dateFormatter.formatDate(startTime)!)"
+    }
+    var formattedTime: String {
+        return "\(formattedStartTime) - \(formattedEndTime)"
+    }
+    var formattedStartTime: String {
+        return "\(dateFormatter.formatTime(startTime)!)"
+    }
+    var formattedEndTime: String {
+        return "\(dateFormatter.formatTime(endTime)!)"
+    }
+    var formattedDateTime: String {
+        return "\(formattedDate)\n\(formattedTime)"
+    }
     
     init() {
         owner = DataServices.currentUser?.uid
