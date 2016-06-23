@@ -228,6 +228,10 @@
                                                 <constraint firstItem="gcm-Zq-fWm" firstAttribute="centerY" secondItem="KgE-FJ-mUb" secondAttribute="centerY" id="soE-Ek-1aO"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Rzb-d4-ale" appends="YES" id="Zn0-k9-Gq9"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NameCell" rowHeight="60" id="wql-zG-8pJ">
                                         <rect key="frame" x="0.0" y="154" width="600" height="60"/>
@@ -422,10 +426,9 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4MA-ZH-UfG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="VY4-qx-aRK" userLabel="Exit" sceneMemberID="exit"/>
-                <tapGestureRecognizer id="kGO-Ki-4K1">
+                <tapGestureRecognizer id="Rzb-d4-ale">
                     <connections>
-                        <action selector="profileTapGesture:" destination="z0n-Ji-Vbi" id="AXD-zK-qHx"/>
-                        <outlet property="delegate" destination="gcm-Zq-fWm" id="SwS-WP-rek"/>
+                        <action selector="profileTapGesture:" destination="z0n-Ji-Vbi" id="MHp-Bg-Cdv"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -516,9 +519,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="" id="hX9-TV-n0L">
+                            <tableViewSection headerTitle="" id="hX9-TV-n0L" userLabel="Active">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActiveCell" rowHeight="50" id="MyG-WJ-9e3">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ActiveCell" rowHeight="50" id="MyG-WJ-9e3">
                                         <rect key="frame" x="0.0" y="44" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MyG-WJ-9e3" id="dj3-bR-YJh">
@@ -791,6 +794,34 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="TMd-y7-KrS" userLabel="Delete">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DeleteCell" rowHeight="50" id="ULy-Yo-wWH">
+                                        <rect key="frame" x="0.0" y="1140" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ULy-Yo-wWH" id="iMd-u8-yUD">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8kc-ya-xP7">
+                                                    <rect key="frame" x="274" y="8" width="53" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal" title="Delete">
+                                                        <color key="titleColor" red="0.92941176469999998" green="0.10980392160000001" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteButtonTapped:" destination="UUd-Zt-enw" eventType="touchUpInside" id="pl2-KO-1Ff"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="8kc-ya-xP7" firstAttribute="centerY" secondItem="iMd-u8-yUD" secondAttribute="centerY" id="P7E-rS-EBb"/>
+                                                <constraint firstItem="8kc-ya-xP7" firstAttribute="centerX" secondItem="iMd-u8-yUD" secondAttribute="centerX" id="ZE7-po-v1j"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="UUd-Zt-enw" id="kh1-Vl-ubk"/>
@@ -798,7 +829,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="L5d-OW-h5t">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="u3R-0q-n2P"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="u3R-0q-n2P">
+                            <connections>
+                                <action selector="cancelDoneButtonTapped:" destination="UUd-Zt-enw" id="5Af-Lw-Bsw"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="yl8-qF-xf5"/>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -813,9 +848,11 @@
                         <outlet property="stateTextField" destination="Eez-gs-5Oj" id="mAr-3c-dU8"/>
                         <outlet property="streetTextField" destination="LKT-YP-gcq" id="Xzl-UE-9GX"/>
                         <outlet property="zipCodeTextField" destination="hNI-ss-fvz" id="ymb-xl-Q3I"/>
+                        <segue destination="EYn-d3-3RX" kind="unwind" identifier="UnwindToYardSalesList" unwindAction="unwindToYardSalesList:" id="N7h-LM-H1B"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWI-DF-7XL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="EYn-d3-3RX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="7299" y="845"/>
         </scene>

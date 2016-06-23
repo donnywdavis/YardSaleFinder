@@ -14,7 +14,6 @@ import FirebaseAuth
 class DataServices: AnyObject {
     
     static var userProfile: Profile?
-    static var usersYardSales: [YardSale]?
     static weak var currentUser: FIRUser?
     
     class func isUserLoggedIn() -> Bool {
@@ -62,11 +61,6 @@ class DataServices: AnyObject {
                 return
             }
             
-            getYardSalesForOwner(uid, success: { (yardSales) in
-                self.usersYardSales = yardSales
-                }, failure: { (error) in
-                    self.usersYardSales = [YardSale]()
-            })
             completion(Profile(json: json))
         }
     }
@@ -119,13 +113,34 @@ class DataServices: AnyObject {
         let newKey = DataReference.sharedInstance.yardSalesRef.childByAutoId().key
         newYardSale.id = newKey
         newYardSale.annotation = Annotation(title: "Yard Sale", subtitle: newYardSale.address?.oneLineDescription, coordinate: newYardSale.location!, id: newYardSale.id)
-        DataServices.usersYardSales?.append(newYardSale)
         DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("yardSales").child(newKey).setValue(true)
         DataReference.sharedInstance.yardSalesRef.child(newKey).updateChildValues(newYardSale.toJSON()!)
         if newYardSale.active! {
             DataReference.sharedInstance.activeYardSalesRef.child(newKey).setValue(true)
         }
         
+        completion()
+    }
+    
+    class func updateYardSale(yardSale: YardSale, completion: () -> Void) {
+        var newYardSale = yardSale
+        newYardSale.annotation = Annotation(title: "Yard Sale", subtitle: newYardSale.address?.oneLineDescription, coordinate: newYardSale.location!, id: newYardSale.id)
+        DataReference.sharedInstance.yardSalesRef.child(newYardSale.id!).updateChildValues(newYardSale.toJSON()!)
+        if newYardSale.active! {
+            DataReference.sharedInstance.activeYardSalesRef.child(newYardSale.id!).setValue(true)
+        } else {
+            DataReference.sharedInstance.activeYardSalesRef.child(newYardSale.id!).removeValue()
+        }
+        
+        completion()
+    }
+    
+    class func deleteYardSale(yardSale: YardSale, completion: () -> Void) {
+        if yardSale.active! {
+            DataReference.sharedInstance.activeYardSalesRef.child(yardSale.id!).removeValue()
+        }
+        DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("yardSales").child(yardSale.id!).removeValue()
+        DataReference.sharedInstance.yardSalesRef.child(yardSale.id!).removeValue()
         completion()
     }
 }

@@ -25,13 +25,13 @@ class YardSaleDetailTableViewController: UITableViewController {
     
     // MARK: Properties
     
+    let dateFormatter = NSDateFormatter()
+    
     var yardSale: YardSale?
     var isDatePickerVisible = false
     var isStartTimePickerVisible = false
     var isEndTimePickerVisible = false
     
-    var doneBarButtonItem: UIBarButtonItem?
-    var cancelBarButtonItem: UIBarButtonItem?
     var saveBarButtonItem: UIBarButtonItem?
     var updatingBarButtonItem: UIBarButtonItem?
     var activityIndicator = UIActivityIndicatorView()
@@ -41,21 +41,24 @@ class YardSaleDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(cancelDoneButtonTapped(_:)))
-        cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelDoneButtonTapped(_:)))
         saveBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveButtonTapped(_:)))
         updatingBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-        navigationItem.leftBarButtonItem = cancelBarButtonItem
         navigationItem.rightBarButtonItem = saveBarButtonItem
         
         datePicker.minimumDate = NSDate()
-        startTimePicker.minimumDate = NSDate()
-        endTimePicker.minimumDate = NSDate()
+        startTimePicker.minimumDate = datePicker.date
+        endTimePicker.minimumDate = datePicker.date
 
         tableView.tableFooterView = UIView(frame: CGRectZero)
         
         if let yardSale = yardSale {
             loadDetailData(yardSale)
+        } else if DataServices.userProfile?.address != nil {
+            streetTextField.text = DataServices.userProfile?.address?.street
+            aptSuiteTextField.text = DataServices.userProfile?.address?.aptSuite
+            cityTextField.text = DataServices.userProfile?.address?.city
+            stateTextField.text = DataServices.userProfile?.address?.state
+            zipCodeTextField.text = DataServices.userProfile?.address?.zipCode
         }
     }
     
@@ -63,13 +66,24 @@ class YardSaleDetailTableViewController: UITableViewController {
         if let active = yardSale.active {
             activeSwitch.on = active
         }
+        
+        streetTextField.text = yardSale.address?.street
+        aptSuiteTextField.text = yardSale.address?.aptSuite
+        cityTextField.text = yardSale.address?.city
+        stateTextField.text = yardSale.address?.state
+        zipCodeTextField.text = yardSale.address?.zipCode
+        
+        datePicker.setDate(yardSale.startTime!, animated: false)
+        startTimePicker.setDate(yardSale.startTime!, animated: false)
+        endTimePicker.setDate(yardSale.endTime!, animated: false)
+        
         let dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))
         let startTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 2))
         let endTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 2))
-            
-        dateCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .MediumStyle, timeStyle: .NoStyle)
-        startTimeCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
-        endTimeCell?.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.endTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+        
+        dateCell?.detailTextLabel?.text = dateFormatter.formatDate(yardSale.startTime)
+        startTimeCell?.detailTextLabel?.text = dateFormatter.formatTime(yardSale.startTime)!
+        endTimeCell?.detailTextLabel?.text = dateFormatter.formatTime(yardSale.endTime)
     }
 
 }
@@ -105,9 +119,10 @@ extension YardSaleDetailTableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
+        switch section {
+        case 0, 3 where yardSale == nil:
             return 0.0
-        } else {
+        default:
             return 35.0
         }
     }
@@ -127,13 +142,7 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (2, 1) where !isDatePickerVisible:
-            return 0
-            
-        case (2, 3) where !isStartTimePickerVisible:
-            return 0
-            
-        case (2, 5) where !isEndTimePickerVisible:
+        case (2, 1) where !isDatePickerVisible, (2, 3) where !isStartTimePickerVisible, (2, 5) where !isEndTimePickerVisible, (3, 0) where yardSale == nil:
             return 0
             
         default:
@@ -175,15 +184,15 @@ extension YardSaleDetailTableViewController {
     func updateDateTimeLabel(cell: UITableViewCell, row: Int) {
         switch row {
         case 0:
-            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(datePicker.date, dateStyle: .MediumStyle, timeStyle: .NoStyle)
+            cell.detailTextLabel?.text = dateFormatter.formatDate(datePicker.date)
             startTimePicker.date = datePicker.date
             endTimePicker.date = datePicker.date
             
         case 2:
-            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(startTimePicker.date, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+            cell.detailTextLabel?.text = dateFormatter.formatTime(startTimePicker.date)
             
         case 4:
-            cell.detailTextLabel?.text = NSDateFormatter.localizedStringFromDate(endTimePicker.date, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+            cell.detailTextLabel?.text = dateFormatter.formatTime(endTimePicker.date)
             
         default:
             return
@@ -215,30 +224,44 @@ extension YardSaleDetailTableViewController {
 extension YardSaleDetailTableViewController {
     
     @IBAction func cancelDoneButtonTapped(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
+    }
+    
+    @IBAction func deleteButtonTapped(sender: UIButton) {
+        DataServices.deleteYardSale(yardSale!) {
+            self.performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
+        }
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
+        navigationItem.leftBarButtonItem = UIBarButtonItem()
         navigationItem.rightBarButtonItem = updatingBarButtonItem
         activityIndicator.startAnimating()
         
-        var newYardSale = YardSale()
-        newYardSale.address?.street = streetTextField.text
-        newYardSale.address?.aptSuite = aptSuiteTextField.text
-        newYardSale.address?.city = cityTextField.text
-        newYardSale.address?.state = stateTextField.text
-        newYardSale.address?.zipCode = zipCodeTextField.text
-        newYardSale.startTime = startTimePicker.date
-        newYardSale.endTime = endTimePicker.date
-        newYardSale.active = activeSwitch.on
+        var yardSale = YardSale()
+        if let currentYardSale = self.yardSale {
+            yardSale = currentYardSale
+        }
+        
+        yardSale.address = Address(street: streetTextField.text, aptSuite: aptSuiteTextField.text, city: cityTextField.text, state: stateTextField.text, zipCode: zipCodeTextField.text)
+        yardSale.startTime = startTimePicker.date
+        yardSale.endTime = endTimePicker.date
+        yardSale.active = activeSwitch.on
         
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(newYardSale.address!.oneLineDescription) { (placemarks, error) in
+        geoCoder.geocodeAddressString(yardSale.address!.oneLineDescription) { (placemarks, error) in
             let placemark = placemarks?.last
-            newYardSale.location = CLLocationCoordinate2DMake((placemark?.location?.coordinate.latitude)!, (placemark?.location?.coordinate.longitude)!)
-            DataServices.addNewYardSale(newYardSale) {
-                self.activityIndicator.stopAnimating()
-                self.dismissViewControllerAnimated(true, completion: nil)
+            yardSale.location = CLLocationCoordinate2DMake((placemark?.location?.coordinate.latitude)!, (placemark?.location?.coordinate.longitude)!)
+            if self.yardSale == nil {
+                DataServices.addNewYardSale(yardSale) {
+                    self.activityIndicator.stopAnimating()
+                    self.performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
+                }
+            } else {
+                DataServices.updateYardSale(yardSale) {
+                    self.activityIndicator.stopAnimating()
+                    self.performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
+                }
             }
         }
         

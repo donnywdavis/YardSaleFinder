@@ -26,15 +26,20 @@ class YardSalesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let yardSales = DataServices.usersYardSales {
-            self.yardSales = yardSales
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.tableFooterView = UIView(frame: CGRectZero)
+        
+        DataServices.getYardSalesForOwner(DataServices.currentUser!.uid, success: { (yardSales) in
+            self.yardSales = yardSales!
+            self.tableView.reloadData()
+            }, failure: { (error) in
+                self.yardSales = [YardSale]()
+                self.tableView.reloadData()
+        })
     }
 
 }
@@ -51,11 +56,8 @@ extension YardSalesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("YardSaleCell", forIndexPath: indexPath) as! YardSaleDateTableViewCell
         
         let yardSale = yardSales[indexPath.row]
-//        let startTime = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
-//        let endTime = NSDateFormatter.localizedStringFromDate(yardSale.endTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
         
         cell.configureCell(yardSale.formattedDateTime)
-//        cell.configureCell("\(dateFormatter.formatDate(yardSale.startTime)!)\n\(dateFormatter.formatTime(yardSale.startTime)!)-\(endTime)")
         
         return cell
     }
@@ -80,6 +82,9 @@ extension YardSalesViewController {
                 yardSaleDetailVC.yardSale = yardSales[indexPath.row]
             }
         }
+    }
+    
+    @IBAction func unwindToYardSalesList(segue: UIStoryboardSegue) {
     }
     
 }
