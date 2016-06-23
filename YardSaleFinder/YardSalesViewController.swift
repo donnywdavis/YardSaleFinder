@@ -25,9 +25,6 @@ class YardSalesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        dateFormatter.dateStyle = .MediumStyle
-        dateFormatter.timeStyle = .ShortStyle
         
         if let yardSales = DataServices.usersYardSales {
             self.yardSales = yardSales
@@ -51,13 +48,24 @@ extension YardSalesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("YardSaleCell", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("YardSaleCell", forIndexPath: indexPath) as! YardSaleDateTableViewCell
         
         let yardSale = yardSales[indexPath.row]
+//        let startTime = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
+//        let endTime = NSDateFormatter.localizedStringFromDate(yardSale.endTime!, dateStyle: .NoStyle, timeStyle: .ShortStyle)
         
-        cell.textLabel?.text = NSDateFormatter.localizedStringFromDate(yardSale.startTime!, dateStyle: .MediumStyle, timeStyle: .ShortStyle)
+        cell.configureCell(yardSale.formattedDateTime)
+//        cell.configureCell("\(dateFormatter.formatDate(yardSale.startTime)!)\n\(dateFormatter.formatTime(yardSale.startTime)!)-\(endTime)")
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60.0
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
 }
