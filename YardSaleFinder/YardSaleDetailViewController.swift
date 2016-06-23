@@ -32,8 +32,6 @@ class YardSaleDetailTableViewController: UITableViewController {
     var isStartTimePickerVisible = false
     var isEndTimePickerVisible = false
     
-    var doneBarButtonItem: UIBarButtonItem?
-    var cancelBarButtonItem: UIBarButtonItem?
     var saveBarButtonItem: UIBarButtonItem?
     var updatingBarButtonItem: UIBarButtonItem?
     var activityIndicator = UIActivityIndicatorView()
@@ -43,11 +41,8 @@ class YardSaleDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        doneBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(cancelDoneButtonTapped(_:)))
-        cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelDoneButtonTapped(_:)))
         saveBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveButtonTapped(_:)))
         updatingBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-        navigationItem.leftBarButtonItem = cancelBarButtonItem
         navigationItem.rightBarButtonItem = saveBarButtonItem
         
         datePicker.minimumDate = NSDate()
@@ -124,9 +119,10 @@ extension YardSaleDetailTableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
+        switch section {
+        case 0, 3 where yardSale == nil:
             return 0.0
-        } else {
+        default:
             return 35.0
         }
     }
@@ -146,13 +142,7 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (2, 1) where !isDatePickerVisible:
-            return 0
-            
-        case (2, 3) where !isStartTimePickerVisible:
-            return 0
-            
-        case (2, 5) where !isEndTimePickerVisible:
+        case (2, 1) where !isDatePickerVisible, (2, 3) where !isStartTimePickerVisible, (2, 5) where !isEndTimePickerVisible, (3, 0) where yardSale == nil:
             return 0
             
         default:
@@ -234,10 +224,17 @@ extension YardSaleDetailTableViewController {
 extension YardSaleDetailTableViewController {
     
     @IBAction func cancelDoneButtonTapped(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
+    }
+    
+    @IBAction func deleteButtonTapped(sender: UIButton) {
+        DataServices.deleteYardSale(yardSale!) {
+            self.performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
+        }
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
+        navigationItem.leftBarButtonItem = UIBarButtonItem()
         navigationItem.rightBarButtonItem = updatingBarButtonItem
         activityIndicator.startAnimating()
         
@@ -258,12 +255,12 @@ extension YardSaleDetailTableViewController {
             if self.yardSale == nil {
                 DataServices.addNewYardSale(yardSale) {
                     self.activityIndicator.stopAnimating()
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
                 }
             } else {
                 DataServices.updateYardSale(yardSale) {
                     self.activityIndicator.stopAnimating()
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
                 }
             }
         }

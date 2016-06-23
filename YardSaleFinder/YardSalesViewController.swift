@@ -84,4 +84,7 @@ extension YardSalesViewController {
         }
     }
     
+    @IBAction func unwindToYardSalesList(segue: UIStoryboardSegue) {
+    }
+    
 }

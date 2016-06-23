@@ -134,4 +134,13 @@ class DataServices: AnyObject {
         
         completion()
     }
+    
+    class func deleteYardSale(yardSale: YardSale, completion: () -> Void) {
+        if yardSale.active! {
+            DataReference.sharedInstance.activeYardSalesRef.child(yardSale.id!).removeValue()
+        }
+        DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("yardSales").child(yardSale.id!).removeValue()
+        DataReference.sharedInstance.yardSalesRef.child(yardSale.id!).removeValue()
+        completion()
+    }
 }
