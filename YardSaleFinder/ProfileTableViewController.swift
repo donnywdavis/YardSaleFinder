@@ -23,14 +23,8 @@ class ProfileTableViewController: UITableViewController {
     // MARK: Properties
     
     var imagePicker = UIImagePickerController()
-    var updatedUserProfile: Profile? = Profile()
-    var userProfile: Profile? {
-        didSet {
-            updatedUserProfile = userProfile
-        }
-    }
+    var userProfile: Profile?
     
-    var tapGesture = UITapGestureRecognizer()
     var isEditingProfile = false
     
     var editBarButtonItem: UIBarButtonItem?
@@ -56,22 +50,14 @@ class ProfileTableViewController: UITableViewController {
         
         imagePicker.delegate = self
         
-        tapGesture.addTarget(self, action: #selector(profileTapGesture(_:)))
-        
         userProfile = DataServices.userProfile
         
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.layer.borderColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0).CGColor
         profileImageView.layer.borderWidth = 4.0
         profileImageView.clipsToBounds = true
-        profileImageView.addGestureRecognizer(tapGesture)
         
-        nameTextField.enabled = false
-        streetTextField.enabled = false
-        aptSuiteTextField.enabled = false
-        cityTextField.enabled = false
-        stateTextField.enabled = false
-        zipCodeTextField.enabled = false
+        allowTextFieldsToBeEditable(false)
         
         loadProfileData()
     }
@@ -92,14 +78,35 @@ class ProfileTableViewController: UITableViewController {
         return 5
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 3 where isEditingProfile, 4 where isEditingProfile:
+            return 0
+            
+        default:
+            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+        }
+    }
+    
+    
+    // MARK: Utility Functions
     func loadProfileData() {
         profileImageView.image = UIImage(contentsOfFile: DirectoryServices.getImagePath())
         nameTextField.text = userProfile?.name
         streetTextField.text = userProfile?.address?.street
         aptSuiteTextField.text = userProfile?.address?.aptSuite
         cityTextField.text = userProfile?.address?.city
-        stateTextField.text = userProfile?.address?.street
+        stateTextField.text = userProfile?.address?.state
         zipCodeTextField.text = userProfile?.address?.zipCode
+    }
+    
+    func allowTextFieldsToBeEditable(editable: Bool) {
+        nameTextField.enabled = editable
+        streetTextField.enabled = editable
+        aptSuiteTextField.enabled = editable
+        cityTextField.enabled = editable
+        stateTextField.enabled = editable
+        zipCodeTextField.enabled = editable
     }
 
 }
@@ -121,7 +128,7 @@ extension ProfileTableViewController {
             }
             let removePhoto = UIAlertAction(title: "Remove Photo", style: .Default, handler: { (action) in
                 DirectoryServices.removeImage()
-                DataServices.removeRemoteProfileImage(self.updatedUserProfile!.id!, completion: { (error) in
+                DataServices.removeRemoteProfileImage(self.userProfile!.id!, completion: { (error) in
                 })
                 self.tableView.reloadData()
             })
@@ -165,21 +172,17 @@ extension ProfileTableViewController: UIImagePickerControllerDelegate, UINavigat
 
 extension ProfileTableViewController {
     
-    @IBAction func logoutButtonTapped(sender: UIBarButtonItem) {
+    @IBAction func logoutButtonTapped(sender: UIButton) {
         DataServices.signOut()
         performSegueWithIdentifier("UnwindToMapSegue", sender: nil)
     }
     
     @IBAction func editButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = true
-        nameTextField.enabled = true
-        streetTextField.enabled = true
-        aptSuiteTextField.enabled = true
-        cityTextField.enabled = true
-        stateTextField.enabled = true
-        zipCodeTextField.enabled = true
+        allowTextFieldsToBeEditable(true)
         navigationItem.setLeftBarButtonItem(cancelBarButtonItem, animated: true)
         navigationItem.setRightBarButtonItem(saveBarButtonItem, animated: true)
+        tableView.reloadData()
     }
     
     @IBAction func doneButtonTapped(sender: UIBarButtonItem) {
@@ -190,23 +193,25 @@ extension ProfileTableViewController {
         if DirectoryServices.tempProfileImageExists() {
             DirectoryServices.removeTempImage()
         }
+        loadProfileData()
         isEditingProfile = false
+        allowTextFieldsToBeEditable(false)
         navigationItem.setLeftBarButtonItem(editBarButtonItem, animated: true)
         navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: true)
+        
+        view.endEditing(true)
+        tableView.reloadData()
     }
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = false
+        allowTextFieldsToBeEditable(false)
         cancelBarButtonItem?.enabled = false
         navigationItem.setRightBarButtonItem(updatingBarButtonItem, animated: true)
         activityIndicator.startAnimating()
         
-        updatedUserProfile?.name = nameTextField.text
-        updatedUserProfile?.address?.street = streetTextField.text
-        updatedUserProfile?.address?.aptSuite = aptSuiteTextField.text
-        updatedUserProfile?.address?.city = cityTextField.text
-        updatedUserProfile?.address?.state = stateTextField.text
-        updatedUserProfile?.address?.zipCode = zipCodeTextField.text
+        userProfile?.name = nameTextField.text
+        userProfile?.address = Address(street: streetTextField.text, aptSuite: aptSuiteTextField.text, city: cityTextField.text, state: stateTextField.text, zipCode: zipCodeTextField.text)
         
         if DirectoryServices.tempProfileImageExists() {
             let tempImage = UIImage(contentsOfFile: DirectoryServices.getTempImagePath())
@@ -214,15 +219,17 @@ extension ProfileTableViewController {
             DirectoryServices.removeTempImage()
         }
         
-        DataServices.updateUserProfile(updatedUserProfile!)
-        DataServices.updateRemoteUserProfile(updatedUserProfile!)
+        DataServices.updateUserProfile(userProfile!)
+        DataServices.updateRemoteUserProfile(userProfile!)
         
         if DirectoryServices.profileImageExists() {
-            DataServices.uploadProfileImage(updatedUserProfile!.id!, fromPath: NSURL(fileURLWithPath: DirectoryServices.getImagePath()), completion: { (metadata, error) in
+            DataServices.uploadProfileImage(userProfile!.id!, fromPath: NSURL(fileURLWithPath: DirectoryServices.getImagePath()), completion: { (metadata, error) in
                 self.activityIndicator.stopAnimating()
                 self.cancelBarButtonItem?.enabled = true
                 self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
                 self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
+                self.view.endEditing(true)
+                self.tableView.reloadData()
             })
         }
     }

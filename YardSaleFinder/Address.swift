@@ -32,6 +32,14 @@ struct Address: Decodable, Glossy {
         }
     }
     
+    init(street: String?, aptSuite: String?, city: String?, state: String?, zipCode: String?) {
+        self.street = street
+        self.aptSuite = aptSuite
+        self.city = city
+        self.state = state
+        self.zipCode = zipCode
+    }
+    
     init?(json: JSON) {
         guard let address: JSON = json else {
             return nil
