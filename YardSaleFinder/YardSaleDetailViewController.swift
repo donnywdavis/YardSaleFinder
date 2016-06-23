@@ -122,6 +122,8 @@ extension YardSaleDetailTableViewController {
         switch section {
         case 0, 3 where yardSale == nil:
             return 0.0
+        case 3:
+            return 10.0
         default:
             return 35.0
         }
