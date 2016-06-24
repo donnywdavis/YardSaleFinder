@@ -25,7 +25,7 @@ class DataReference {
     private let YARD_SALES_REF = FIRDatabase.database().reference().child("yardSales")
     private let ACTIVE_YARD_SALES_REF = FIRDatabase.database().reference().child("active")
     private let GROUPS_REF = FIRDatabase.database().reference().child("groups")
-    private let GEOFIRE_REF = GeoFire(firebaseRef: sharedInstance.baseRef)
+    private let GEOFIRE_REF = GeoFire(firebaseRef: FIRDatabase.database().reference().child("locations"))
     
     var baseRef: FIRDatabaseReference {
         return BASE_REF

@@ -10,6 +10,7 @@ import UIKit
 import Gloss
 import Firebase
 import FirebaseAuth
+import CoreLocation
 
 enum BookmarkActions {
     case Add
@@ -122,6 +123,7 @@ class DataServices: AnyObject {
         DataReference.sharedInstance.yardSalesRef.child(newKey).updateChildValues(newYardSale.toJSON()!)
         if newYardSale.active! {
             DataReference.sharedInstance.activeYardSalesRef.child(newKey).setValue(true)
+            DataReference.sharedInstance.geoFireRef.setLocation(CLLocation(latitude: newYardSale.location!.latitude, longitude: newYardSale.location!.longitude), forKey: newKey)
         }
         
         completion()
@@ -133,8 +135,10 @@ class DataServices: AnyObject {
         DataReference.sharedInstance.yardSalesRef.child(newYardSale.id!).updateChildValues(newYardSale.toJSON()!)
         if newYardSale.active! {
             DataReference.sharedInstance.activeYardSalesRef.child(newYardSale.id!).setValue(true)
+            DataReference.sharedInstance.geoFireRef.setLocation(CLLocation(latitude: newYardSale.location!.latitude, longitude: newYardSale.location!.longitude), forKey: newYardSale.id!)
         } else {
             DataReference.sharedInstance.activeYardSalesRef.child(newYardSale.id!).removeValue()
+            DataReference.sharedInstance.geoFireRef.removeKey(newYardSale.id!)
         }
         
         completion()
@@ -143,6 +147,7 @@ class DataServices: AnyObject {
     class func deleteYardSale(yardSale: YardSale, completion: () -> Void) {
         if yardSale.active! {
             DataReference.sharedInstance.activeYardSalesRef.child(yardSale.id!).removeValue()
+            DataReference.sharedInstance.geoFireRef.removeKey(yardSale.id)
         }
         DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("yardSales").child(yardSale.id!).removeValue()
         DataReference.sharedInstance.yardSalesRef.child(yardSale.id!).removeValue()
