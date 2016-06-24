@@ -25,10 +25,16 @@ class DetailTableViewController: UITableViewController {
     var yardSaleID: String?
     var yardSale: YardSale?
     
+    var bookmarkUncheckedBarButtonItem: UIBarButtonItem?
+    var bookmarkCheckedBarButtonItem: UIBarButtonItem?
+    
     // MARK: View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bookmarkCheckedBarButtonItem = UIBarButtonItem(image: UIImage(named: "bookmark_checked"), style: .Plain, target: self, action: #selector(bookmarkItem(_:)))
+        bookmarkUncheckedBarButtonItem = UIBarButtonItem(image: UIImage(named: "bookmark_unchecked"), style: .Plain, target: self, action: #selector(bookmarkItem(_:)))
 
     }
     
@@ -41,7 +47,7 @@ class DetailTableViewController: UITableViewController {
             DataReference.sharedInstance.yardSalesRef.child(yardSaleID).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
                 self.yardSale = YardSale(json: snapshot.value as! JSON)
                 self.loadYardSaleDetail()
-//                self.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }
@@ -51,6 +57,12 @@ class DetailTableViewController: UITableViewController {
             return
         }
         
+        if DataServices.yardSaleIsBookmarked(yardSale.id!) {
+            navigationItem.rightBarButtonItem = bookmarkCheckedBarButtonItem
+        } else {
+            navigationItem.rightBarButtonItem = bookmarkUncheckedBarButtonItem
+        }
+        
         mapView.addAnnotation(yardSale.annotation!)
         centerOnLocation(CLLocation(latitude: yardSale.location!.latitude, longitude: yardSale.location!.longitude))
         addressLabel.text = yardSale.address?.multiLineDescription
@@ -58,6 +70,31 @@ class DetailTableViewController: UITableViewController {
         timeLabel.text = yardSale.formattedTime
     }
 
+}
+
+// MARK: Button Actions
+
+extension DetailTableViewController {
+    
+    func bookmarkItem(sender: UIBarButtonItem) {
+        guard let yardSaleID = yardSale?.id else {
+            return
+        }
+        
+        switch sender {
+        case bookmarkCheckedBarButtonItem!:
+            DataServices.bookmarkForUser(yardSaleID, action: BookmarkActions.Remove)
+            navigationItem.rightBarButtonItem = bookmarkUncheckedBarButtonItem
+            
+        case bookmarkUncheckedBarButtonItem!:
+            DataServices.bookmarkForUser(yardSaleID, action: BookmarkActions.Add)
+            navigationItem.rightBarButtonItem = bookmarkCheckedBarButtonItem
+            
+        default:
+            return
+        }
+    }
+    
 }
 
 // MARK: Table View Data Source

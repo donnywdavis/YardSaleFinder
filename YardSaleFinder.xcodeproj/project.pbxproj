@@ -19,6 +19,8 @@
 		41AD580B1D0A058900E26DF8 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580A1D0A058900E26DF8 /* Profile.swift */; };
 		41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580D1D0A082100E26DF8 /* DateExtensions.swift */; };
 		41AD58101D0A140E00E26DF8 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */; };
+		41AF3AAE1D1D769B00EB5BD6 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AF3AAD1D1D769B00EB5BD6 /* BookmarksViewController.swift */; };
+		41AF3AB01D1D79F500EB5BD6 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41AF3AAF1D1D79F500EB5BD6 /* BookmarkTableViewCell.swift */; };
 		41B20D821D0AE83E00B6F988 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B20D811D0AE83E00B6F988 /* MapViewController.swift */; };
 		41B20D841D0B38D200B6F988 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B20D831D0B38D200B6F988 /* Annotation.swift */; };
 		41B603351D1AC25800BDE76E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B603341D1AC25800BDE76E /* Address.swift */; };
@@ -58,6 +60,8 @@
 		41AD580A1D0A058900E26DF8 /* Profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		41AD580D1D0A082100E26DF8 /* DateExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		41AD580F1D0A140E00E26DF8 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		41AF3AAD1D1D769B00EB5BD6 /* BookmarksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
+		41AF3AAF1D1D79F500EB5BD6 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		41B20D811D0AE83E00B6F988 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		41B20D831D0B38D200B6F988 /* Annotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
 		41B603341D1AC25800BDE76E /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 				41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */,
 				41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */,
 				41AA2BFC1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift */,
+				41AF3AAF1D1D79F500EB5BD6 /* BookmarkTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 				41A9AA9E1D1B73B900978684 /* ProfileTableViewController.swift */,
 				41D717D41D1473EA003A9487 /* YardSalesViewController.swift */,
 				41D717D61D147492003A9487 /* YardSaleDetailViewController.swift */,
+				41AF3AAD1D1D769B00EB5BD6 /* BookmarksViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -360,6 +366,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41AF3AAE1D1D769B00EB5BD6 /* BookmarksViewController.swift in Sources */,
 				41AD58101D0A140E00E26DF8 /* StringExtensions.swift in Sources */,
 				41AD580B1D0A058900E26DF8 /* Profile.swift in Sources */,
 				41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */,
@@ -370,6 +377,7 @@
 				41E37CD51D14AD03001186F2 /* DataServices.swift in Sources */,
 				4193CD521D075497008685AF /* AppDelegate.swift in Sources */,
 				41AA2BFD1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift in Sources */,
+				41AF3AB01D1D79F500EB5BD6 /* BookmarkTableViewCell.swift in Sources */,
 				41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */,
 				41B603351D1AC25800BDE76E /* Address.swift in Sources */,
 				41F199421D1352ED00878AF0 /* LaunchViewController.swift in Sources */,
