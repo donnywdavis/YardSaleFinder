@@ -11,6 +11,11 @@ import Gloss
 import Firebase
 import FirebaseAuth
 
+enum BookmarkActions {
+    case Add
+    case Remove
+}
+
 class DataServices: AnyObject {
     
     static var userProfile: Profile?
@@ -142,5 +147,34 @@ class DataServices: AnyObject {
         DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("yardSales").child(yardSale.id!).removeValue()
         DataReference.sharedInstance.yardSalesRef.child(yardSale.id!).removeValue()
         completion()
+    }
+    
+    class func bookmarkForUser(yardSaleID: String, action: BookmarkActions) {
+        if !currentUserHasBookmarks() {
+            userProfile?.bookmarks = [String: Bool]()
+        }
+        
+        switch action {
+        case .Add:
+            DataServices.userProfile?.bookmarks![yardSaleID] = true
+            DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("bookmarks").child(yardSaleID).setValue(true)
+        case .Remove:
+            DataServices.userProfile?.bookmarks?.removeValueForKey(yardSaleID)
+            DataReference.sharedInstance.usersRef.child(DataServices.currentUser!.uid).child("bookmarks").child(yardSaleID).removeValue()
+        }
+    }
+    
+    class func currentUserHasBookmarks() -> Bool {
+        guard let bookmarks = DataServices.userProfile?.bookmarks else {
+            return false
+        }
+        return bookmarks.isEmpty
+    }
+    
+    class func yardSaleIsBookmarked(uid: String) -> Bool {
+        guard let bookmark = DataServices.userProfile?.bookmarks?[uid] else {
+            return false
+        }
+        return bookmark.boolValue
     }
 }

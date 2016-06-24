@@ -1261,6 +1261,11 @@
                             <outlet property="delegate" destination="Afe-jC-T4i" id="3Do-Hp-hF5"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="584-zc-8RO">
+                        <barButtonItem key="rightBarButtonItem" image="bookmark_unchecked" id="U2o-2y-qWC">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addressLabel" destination="sup-1o-1WH" id="MbA-FL-TTi"/>
                         <outlet property="dateLabel" destination="aAu-St-tUP" id="cki-ht-Cbm"/>
@@ -1424,6 +1429,7 @@
     </scenes>
     <resources>
         <image name="background" width="2048" height="1150"/>
+        <image name="bookmark_unchecked" width="32" height="32"/>
         <image name="locationArrow" width="32" height="32"/>
         <image name="profile32" width="32" height="32"/>
     </resources>
