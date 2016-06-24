@@ -11,18 +11,26 @@ import MapKit
 import Firebase
 import Gloss
 
+enum MileageRange {
+    case TwentyFiveMiles
+    case ThirtyFiveMiles
+    case FourtyFiveMiles
+}
+
 class MapViewController: UIViewController {
     
     // MARK: IBOutlets
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var profileButton: UIButton!
+    @IBOutlet weak var mileageSegmentedControl: UISegmentedControl!
     
     // MARK: Properties
     
     let locationManager = CLLocationManager()
     var yardSales = [String: YardSale]()
     var selectedYardSale: String?
+    var mileageSegmentedControlIsHidden = true
     
     // MARK: View Lifecycle
 
@@ -34,13 +42,15 @@ class MapViewController: UIViewController {
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
-
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.listenForEvents()
+        mileageSegmentedControl.center.y -= view.bounds.width
+        
+        listenForEvents()
         
         setProfileButtonImage()
     }
@@ -88,6 +98,20 @@ extension MapViewController {
         }
     }
     
+    @IBAction func showMileageSegmentedControl(sender: UIBarButtonItem) {
+        if mileageSegmentedControlIsHidden {
+            UIView.animateWithDuration(0.3) {
+                self.mileageSegmentedControl.center.y += self.view.bounds.width
+            }
+        } else {
+            UIView.animateWithDuration(0.3) {
+                self.mileageSegmentedControl.center.y -= self.view.bounds.width
+            }
+        }
+        
+        mileageSegmentedControlIsHidden = !mileageSegmentedControlIsHidden
+    }
+    
 }
 
 // MARK: Utility Methods
@@ -104,6 +128,21 @@ extension MapViewController {
         } else {
             profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
         }
+    }
+    
+    @IBAction func mileageSegmentedControlChanged(sender: UISegmentedControl) {
+        
+        switch sender.selectedSegmentIndex {
+        case MileageRange.TwentyFiveMiles.hashValue:
+            return
+        case MileageRange.ThirtyFiveMiles.hashValue:
+            return
+        case MileageRange.FourtyFiveMiles.hashValue:
+            return
+        default:
+            return
+        }
+        
     }
     
 }

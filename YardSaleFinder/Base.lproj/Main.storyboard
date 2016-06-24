@@ -876,19 +876,47 @@
                                     <outlet property="delegate" destination="Kuc-in-UX0" id="xag-88-Nzv"/>
                                 </connections>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k7A-Q5-tcV">
+                                <rect key="frame" x="0.0" y="528" width="600" height="29"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="25 Miles"/>
+                                    <segment title="35 Miles"/>
+                                    <segment title="45 Miles"/>
+                                </segments>
+                                <color key="tintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="mileageSegmentedControlChanged:" destination="Kuc-in-UX0" eventType="valueChanged" id="7Bq-gI-ls4"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="frq-NG-Oxn" secondAttribute="trailing" id="7jV-oa-KxO"/>
+                            <constraint firstItem="QS0-LH-mbx" firstAttribute="top" secondItem="k7A-Q5-tcV" secondAttribute="bottom" id="8IV-Zq-2qO"/>
                             <constraint firstItem="QS0-LH-mbx" firstAttribute="top" secondItem="frq-NG-Oxn" secondAttribute="bottom" id="RMC-Jq-FIC"/>
+                            <constraint firstItem="QS0-LH-mbx" firstAttribute="top" secondItem="k7A-Q5-tcV" secondAttribute="bottom" id="YLm-we-f08"/>
+                            <constraint firstAttribute="trailing" secondItem="k7A-Q5-tcV" secondAttribute="trailing" id="YpR-Lw-d6d"/>
                             <constraint firstItem="frq-NG-Oxn" firstAttribute="top" secondItem="cWo-aZ-BEh" secondAttribute="top" id="Zd2-bA-03l"/>
                             <constraint firstItem="frq-NG-Oxn" firstAttribute="leading" secondItem="cWo-aZ-BEh" secondAttribute="leading" id="sbV-2C-Hiu"/>
+                            <constraint firstItem="k7A-Q5-tcV" firstAttribute="leading" secondItem="cWo-aZ-BEh" secondAttribute="leading" id="uJI-gM-4pW"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="YLm-we-f08"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems>
                         <barButtonItem image="locationArrow" id="CWX-am-Myg">
                             <connections>
                                 <action selector="currentLocationButtonPressed:" destination="Kuc-in-UX0" id="bnG-h7-m4c"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Yfe-NM-AGg"/>
+                        <barButtonItem systemItem="action" id="EEg-5p-GM7">
+                            <connections>
+                                <action selector="showMileageSegmentedControl:" destination="Kuc-in-UX0" id="3SS-Mi-3rA"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -917,6 +945,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="frq-NG-Oxn" id="M13-ic-ubp"/>
+                        <outlet property="mileageSegmentedControl" destination="k7A-Q5-tcV" id="OFH-xr-2mw"/>
                         <outlet property="profileButton" destination="cs8-7q-KIb" id="oua-BX-sgr"/>
                         <segue destination="i6u-KV-8IX" kind="presentation" identifier="MapToSignInSegue" modalPresentationStyle="formSheet" id="0EG-0h-KtX"/>
                         <segue destination="PrY-Vh-0Xg" kind="presentation" identifier="MapToProfileSegue" modalPresentationStyle="formSheet" id="T8x-Ey-K1I"/>
