@@ -11,10 +11,13 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 import Gloss
+import GeoFire
 
 class DataReference {
     
     static let sharedInstance = DataReference()
+    
+    // MARK: Reference Properties
     
     private let BASE_REF = FIRDatabase.database().reference()
     private let BASE_STORAGE_REF = FIRStorage.storage().referenceForURL("gs://yard-sale-finder.appspot.com")
@@ -22,6 +25,7 @@ class DataReference {
     private let YARD_SALES_REF = FIRDatabase.database().reference().child("yardSales")
     private let ACTIVE_YARD_SALES_REF = FIRDatabase.database().reference().child("active")
     private let GROUPS_REF = FIRDatabase.database().reference().child("groups")
+    private let GEOFIRE_REF = GeoFire(firebaseRef: sharedInstance.baseRef)
     
     var baseRef: FIRDatabaseReference {
         return BASE_REF
@@ -46,6 +50,13 @@ class DataReference {
     var groupsRef: FIRDatabaseReference {
         return GROUPS_REF
     }
+    
+    var geoFireRef: GeoFire {
+        return GEOFIRE_REF
+    }
+    
+    
+    // MARK: Reference Methods
     
     func userImagesRef(uid: String) -> FIRStorageReference {
         return baseStorageRef.child(uid).child("images")
