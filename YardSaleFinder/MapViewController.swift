@@ -57,7 +57,7 @@ class MapViewController: UIViewController {
 extension MapViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let detailVC = segue.destinationViewController as? DetailViewController {
+        if let detailVC = segue.destinationViewController as? DetailTableViewController {
             detailVC.yardSaleID = selectedYardSale
         }
     }
