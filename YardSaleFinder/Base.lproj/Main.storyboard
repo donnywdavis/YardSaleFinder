@@ -1190,7 +1190,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sup-1o-1WH">
-                                                    <rect key="frame" x="16" y="13" width="63" height="23.5"/>
+                                                    <rect key="frame" x="16" y="13" width="568" height="23.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1199,7 +1199,8 @@
                                             <constraints>
                                                 <constraint firstItem="sup-1o-1WH" firstAttribute="top" secondItem="qBL-AL-S8d" secondAttribute="topMargin" constant="5" id="Pl4-yi-lRm"/>
                                                 <constraint firstItem="sup-1o-1WH" firstAttribute="leading" secondItem="qBL-AL-S8d" secondAttribute="leadingMargin" constant="8" id="Pry-0F-ERS"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="sup-1o-1WH" secondAttribute="bottom" constant="5" id="Ws7-af-uih"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="sup-1o-1WH" secondAttribute="bottom" constant="5" id="Ws7-af-uih"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="sup-1o-1WH" secondAttribute="trailing" constant="8" id="bE5-2I-JPF"/>
                                                 <constraint firstItem="sup-1o-1WH" firstAttribute="centerY" secondItem="qBL-AL-S8d" secondAttribute="centerY" id="jEJ-NF-GgI"/>
                                             </constraints>
                                         </tableViewCellContentView>
