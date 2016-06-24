@@ -47,7 +47,7 @@ class DetailTableViewController: UITableViewController {
             DataReference.sharedInstance.yardSalesRef.child(yardSaleID).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
                 self.yardSale = YardSale(json: snapshot.value as! JSON)
                 self.loadYardSaleDetail()
-//                self.tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }

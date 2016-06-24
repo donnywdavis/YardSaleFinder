@@ -25,7 +25,7 @@ struct Address: Decodable, Glossy {
     }
     
     var multiLineDescription: String {
-        if aptSuite != nil {
+        if aptSuite != "" {
             return "\(street!)\n\(aptSuite!)\n\(city!), \(state!) \(zipCode!)"
         } else {
             return "\(street!)\n\(city!), \(state!) \(zipCode!)"

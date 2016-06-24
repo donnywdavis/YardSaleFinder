@@ -177,4 +177,14 @@ class DataServices: AnyObject {
         }
         return bookmark.boolValue
     }
+    
+    class func getRemoteYardSaleInfo(uid: String, completion: (YardSale?) -> Void) {
+        DataReference.sharedInstance.yardSalesRef.child(uid).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
+            guard snapshot.value != nil, let yardSale = YardSale(json: snapshot.value as! JSON) else {
+                completion(nil)
+                return
+            }
+            completion(yardSale)
+        }
+    }
 }
