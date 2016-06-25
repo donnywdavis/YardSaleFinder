@@ -10,11 +10,14 @@ import UIKit
 import MapKit
 import Firebase
 import Gloss
+import GeoFire
 
-enum MileageRange {
-    case TwentyFiveMiles
-    case ThirtyFiveMiles
-    case FourtyFiveMiles
+enum MileageRange: Int {
+    case TenMiles = 10
+    case FifteenMiles = 15
+    case TwentyFiveMiles = 25
+    case ThirtyFiveMiles = 35
+    case FourtyFiveMiles = 45
 }
 
 class MapViewController: UIViewController {
@@ -31,6 +34,7 @@ class MapViewController: UIViewController {
     var yardSales = [String: YardSale]()
     var selectedYardSale: String?
     var mileageSegmentedControlIsHidden = true
+    var yardSaleQuery: GFCircleQuery?
     
     // MARK: View Lifecycle
 
@@ -43,6 +47,8 @@ class MapViewController: UIViewController {
             locationManager.requestWhenInUseAuthorization()
         }
         
+        
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -50,13 +56,13 @@ class MapViewController: UIViewController {
         
         mileageSegmentedControl.center.y -= view.bounds.width
         
-        listenForEvents()
+        listenForEvents(MileageRange.TwentyFiveMiles)
         
         setProfileButtonImage()
     }
     
     override func viewWillDisappear(animated: Bool) {
-        DataReference.sharedInstance.baseRef.removeAllObservers()
+        yardSaleQuery?.removeAllObservers()
 //        DataReference.sharedInstance.activeYardSalesRef.removeAllObservers()
 //        DataReference.sharedInstance.yardSalesRef.removeAllObservers()
         
@@ -132,16 +138,18 @@ extension MapViewController {
     
     @IBAction func mileageSegmentedControlChanged(sender: UISegmentedControl) {
         
-        switch sender.selectedSegmentIndex {
-        case MileageRange.TwentyFiveMiles.hashValue:
-            return
-        case MileageRange.ThirtyFiveMiles.hashValue:
-            return
-        case MileageRange.FourtyFiveMiles.hashValue:
-            return
-        default:
-            return
-        }
+        mapView.removeAnnotations(yardSales.flatMap { $0.1.annotation })
+        
+//        switch sender.selectedSegmentIndex {
+//        case MileageRange.TwentyFiveMiles.hashValue:
+//            listenForEvents(MileageRange.TwentyFiveMiles)
+//        case MileageRange.ThirtyFiveMiles.hashValue:
+//            listenForEvents(MileageRange.ThirtyFiveMiles)
+//        case MileageRange.FourtyFiveMiles.hashValue:
+//            listenForEvents(MileageRange.FourtyFiveMiles)
+//        default:
+//            return
+//        }
         
     }
     
@@ -151,17 +159,22 @@ extension MapViewController {
 
 extension MapViewController {
 
-    func listenForEvents() {
+    func listenForEvents(range: MileageRange) {
         
-        let yardSaleQuery = DataReference.sharedInstance.geoFireRef.queryAtLocation(mapView.userLocation.location, withRadius: 1.0)
-        yardSaleQuery.observeEventType(.KeyEntered) { (key, location) in
+        yardSaleQuery?.removeAllObservers()
+        
+        let radius = Double(range.rawValue) / 0.62137119
+        
+        yardSaleQuery = DataReference.sharedInstance.geoFireRef.queryAtLocation(mapView.userLocation.location, withRadius: radius)
+        
+        yardSaleQuery?.observeEventType(.KeyEntered) { (key, location) in
             DataServices.getRemoteYardSaleInfo(key, completion: { (yardSale) in
                 self.yardSales[yardSale!.id!] = yardSale
                 self.mapView.addAnnotation((yardSale?.annotation)!)
             })
         }
         
-        yardSaleQuery.observeEventType(.KeyExited) { (key, location) in
+        yardSaleQuery?.observeEventType(.KeyExited) { (key, location) in
             guard self.yardSales[key] != nil else {
                 return
             }
@@ -194,14 +207,14 @@ extension MapViewController {
 extension MapViewController: MKMapViewDelegate {
 
     func centerOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, 1000, 1000)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, (25 / 0.00062137), (25 / 0.00062137))
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         if let location = userLocation.location {
             centerOnLocation(location)
-            listenForEvents()
+            listenForEvents(MileageRange.TwentyFiveMiles)
         }
     }
     
