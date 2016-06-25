@@ -185,10 +185,11 @@ class DataServices: AnyObject {
     
     class func getRemoteYardSaleInfo(uid: String, completion: (YardSale?) -> Void) {
         DataReference.sharedInstance.yardSalesRef.child(uid).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
-            guard snapshot.value != nil, let yardSale = YardSale(json: snapshot.value as! JSON) else {
+            guard let json = snapshot.value as? JSON, let yardSale = YardSale(json: json) else {
                 completion(nil)
                 return
             }
+            
             completion(yardSale)
         }
     }
