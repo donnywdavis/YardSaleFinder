@@ -26,7 +26,6 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var profileButton: UIButton!
-    @IBOutlet weak var mileageSegmentedControl: UISegmentedControl!
     @IBOutlet weak var searchTextField: UITextField!
     
     // MARK: Properties
@@ -34,8 +33,8 @@ class MapViewController: UIViewController {
     let locationManager = CLLocationManager()
     var yardSales = [String: YardSale]()
     var selectedYardSale: String?
-    var mileageSegmentedControlIsHidden = true
     var yardSaleQuery: GFCircleQuery?
+    var filterRange: MileageRange?
     
     // MARK: View Lifecycle
 
@@ -54,12 +53,12 @@ class MapViewController: UIViewController {
         searchTextField.delegate = self
         searchTextField.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
         addDoneButton()
+        
+        filterRange = MileageRange.FiveMiles
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        mileageSegmentedControl.center.y -= self.view.bounds.width
         
         setProfileButtonImage()
     }
@@ -78,13 +77,36 @@ class MapViewController: UIViewController {
 extension MapViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let detailVC = segue.destinationViewController as? DetailTableViewController {
-            detailVC.yardSaleID = selectedYardSale
+        switch segue.identifier! {
+        case "MapToDetailSegue":
+            if let detailVC = segue.destinationViewController as? DetailTableViewController {
+                detailVC.yardSaleID = selectedYardSale
+            }
+            
+        case "MapToFilterSegue":
+            if let filterVC = (segue.destinationViewController as? UINavigationController)?.topViewController as? FilterTableViewController {
+                filterVC.selectedRange = filterRange
+            }
+            
+        default:
+            return
         }
+        
     }
     
     @IBAction func unwindToMapViewController(segue: UIStoryboardSegue) {
         setProfileButtonImage()
+        
+        if segue.sourceViewController.isKindOfClass(FilterTableViewController) {
+            if let filterVC = segue.sourceViewController as? FilterTableViewController {
+                if filterRange != filterVC.selectedRange {
+                    filterRange = filterVC.selectedRange
+                    let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+                    centerOnLocation(location, range: filterRange!)
+                    listenForEvents(filterRange!, location: location)
+                }
+            }
+        }
     }
     
 }
@@ -103,20 +125,6 @@ extension MapViewController {
     
     @IBAction func currentLocationButtonPressed(sender: UIBarButtonItem) {
         locationManager.requestLocation()
-    }
-    
-    @IBAction func showMileageSegmentedControl(sender: UIBarButtonItem) {
-        if mileageSegmentedControlIsHidden {
-            UIView.animateWithDuration(0.3) {
-                self.mileageSegmentedControl.center.y += self.view.bounds.width
-            }
-        } else {
-            UIView.animateWithDuration(0.3) {
-                self.mileageSegmentedControl.center.y -= self.view.bounds.width
-            }
-        }
-        
-        mileageSegmentedControlIsHidden = !mileageSegmentedControlIsHidden
     }
     
 }
@@ -177,37 +185,6 @@ extension MapViewController {
         } else {
             profileButton.setImage(UIImage(named: "profile32"), forState: .Normal)
         }
-    }
-    
-    @IBAction func mileageSegmentedControlChanged(sender: UISegmentedControl) {
-        
-        let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-        
-        switch sender.selectedSegmentIndex {
-        case MileageRange.FiveMiles.hashValue:
-            centerOnLocation(location, range: MileageRange.FiveMiles)
-            listenForEvents(MileageRange.FiveMiles, location: location)
-            
-        case MileageRange.TenMiles.hashValue:
-            centerOnLocation(location, range: MileageRange.TenMiles)
-            listenForEvents(MileageRange.TenMiles, location: location)
-            
-        case MileageRange.FifteenMiles.hashValue:
-            centerOnLocation(location, range: MileageRange.FifteenMiles)
-            listenForEvents(MileageRange.FifteenMiles, location: location)
-            
-        case MileageRange.TwentyMiles.hashValue:
-            centerOnLocation(location, range: MileageRange.TwentyMiles)
-            listenForEvents(MileageRange.TwentyFiveMiles, location: location)
-            
-        case MileageRange.TwentyFiveMiles.hashValue:
-            centerOnLocation(location, range: MileageRange.TwentyFiveMiles)
-            listenForEvents(MileageRange.TwentyFiveMiles, location: location)
-
-        default:
-            return
-        }
-        
     }
     
 }
@@ -302,30 +279,8 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
-            switch mileageSegmentedControl.selectedSegmentIndex {
-            case MileageRange.FiveMiles.hashValue:
-                centerOnLocation(location, range: MileageRange.FiveMiles)
-                listenForEvents(MileageRange.FiveMiles, location: location)
-                
-            case MileageRange.TenMiles.hashValue:
-                centerOnLocation(location, range: MileageRange.TenMiles)
-                listenForEvents(MileageRange.TenMiles, location: location)
-                
-            case MileageRange.FifteenMiles.hashValue:
-                centerOnLocation(location, range: MileageRange.FifteenMiles)
-                listenForEvents(MileageRange.FifteenMiles, location: location)
-                
-            case MileageRange.TwentyMiles.hashValue:
-                centerOnLocation(location, range: MileageRange.TwentyMiles)
-                listenForEvents(MileageRange.TwentyFiveMiles, location: location)
-                
-            case MileageRange.TwentyFiveMiles.hashValue:
-                centerOnLocation(location, range: MileageRange.TwentyFiveMiles)
-                listenForEvents(MileageRange.TwentyFiveMiles, location: location)
-                
-            default:
-                return
-            }
+            centerOnLocation(location, range: filterRange!)
+            listenForEvents(filterRange!, location: location)
         }
     }
     
