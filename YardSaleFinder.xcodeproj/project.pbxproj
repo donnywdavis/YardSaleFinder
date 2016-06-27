@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		41116E271D2147C1005E8231 /* StateCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41116E261D2147C1005E8231 /* StateCodes.swift */; };
+		41116E2A1D21CC25005E8231 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41116E291D21CC25005E8231 /* FilterTableViewController.swift */; };
 		4193CD521D075497008685AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4193CD511D075497008685AF /* AppDelegate.swift */; };
 		4193CD571D075497008685AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD551D075497008685AF /* Main.storyboard */; };
 		4193CD591D075497008685AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD581D075497008685AF /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		41116E261D2147C1005E8231 /* StateCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateCodes.swift; sourceTree = "<group>"; };
+		41116E291D21CC25005E8231 /* FilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
 		4193CD4E1D075497008685AF /* YardSaleFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YardSaleFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4193CD511D075497008685AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4193CD561D075497008685AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				41D717D41D1473EA003A9487 /* YardSalesViewController.swift */,
 				41D717D61D147492003A9487 /* YardSaleDetailViewController.swift */,
 				41AF3AAD1D1D769B00EB5BD6 /* BookmarksViewController.swift */,
+				41116E291D21CC25005E8231 /* FilterTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				41D9370A1D0F55A800D37180 /* ItemsTableViewCell.swift in Sources */,
 				41AD58081D0A02D600E26DF8 /* DataReference.swift in Sources */,
 				41D937061D0F125000D37180 /* PriceRangeTableViewCell.swift in Sources */,
+				41116E2A1D21CC25005E8231 /* FilterTableViewController.swift in Sources */,
 				41D937041D0F0CC900D37180 /* DateTableViewCell.swift in Sources */,
 				41D936FE1D0EE6E400D37180 /* DetailViewController.swift in Sources */,
 				41F1993E1D12E3F300878AF0 /* MessageServices.swift in Sources */,
