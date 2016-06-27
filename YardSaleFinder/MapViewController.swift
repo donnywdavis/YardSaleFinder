@@ -13,11 +13,11 @@ import Gloss
 import GeoFire
 
 enum MileageRange: Int {
+    case FiveMiles = 5
     case TenMiles = 10
     case FifteenMiles = 15
+    case TwentyMiles = 20
     case TwentyFiveMiles = 25
-    case ThirtyFiveMiles = 35
-    case FourtyFiveMiles = 45
 }
 
 class MapViewController: UIViewController {
@@ -27,6 +27,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var profileButton: UIButton!
     @IBOutlet weak var mileageSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var searchTextField: UITextField!
     
     // MARK: Properties
     
@@ -43,20 +44,21 @@ class MapViewController: UIViewController {
         
         if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
             mapView.showsUserLocation = true
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.requestLocation()
         } else {
             locationManager.requestWhenInUseAuthorization()
         }
         
-        
-        
+        searchTextField.delegate = self
+        addDoneButton()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        mileageSegmentedControl.center.y -= view.bounds.width
-        
-        listenForEvents(MileageRange.TwentyFiveMiles)
+        mileageSegmentedControl.center.y -= self.view.bounds.width
         
         setProfileButtonImage()
     }
@@ -99,9 +101,7 @@ extension MapViewController {
     }
     
     @IBAction func currentLocationButtonPressed(sender: UIBarButtonItem) {
-        if let location = mapView.userLocation.location {
-            centerOnLocation(location)
-        }
+        locationManager.requestLocation()
     }
     
     @IBAction func showMileageSegmentedControl(sender: UIBarButtonItem) {
@@ -116,6 +116,47 @@ extension MapViewController {
         }
         
         mileageSegmentedControlIsHidden = !mileageSegmentedControlIsHidden
+    }
+    
+}
+
+// MARK: Text Field Delegates
+
+extension MapViewController: UITextFieldDelegate {
+    
+    func addDoneButton() {
+        let keyboardToolbar = UIToolbar()
+        keyboardToolbar.sizeToFit()
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace,
+                                            target: nil, action: nil)
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
+                                            target: self, action: #selector(dismissKeyboard))
+        keyboardToolbar.items = [flexBarButton, doneBarButton]
+        searchTextField.inputAccessoryView = keyboardToolbar
+    }
+    
+    @IBAction func dismissKeyboard() {
+        searchTextField.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        guard let searchText = textField.text else {
+            return false
+        }
+        
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(searchText) { (placemarks, error) in
+            let placemark = placemarks?.last
+            if let location = placemark?.location {
+                self.mapView.removeAnnotations(self.yardSales.flatMap { $0.1.annotation })
+                self.centerOnLocation(location, range: MileageRange.TenMiles)
+                self.listenForEvents(MileageRange.TenMiles, location: location)
+            }
+        }
+        
+        textField.resignFirstResponder()
+        
+        return true
     }
     
 }
@@ -140,16 +181,32 @@ extension MapViewController {
         
         mapView.removeAnnotations(yardSales.flatMap { $0.1.annotation })
         
-//        switch sender.selectedSegmentIndex {
-//        case MileageRange.TwentyFiveMiles.hashValue:
-//            listenForEvents(MileageRange.TwentyFiveMiles)
-//        case MileageRange.ThirtyFiveMiles.hashValue:
-//            listenForEvents(MileageRange.ThirtyFiveMiles)
-//        case MileageRange.FourtyFiveMiles.hashValue:
-//            listenForEvents(MileageRange.FourtyFiveMiles)
-//        default:
-//            return
-//        }
+        let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        
+        switch sender.selectedSegmentIndex {
+        case MileageRange.FiveMiles.hashValue:
+            centerOnLocation(location, range: MileageRange.FiveMiles)
+            listenForEvents(MileageRange.FiveMiles, location: location)
+            
+        case MileageRange.TenMiles.hashValue:
+            centerOnLocation(location, range: MileageRange.TenMiles)
+            listenForEvents(MileageRange.TenMiles, location: location)
+            
+        case MileageRange.FifteenMiles.hashValue:
+            centerOnLocation(location, range: MileageRange.FifteenMiles)
+            listenForEvents(MileageRange.FifteenMiles, location: location)
+            
+        case MileageRange.TwentyMiles.hashValue:
+            centerOnLocation(location, range: MileageRange.TwentyMiles)
+            listenForEvents(MileageRange.TwentyFiveMiles, location: location)
+            
+        case MileageRange.TwentyFiveMiles.hashValue:
+            centerOnLocation(location, range: MileageRange.TwentyFiveMiles)
+            listenForEvents(MileageRange.TwentyFiveMiles, location: location)
+
+        default:
+            return
+        }
         
     }
     
@@ -159,13 +216,13 @@ extension MapViewController {
 
 extension MapViewController {
 
-    func listenForEvents(range: MileageRange) {
+    func listenForEvents(range: MileageRange, location: CLLocation) {
         
         yardSaleQuery?.removeAllObservers()
         
         let radius = Double(range.rawValue) / 0.62137119
         
-        yardSaleQuery = DataReference.sharedInstance.geoFireRef.queryAtLocation(mapView.userLocation.location, withRadius: radius)
+        yardSaleQuery = DataReference.sharedInstance.geoFireRef.queryAtLocation(location, withRadius: radius)
         
         yardSaleQuery?.observeEventType(.KeyEntered) { (key, location) in
             DataServices.getRemoteYardSaleInfo(key, completion: { (yardSale) in
@@ -206,16 +263,9 @@ extension MapViewController {
 
 extension MapViewController: MKMapViewDelegate {
 
-    func centerOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, (25 / 0.00062137), (25 / 0.00062137))
+    func centerOnLocation(location: CLLocation, range: MileageRange) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, (Double(range.rawValue) / 0.00062137), (Double(range.rawValue) / 0.00062137))
         mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
-    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
-        if let location = userLocation.location {
-            centerOnLocation(location)
-            listenForEvents(MileageRange.TwentyFiveMiles)
-        }
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -241,6 +291,47 @@ extension MapViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         selectedYardSale = (view.annotation as! Annotation).id
         performSegueWithIdentifier("MapToDetailSegue", sender: self)
+    }
+    
+}
+
+// MARK: Location Manager Delegates
+
+extension MapViewController: CLLocationManagerDelegate {
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            switch mileageSegmentedControl.selectedSegmentIndex {
+            case MileageRange.FiveMiles.hashValue:
+                centerOnLocation(location, range: MileageRange.FiveMiles)
+                listenForEvents(MileageRange.FiveMiles, location: location)
+                
+            case MileageRange.TenMiles.hashValue:
+                centerOnLocation(location, range: MileageRange.TenMiles)
+                listenForEvents(MileageRange.TenMiles, location: location)
+                
+            case MileageRange.FifteenMiles.hashValue:
+                centerOnLocation(location, range: MileageRange.FifteenMiles)
+                listenForEvents(MileageRange.FifteenMiles, location: location)
+                
+            case MileageRange.TwentyMiles.hashValue:
+                centerOnLocation(location, range: MileageRange.TwentyMiles)
+                listenForEvents(MileageRange.TwentyFiveMiles, location: location)
+                
+            case MileageRange.TwentyFiveMiles.hashValue:
+                centerOnLocation(location, range: MileageRange.TwentyFiveMiles)
+                listenForEvents(MileageRange.TwentyFiveMiles, location: location)
+                
+            default:
+                return
+            }
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        if error != "" {
+            print("Location Error: \(error)")
+        }
     }
     
 }
