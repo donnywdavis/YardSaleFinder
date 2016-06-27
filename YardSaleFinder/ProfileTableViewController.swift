@@ -290,6 +290,10 @@ extension ProfileTableViewController: UITextFieldDelegate {
         let zipDoneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
                                             target: self, action: #selector(dismissKeyboard))
         
+        nextBarButton.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
+        stateDoneBarButton.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
+        zipDoneBarButton.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
+        
         stateKeyboardToolbar.items = [nextBarButton, flexBarButton, stateDoneBarButton]
         stateTextField.inputAccessoryView = stateKeyboardToolbar
         

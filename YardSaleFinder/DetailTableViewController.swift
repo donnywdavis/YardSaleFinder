@@ -19,6 +19,7 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var itemsLabel: UILabel!
     
     // MARK: Properties
     
@@ -68,6 +69,7 @@ class DetailTableViewController: UITableViewController {
         addressLabel.text = yardSale.address?.multiLineDescription
         dateLabel.text = yardSale.formattedDate
         timeLabel.text = yardSale.formattedTime
+        itemsLabel.text = yardSale.items
     }
 
 }
@@ -137,6 +139,9 @@ extension DetailTableViewController {
             
         case 3:
             return "Time"
+            
+        case 4:
+            return "Items"
             
         default:
             return nil

@@ -52,6 +52,7 @@ class MapViewController: UIViewController {
         }
         
         searchTextField.delegate = self
+        searchTextField.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
         addDoneButton()
     }
     
@@ -131,6 +132,7 @@ extension MapViewController: UITextFieldDelegate {
                                             target: nil, action: nil)
         let doneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
                                             target: self, action: #selector(dismissKeyboard))
+        doneBarButton.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
         keyboardToolbar.items = [flexBarButton, doneBarButton]
         searchTextField.inputAccessoryView = keyboardToolbar
     }
@@ -179,8 +181,6 @@ extension MapViewController {
     
     @IBAction func mileageSegmentedControlChanged(sender: UISegmentedControl) {
         
-        mapView.removeAnnotations(yardSales.flatMap { $0.1.annotation })
-        
         let location = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         
         switch sender.selectedSegmentIndex {
@@ -219,6 +219,7 @@ extension MapViewController {
     func listenForEvents(range: MileageRange, location: CLLocation) {
         
         yardSaleQuery?.removeAllObservers()
+        mapView.removeAnnotations(yardSales.flatMap { $0.1.annotation })
         
         let radius = Double(range.rawValue) / 0.62137119
         

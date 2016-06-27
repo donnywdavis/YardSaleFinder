@@ -22,6 +22,7 @@ class YardSaleDetailTableViewController: UITableViewController {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var startTimePicker: UIDatePicker!
     @IBOutlet weak var endTimePicker: UIDatePicker!
+    @IBOutlet weak var itemsTextView: UITextView!
     
     // MARK: Properties
     
@@ -89,6 +90,8 @@ class YardSaleDetailTableViewController: UITableViewController {
         startTimePicker.setDate(yardSale.startTime!, animated: false)
         endTimePicker.setDate(yardSale.endTime!, animated: false)
         
+        itemsTextView.text = yardSale.items
+        
         let dateCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))
         let startTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 2))
         let endTimeCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 2))
@@ -132,9 +135,9 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 0, 3 where yardSale == nil:
+        case 0, 4 where yardSale == nil:
             return 0.0
-        case 3:
+        case 4:
             return 10.0
         default:
             return 35.0
@@ -149,6 +152,9 @@ extension YardSaleDetailTableViewController {
         case 2:
             return "Date/Time"
             
+        case 3:
+            return "Items"
+            
         default:
             return nil
         }
@@ -156,7 +162,7 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (2, 1) where !isDatePickerVisible, (2, 3) where !isStartTimePickerVisible, (2, 5) where !isEndTimePickerVisible, (3, 0) where yardSale == nil:
+        case (2, 1) where !isDatePickerVisible, (2, 3) where !isStartTimePickerVisible, (2, 5) where !isEndTimePickerVisible, (4, 0) where yardSale == nil:
             return 0
             
         default:
@@ -261,6 +267,7 @@ extension YardSaleDetailTableViewController {
         yardSale.startTime = startTimePicker.date
         yardSale.endTime = endTimePicker.date
         yardSale.active = activeSwitch.on
+        yardSale.items = itemsTextView.text
         
         let geoCoder = CLGeocoder()
         geoCoder.geocodeAddressString(yardSale.address!.oneLineDescription) { (placemarks, error) in
@@ -313,23 +320,28 @@ extension YardSaleDetailTableViewController: UITextFieldDelegate {
     
     func keyboardAccessoryButtons() {
         let stateKeyboardToolbar = UIToolbar()
-        let zipKeyboardToolbar = UIToolbar()
+        let zipItemsKeyboardToolbar = UIToolbar()
         stateKeyboardToolbar.sizeToFit()
-        zipKeyboardToolbar.sizeToFit()
+        zipItemsKeyboardToolbar.sizeToFit()
         
         let flexBarButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace,
                                             target: nil, action: nil)
         let nextBarButton = UIBarButtonItem(title: "Next", style: .Plain, target: self, action: #selector(nextButtonTapped))
         let stateDoneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
                                                  target: self, action: #selector(dismissKeyboard))
-        let zipDoneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
                                                target: self, action: #selector(dismissKeyboard))
+        
+        nextBarButton.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
+        stateDoneBarButton.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
+        doneBarButton.tintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
         
         stateKeyboardToolbar.items = [nextBarButton, flexBarButton, stateDoneBarButton]
         stateTextField.inputAccessoryView = stateKeyboardToolbar
         
-        zipKeyboardToolbar.items = [flexBarButton, zipDoneBarButton]
-        zipCodeTextField.inputAccessoryView = zipKeyboardToolbar
+        zipItemsKeyboardToolbar.items = [flexBarButton, doneBarButton]
+        zipCodeTextField.inputAccessoryView = zipItemsKeyboardToolbar
+        itemsTextView.inputAccessoryView = zipItemsKeyboardToolbar
     }
     
     @IBAction func dismissKeyboard() {
@@ -363,6 +375,8 @@ extension YardSaleDetailTableViewController: UITextFieldDelegate {
             zipCodeTextField.becomeFirstResponder()
         } else if zipCodeTextField.isFirstResponder() {
             zipCodeTextField.resignFirstResponder()
+        } else if itemsTextView.isFirstResponder() {
+            itemsTextView.resignFirstResponder()
         }
         
         return true
