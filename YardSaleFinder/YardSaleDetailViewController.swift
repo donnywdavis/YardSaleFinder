@@ -35,6 +35,7 @@ class YardSaleDetailTableViewController: UITableViewController {
     var saveBarButtonItem: UIBarButtonItem?
     var updatingBarButtonItem: UIBarButtonItem?
     var activityIndicator = UIActivityIndicatorView()
+    var statePickerView = UIPickerView()
     
     // MARK: View Lifecycle
     
@@ -44,6 +45,17 @@ class YardSaleDetailTableViewController: UITableViewController {
         saveBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveButtonTapped(_:)))
         updatingBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         navigationItem.rightBarButtonItem = saveBarButtonItem
+        
+        streetTextField.delegate = self
+        aptSuiteTextField.delegate = self
+        cityTextField.delegate = self
+        stateTextField.delegate = self
+        zipCodeTextField.delegate = self
+        
+        statePickerView.delegate = self
+        statePickerView.showsSelectionIndicator = true
+        stateTextField.inputView = statePickerView
+        keyboardAccessoryButtons()
         
         datePicker.minimumDate = NSDate()
         startTimePicker.minimumDate = datePicker.date
@@ -267,6 +279,93 @@ extension YardSaleDetailTableViewController {
             }
         }
         
+    }
+    
+}
+
+// MARK: Picker View Delegates
+
+extension YardSaleDetailTableViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return StateCodes.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let state = StateCodes.getStateCode(row)
+        return state.description
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let state = StateCodes.getStateCode(row)
+        stateTextField.text = state.shortDescription
+    }
+    
+}
+
+// MARK: Text Field Methods
+
+extension YardSaleDetailTableViewController: UITextFieldDelegate {
+    
+    func keyboardAccessoryButtons() {
+        let stateKeyboardToolbar = UIToolbar()
+        let zipKeyboardToolbar = UIToolbar()
+        stateKeyboardToolbar.sizeToFit()
+        zipKeyboardToolbar.sizeToFit()
+        
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace,
+                                            target: nil, action: nil)
+        let nextBarButton = UIBarButtonItem(title: "Next", style: .Plain, target: self, action: #selector(nextButtonTapped))
+        let stateDoneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
+                                                 target: self, action: #selector(dismissKeyboard))
+        let zipDoneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
+                                               target: self, action: #selector(dismissKeyboard))
+        
+        stateKeyboardToolbar.items = [nextBarButton, flexBarButton, stateDoneBarButton]
+        stateTextField.inputAccessoryView = stateKeyboardToolbar
+        
+        zipKeyboardToolbar.items = [flexBarButton, zipDoneBarButton]
+        zipCodeTextField.inputAccessoryView = zipKeyboardToolbar
+    }
+    
+    @IBAction func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    @IBAction func nextButtonTapped() {
+        textFieldShouldReturn(stateTextField)
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if textField == stateTextField {
+            if let state = stateTextField.text {
+                statePickerView.selectRow(StateCodes.getIndexForState(state), inComponent: 0, animated: true)
+            }
+        }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if streetTextField.isFirstResponder() {
+            streetTextField.resignFirstResponder()
+            aptSuiteTextField.becomeFirstResponder()
+        } else if aptSuiteTextField.isFirstResponder() {
+            aptSuiteTextField.resignFirstResponder()
+            cityTextField.becomeFirstResponder()
+        } else if cityTextField.isFirstResponder() {
+            cityTextField.resignFirstResponder()
+            stateTextField.becomeFirstResponder()
+        } else if stateTextField.isFirstResponder() {
+            stateTextField.resignFirstResponder()
+            zipCodeTextField.becomeFirstResponder()
+        } else if zipCodeTextField.isFirstResponder() {
+            zipCodeTextField.resignFirstResponder()
+        }
+        
+        return true
     }
     
 }

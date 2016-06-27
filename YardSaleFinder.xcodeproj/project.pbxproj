@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		41116E271D2147C1005E8231 /* StateCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41116E261D2147C1005E8231 /* StateCodes.swift */; };
 		4193CD521D075497008685AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4193CD511D075497008685AF /* AppDelegate.swift */; };
 		4193CD571D075497008685AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD551D075497008685AF /* Main.storyboard */; };
 		4193CD591D075497008685AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD581D075497008685AF /* Assets.xcassets */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41116E261D2147C1005E8231 /* StateCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateCodes.swift; sourceTree = "<group>"; };
 		4193CD4E1D075497008685AF /* YardSaleFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YardSaleFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4193CD511D075497008685AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4193CD561D075497008685AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				41C5DA151D0A53F800C9570F /* Group.swift */,
 				41B20D831D0B38D200B6F988 /* Annotation.swift */,
 				41B603341D1AC25800BDE76E /* Address.swift */,
+				41116E261D2147C1005E8231 /* StateCodes.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				41D936FE1D0EE6E400D37180 /* DetailViewController.swift in Sources */,
 				41F1993E1D12E3F300878AF0 /* MessageServices.swift in Sources */,
 				41B20D841D0B38D200B6F988 /* Annotation.swift in Sources */,
+				41116E271D2147C1005E8231 /* StateCodes.swift in Sources */,
 				41D717D51D1473EA003A9487 /* YardSalesViewController.swift in Sources */,
 				41B20D821D0AE83E00B6F988 /* MapViewController.swift in Sources */,
 				41D717D71D147492003A9487 /* YardSaleDetailViewController.swift in Sources */,
