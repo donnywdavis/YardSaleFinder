@@ -320,13 +320,15 @@ extension YardSaleDetailTableViewController: UITextFieldDelegate {
         let flexBarButton = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace,
                                             target: nil, action: nil)
         let nextBarButton = UIBarButtonItem(title: "Next", style: .Plain, target: self, action: #selector(nextButtonTapped))
-        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
-                                            target: self, action: #selector(dismissKeyboard))
+        let stateDoneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
+                                                 target: self, action: #selector(dismissKeyboard))
+        let zipDoneBarButton = UIBarButtonItem(barButtonSystemItem: .Done,
+                                               target: self, action: #selector(dismissKeyboard))
         
-        stateKeyboardToolbar.items = [nextBarButton, flexBarButton, doneBarButton]
+        stateKeyboardToolbar.items = [nextBarButton, flexBarButton, stateDoneBarButton]
         stateTextField.inputAccessoryView = stateKeyboardToolbar
         
-        zipKeyboardToolbar.items = [flexBarButton, doneBarButton]
+        zipKeyboardToolbar.items = [flexBarButton, zipDoneBarButton]
         zipCodeTextField.inputAccessoryView = zipKeyboardToolbar
     }
     
