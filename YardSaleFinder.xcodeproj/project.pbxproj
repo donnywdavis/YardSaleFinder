@@ -28,6 +28,7 @@
 		41B603351D1AC25800BDE76E /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41B603341D1AC25800BDE76E /* Address.swift */; };
 		41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5DA131D0A46AA00C9570F /* YardSale.swift */; };
 		41C5DA161D0A53F800C9570F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C5DA151D0A53F800C9570F /* Group.swift */; };
+		41CB70291D22AA6E0025C10A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41CB70281D22AA6E0025C10A /* MapKit.framework */; };
 		41D717D51D1473EA003A9487 /* YardSalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D717D41D1473EA003A9487 /* YardSalesViewController.swift */; };
 		41D717D71D147492003A9487 /* YardSaleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D717D61D147492003A9487 /* YardSaleDetailViewController.swift */; };
 		41D717D91D147F6D003A9487 /* NSDateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D717D81D147F6D003A9487 /* NSDateFormatterExtensions.swift */; };
@@ -64,6 +65,7 @@
 		41B603341D1AC25800BDE76E /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		41C5DA131D0A46AA00C9570F /* YardSale.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSale.swift; sourceTree = "<group>"; };
 		41C5DA151D0A53F800C9570F /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		41CB70281D22AA6E0025C10A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		41D717D41D1473EA003A9487 /* YardSalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSalesViewController.swift; sourceTree = "<group>"; };
 		41D717D61D147492003A9487 /* YardSaleDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSaleDetailViewController.swift; sourceTree = "<group>"; };
 		41D717D81D147F6D003A9487 /* NSDateFormatterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatterExtensions.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41CB70291D22AA6E0025C10A /* MapKit.framework in Frameworks */,
 				928BF218AB76FF6170D313B5 /* Pods_YardSaleFinder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,6 +216,7 @@
 		AD86B56FC559054EAA275C41 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				41CB70281D22AA6E0025C10A /* MapKit.framework */,
 				E89FC72A81489F506603F198 /* Pods_YardSaleFinder.framework */,
 			);
 			name = Frameworks;
@@ -263,6 +267,11 @@
 					4193CD4D1D075497008685AF = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 4B3L94BG4K;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
