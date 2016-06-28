@@ -1009,35 +1009,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="b8g-hc-YSU">
-                                                    <rect key="frame" x="8" y="8" width="551" height="34"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfT-8D-U0A">
-                                                            <rect key="frame" x="0.0" y="0.0" width="511" height="34"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBi-Sw-TVa">
-                                                            <rect key="frame" x="516" y="0.0" width="35" height="21"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="21" id="RmT-ja-fXH"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="NfT-8D-U0A" firstAttribute="height" secondItem="b8g-hc-YSU" secondAttribute="height" id="Pd8-xV-7n0"/>
-                                                    </constraints>
-                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBi-Sw-TVa">
+                                                    <rect key="frame" x="521" y="14" width="38" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfT-8D-U0A">
+                                                    <rect key="frame" x="16" y="14" width="497" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="b8g-hc-YSU" secondAttribute="bottom" id="2FM-zm-O8u"/>
-                                                <constraint firstItem="b8g-hc-YSU" firstAttribute="leading" secondItem="5sD-Nv-aDB" secondAttribute="leadingMargin" id="a2c-8Q-gs3"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="b8g-hc-YSU" secondAttribute="trailing" id="a4r-zZ-Xp5"/>
-                                                <constraint firstItem="b8g-hc-YSU" firstAttribute="top" secondItem="5sD-Nv-aDB" secondAttribute="topMargin" id="wbe-Af-HRV"/>
+                                                <constraint firstItem="fBi-Sw-TVa" firstAttribute="leading" secondItem="NfT-8D-U0A" secondAttribute="trailing" constant="8" id="4aP-hE-yD5"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="NfT-8D-U0A" secondAttribute="bottom" id="GEG-2q-fXc"/>
+                                                <constraint firstItem="NfT-8D-U0A" firstAttribute="leading" secondItem="5sD-Nv-aDB" secondAttribute="leadingMargin" constant="8" id="aeP-yR-u3E"/>
+                                                <constraint firstItem="fBi-Sw-TVa" firstAttribute="trailing" secondItem="5sD-Nv-aDB" secondAttribute="trailingMargin" id="cBz-3N-IXA"/>
+                                                <constraint firstItem="NfT-8D-U0A" firstAttribute="top" secondItem="5sD-Nv-aDB" secondAttribute="topMargin" constant="6" id="dRX-xT-NEx"/>
+                                                <constraint firstItem="fBi-Sw-TVa" firstAttribute="top" secondItem="NfT-8D-U0A" secondAttribute="top" id="eb7-4n-KR5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="tintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1353,6 +1344,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection headerTitle="" id="kkn-p6-ItP">
                                 <cells>
@@ -1564,8 +1556,8 @@
         <image name="profile32" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JHp-hn-BIc"/>
         <segue reference="T8x-Ey-K1I"/>
         <segue reference="ZCT-9U-JZu"/>
+        <segue reference="k0y-WZ-fnl"/>
     </inferredMetricsTieBreakers>
 </document>
