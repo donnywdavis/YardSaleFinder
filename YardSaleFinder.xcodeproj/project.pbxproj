@@ -31,13 +31,6 @@
 		41D717D51D1473EA003A9487 /* YardSalesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D717D41D1473EA003A9487 /* YardSalesViewController.swift */; };
 		41D717D71D147492003A9487 /* YardSaleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D717D61D147492003A9487 /* YardSaleDetailViewController.swift */; };
 		41D717D91D147F6D003A9487 /* NSDateFormatterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D717D81D147F6D003A9487 /* NSDateFormatterExtensions.swift */; };
-		41D936FE1D0EE6E400D37180 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D936FD1D0EE6E400D37180 /* DetailViewController.swift */; };
-		41D937001D0EEDA800D37180 /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D936FF1D0EEDA800D37180 /* MapTableViewCell.swift */; };
-		41D937021D0F079200D37180 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D937011D0F079200D37180 /* AddressTableViewCell.swift */; };
-		41D937041D0F0CC900D37180 /* DateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D937031D0F0CC900D37180 /* DateTableViewCell.swift */; };
-		41D937061D0F125000D37180 /* PriceRangeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */; };
-		41D937081D0F521D00D37180 /* TimeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D937071D0F521D00D37180 /* TimeTableViewCell.swift */; };
-		41D9370A1D0F55A800D37180 /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */; };
 		41E37CD51D14AD03001186F2 /* DataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E37CD41D14AD03001186F2 /* DataServices.swift */; };
 		41E403031D0F9B8D003E4BF8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E403021D0F9B8D003E4BF8 /* SignInViewController.swift */; };
 		41E403051D0F9EFD003E4BF8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E403041D0F9EFD003E4BF8 /* SignUpViewController.swift */; };
@@ -74,13 +67,6 @@
 		41D717D41D1473EA003A9487 /* YardSalesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSalesViewController.swift; sourceTree = "<group>"; };
 		41D717D61D147492003A9487 /* YardSaleDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YardSaleDetailViewController.swift; sourceTree = "<group>"; };
 		41D717D81D147F6D003A9487 /* NSDateFormatterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatterExtensions.swift; sourceTree = "<group>"; };
-		41D936FD1D0EE6E400D37180 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		41D936FF1D0EEDA800D37180 /* MapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
-		41D937011D0F079200D37180 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
-		41D937031D0F0CC900D37180 /* DateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTableViewCell.swift; sourceTree = "<group>"; };
-		41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceRangeTableViewCell.swift; sourceTree = "<group>"; };
-		41D937071D0F521D00D37180 /* TimeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeTableViewCell.swift; sourceTree = "<group>"; };
-		41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsTableViewCell.swift; sourceTree = "<group>"; };
 		41E37CD41D14AD03001186F2 /* DataServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataServices.swift; sourceTree = "<group>"; };
 		41E403021D0F9B8D003E4BF8 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		41E403041D0F9EFD003E4BF8 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -159,12 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				41AD58031D0A01FE00E26DF8 /* Storyboard */,
-				41D936FF1D0EEDA800D37180 /* MapTableViewCell.swift */,
-				41D937011D0F079200D37180 /* AddressTableViewCell.swift */,
-				41D937031D0F0CC900D37180 /* DateTableViewCell.swift */,
-				41D937071D0F521D00D37180 /* TimeTableViewCell.swift */,
-				41D937051D0F125000D37180 /* PriceRangeTableViewCell.swift */,
-				41D937091D0F55A800D37180 /* ItemsTableViewCell.swift */,
 				41AA2BFC1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift */,
 				41AF3AAF1D1D79F500EB5BD6 /* BookmarkTableViewCell.swift */,
 			);
@@ -177,7 +157,6 @@
 				4193CD511D075497008685AF /* AppDelegate.swift */,
 				41F199411D1352ED00878AF0 /* LaunchViewController.swift */,
 				41B20D811D0AE83E00B6F988 /* MapViewController.swift */,
-				41D936FD1D0EE6E400D37180 /* DetailViewController.swift */,
 				41AA2BFE1D1C6C44005FEB18 /* DetailTableViewController.swift */,
 				41E403021D0F9B8D003E4BF8 /* SignInViewController.swift */,
 				41E403041D0F9EFD003E4BF8 /* SignUpViewController.swift */,
@@ -388,15 +367,9 @@
 				41B603351D1AC25800BDE76E /* Address.swift in Sources */,
 				41F199421D1352ED00878AF0 /* LaunchViewController.swift in Sources */,
 				41E403051D0F9EFD003E4BF8 /* SignUpViewController.swift in Sources */,
-				41D937021D0F079200D37180 /* AddressTableViewCell.swift in Sources */,
 				41E403031D0F9B8D003E4BF8 /* SignInViewController.swift in Sources */,
-				41D937001D0EEDA800D37180 /* MapTableViewCell.swift in Sources */,
-				41D9370A1D0F55A800D37180 /* ItemsTableViewCell.swift in Sources */,
 				41AD58081D0A02D600E26DF8 /* DataReference.swift in Sources */,
-				41D937061D0F125000D37180 /* PriceRangeTableViewCell.swift in Sources */,
 				41116E2A1D21CC25005E8231 /* FilterTableViewController.swift in Sources */,
-				41D937041D0F0CC900D37180 /* DateTableViewCell.swift in Sources */,
-				41D936FE1D0EE6E400D37180 /* DetailViewController.swift in Sources */,
 				41F1993E1D12E3F300878AF0 /* MessageServices.swift in Sources */,
 				41B20D841D0B38D200B6F988 /* Annotation.swift in Sources */,
 				41116E271D2147C1005E8231 /* StateCodes.swift in Sources */,
@@ -404,7 +377,6 @@
 				41B20D821D0AE83E00B6F988 /* MapViewController.swift in Sources */,
 				41D717D71D147492003A9487 /* YardSaleDetailViewController.swift in Sources */,
 				41F1993A1D12E2EB00878AF0 /* DirectoryServices.swift in Sources */,
-				41D937081D0F521D00D37180 /* TimeTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
