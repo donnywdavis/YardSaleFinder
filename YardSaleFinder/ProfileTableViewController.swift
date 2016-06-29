@@ -145,10 +145,15 @@ extension ProfileTableViewController {
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             let removePhoto = UIAlertAction(title: "Remove Photo", style: .Default, handler: { (action) in
-                DirectoryServices.removeImage()
-                DataServices.removeRemoteProfileImage(self.userProfile!.id!, completion: { (error) in
-                })
-                self.loadProfileData()
+                if DirectoryServices.profileImageExists() {
+                    DirectoryServices.removeImage()
+                    DataServices.removeRemoteProfileImage(self.userProfile!.id!, completion: { (error) in
+                        self.profileImageView.image = UIImage(named: "profile100")
+                        self.tableView.reloadData()
+                    })
+                } else {
+                    self.tableView.reloadData()
+                }
             })
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             
