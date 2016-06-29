@@ -242,14 +242,26 @@ extension ProfileTableViewController {
         
         if DirectoryServices.profileImageExists() {
             DataServices.uploadProfileImage(userProfile!.id!, fromPath: NSURL(fileURLWithPath: DirectoryServices.getImagePath()), completion: { (metadata, error) in
-                self.activityIndicator.stopAnimating()
-                self.cancelBarButtonItem?.enabled = true
-                self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
-                self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
-                self.view.endEditing(true)
-                self.tableView.reloadData()
+                if error != nil {
+                    MessageServices.displayMessage("Upload Error", message: "There was an issue uploading your profile photo. Please try again.", presentingViewController: self)
+                } else {
+                    self.activityIndicator.stopAnimating()
+                    self.cancelBarButtonItem?.enabled = true
+                    self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
+                    self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
+                    self.view.endEditing(true)
+                    self.tableView.reloadData()
+                }
             })
+        } else {
+            activityIndicator.stopAnimating()
+            cancelBarButtonItem?.enabled = true
+            navigationItem.setLeftBarButtonItem(editBarButtonItem, animated: true)
+            navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: true)
+            view.endEditing(true)
+            tableView.reloadData()
         }
+        
     }
     
 }
