@@ -103,7 +103,13 @@ class ProfileTableViewController: UITableViewController {
     
     // MARK: Utility Functions
     func loadProfileData() {
-        profileImageView.image = UIImage(contentsOfFile: DirectoryServices.getImagePath())
+        if DirectoryServices.tempProfileImageExists() {
+            profileImageView.image = UIImage(contentsOfFile: DirectoryServices.getTempImagePath())
+        } else if DirectoryServices.profileImageExists() {
+            profileImageView.image = UIImage(contentsOfFile: DirectoryServices.getImagePath())
+        } else {
+            profileImageView.image = UIImage(named: "profile100")
+        }
         nameTextField.text = userProfile?.name
         streetTextField.text = userProfile?.address?.street
         aptSuiteTextField.text = userProfile?.address?.aptSuite
@@ -142,7 +148,7 @@ extension ProfileTableViewController {
                 DirectoryServices.removeImage()
                 DataServices.removeRemoteProfileImage(self.userProfile!.id!, completion: { (error) in
                 })
-                self.tableView.reloadData()
+                self.loadProfileData()
             })
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             
