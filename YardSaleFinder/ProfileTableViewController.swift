@@ -26,6 +26,7 @@ class ProfileTableViewController: UITableViewController {
     var userProfile: Profile?
     
     var isEditingProfile = false
+    var isDeletingImage = false
     
     var editBarButtonItem: UIBarButtonItem?
     var doneBarButtonItem: UIBarButtonItem?
@@ -145,15 +146,9 @@ extension ProfileTableViewController {
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             let removePhoto = UIAlertAction(title: "Remove Photo", style: .Default, handler: { (action) in
-                if DirectoryServices.profileImageExists() {
-                    DirectoryServices.removeImage()
-                    DataServices.removeRemoteProfileImage(self.userProfile!.id!, completion: { (error) in
-                        self.profileImageView.image = UIImage(named: "profile100")
-                        self.tableView.reloadData()
-                    })
-                } else {
-                    self.tableView.reloadData()
-                }
+                self.profileImageView.image = UIImage(named: "profile100")
+                self.isDeletingImage = true
+                
             })
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             
@@ -240,6 +235,12 @@ extension ProfileTableViewController {
             let tempImage = UIImage(contentsOfFile: DirectoryServices.getTempImagePath())
             DirectoryServices.writeImageToDirectory(tempImage!)
             DirectoryServices.removeTempImage()
+        }
+        
+        if DirectoryServices.profileImageExists() && isDeletingImage {
+            DirectoryServices.removeImage()
+            DataServices.removeRemoteProfileImage(self.userProfile!.id!, completion: { (error) in
+            })
         }
         
         DataServices.updateUserProfile(userProfile!)
