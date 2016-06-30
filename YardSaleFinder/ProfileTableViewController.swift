@@ -19,6 +19,7 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
+    @IBOutlet weak var editPhotoLabel: UILabel!
     
     // MARK: Properties
     
@@ -51,6 +52,7 @@ class ProfileTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = doneBarButtonItem
         
         imagePicker.delegate = self
+        editPhotoLabel.hidden = true
         
         streetTextField.delegate = self
         aptSuiteTextField.delegate = self
@@ -200,6 +202,7 @@ extension ProfileTableViewController {
     
     @IBAction func editButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = true
+        editPhotoLabel.hidden = false
         allowTextFieldsToBeEditable(true)
         navigationItem.setLeftBarButtonItem(cancelBarButtonItem, animated: true)
         navigationItem.setRightBarButtonItem(saveBarButtonItem, animated: true)
@@ -216,6 +219,7 @@ extension ProfileTableViewController {
         }
         loadProfileData()
         isEditingProfile = false
+        editPhotoLabel.hidden = true
         allowTextFieldsToBeEditable(false)
         navigationItem.setLeftBarButtonItem(editBarButtonItem, animated: true)
         navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: true)
@@ -226,6 +230,7 @@ extension ProfileTableViewController {
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = false
+        editPhotoLabel.hidden = false
         allowTextFieldsToBeEditable(false)
         cancelBarButtonItem?.enabled = false
         navigationItem.setRightBarButtonItem(updatingBarButtonItem, animated: true)

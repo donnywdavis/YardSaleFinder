@@ -228,8 +228,18 @@
                                                         <constraint firstAttribute="height" constant="100" id="yft-t1-JeI"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FSZ-eG-EUO">
+                                                    <rect key="frame" x="250" y="84" width="100" height="21"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.32306034482758622" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="FSZ-eG-EUO" firstAttribute="width" secondItem="gcm-Zq-fWm" secondAttribute="width" id="AHB-aw-7fe"/>
+                                                <constraint firstItem="FSZ-eG-EUO" firstAttribute="top" secondItem="gcm-Zq-fWm" secondAttribute="bottom" constant="-21" id="CPy-Et-Jj8"/>
+                                                <constraint firstItem="FSZ-eG-EUO" firstAttribute="centerX" secondItem="gcm-Zq-fWm" secondAttribute="centerX" id="DEn-PZ-dQY"/>
                                                 <constraint firstItem="gcm-Zq-fWm" firstAttribute="centerX" secondItem="KgE-FJ-mUb" secondAttribute="centerX" id="Tes-Sd-g0h"/>
                                                 <constraint firstItem="gcm-Zq-fWm" firstAttribute="centerY" secondItem="KgE-FJ-mUb" secondAttribute="centerY" id="soE-Ek-1aO"/>
                                             </constraints>
@@ -428,6 +438,7 @@
                     <connections>
                         <outlet property="aptSuiteTextField" destination="U8e-a2-QBb" id="wIu-DV-1af"/>
                         <outlet property="cityTextField" destination="2ro-DU-sM6" id="tps-ih-KEp"/>
+                        <outlet property="editPhotoLabel" destination="FSZ-eG-EUO" id="4L0-fZ-eBA"/>
                         <outlet property="nameTextField" destination="oPC-TI-Wj3" id="Ttp-Ea-430"/>
                         <outlet property="profileImageView" destination="gcm-Zq-fWm" id="8de-vQ-us6"/>
                         <outlet property="stateTextField" destination="5gZ-h0-Rpb" id="11I-7k-SOY"/>
