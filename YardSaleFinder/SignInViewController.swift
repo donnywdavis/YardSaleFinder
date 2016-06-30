@@ -13,6 +13,7 @@ class SignInViewController: UIViewController {
     
     // MARK: IBOutlets
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var signInButton: UIButton!
@@ -32,11 +33,20 @@ class SignInViewController: UIViewController {
         
         signInButton.layer.cornerRadius = 5
         signInButton.enabled = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
 
         // Set up a gesture to dismiss the keyboard when tapping outside of a text field
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnTap(_:)))
         dismissKeyboardTap.numberOfTapsRequired = 1
         view.addGestureRecognizer(dismissKeyboardTap)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 }
@@ -105,6 +115,38 @@ extension SignInViewController: UITextFieldDelegate {
             signInButtonTapped()
         }
         return true
+    }
+    
+}
+
+// MARK: Keyboard Notifications
+
+extension SignInViewController {
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        guard let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size else {
+            return
+        }
+        
+        let contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+        
+        if emailTextField.isFirstResponder() {
+            scrollView.scrollRectToVisible(emailTextField.frame, animated: true)
+        } else if passwordTextField.isFirstResponder() {
+            scrollView.scrollRectToVisible(passwordTextField.frame, animated: true)
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        
+        let contentInsets = UIEdgeInsetsZero
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+        
     }
     
 }
