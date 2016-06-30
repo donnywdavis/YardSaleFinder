@@ -28,6 +28,9 @@ class SignUpViewController: UIViewController {
         emailTextField.text = ""
         passwordTextField.text = ""
         confirmPasswordTextField.text = ""
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
         
         signUpButton.layer.cornerRadius = 5
         signUpButton.enabled = true
@@ -59,6 +62,12 @@ extension SignUpViewController {
     
     @IBAction func signUpButtonTapped() {
         guard let email = emailTextField.text, let password = passwordTextField.text, let passwordConfirmation = confirmPasswordTextField.text else {
+            MessageServices.displayMessage("Incorrect email or password field", message: "Please check that the email and password fields have valid info entered and try again.", presentingViewController: self)
+            return
+        }
+        
+        guard email != "" && password != "" && passwordConfirmation != "" else {
+            MessageServices.displayMessage("Invalid Entries", message: "Email and password fields cannot be blank. Enter valid values and try again.", presentingViewController: self)
             return
         }
         
@@ -75,6 +84,7 @@ extension SignUpViewController {
             guard error == nil else {
                 self.activityIndicator.stopAnimating()
                 MessageServices.displayMessage("Error on Create", message: "There was a problem creating the account.", presentingViewController: self)
+                self.signUpButton.setTitle("Sign Up", forState: .Normal)
                 return
             }
             
@@ -83,6 +93,7 @@ extension SignUpViewController {
                 
                 guard error == nil else {
                     MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
+                    self.signUpButton.setTitle("Sign Up", forState: .Normal)
                     return
                 }
                 
