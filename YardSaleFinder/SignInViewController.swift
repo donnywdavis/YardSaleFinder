@@ -58,6 +58,8 @@ extension SignInViewController {
         
         FIRAuth.auth()?.signInWithEmail(email, password: password, completion: { (userInfo, error) in
             guard error == nil else {
+                self.signInButton.setTitle("Sign In", forState: .Normal)
+                self.signInButton.enabled = true
                 self.activityIndicator.stopAnimating()
                 self.emailTextField.becomeFirstResponder()
                 MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
@@ -69,6 +71,8 @@ extension SignInViewController {
                 DataServices.updateUserProfile(userProfile!)
                 
                 DataServices.downloadProfileImage(userProfile!.id!, toPath: NSURL(fileURLWithPath: DirectoryServices.getImagePath()), completion: { (url, error) in
+                    self.signInButton.setTitle("Sign In", forState: .Normal)
+                    self.signInButton.enabled = true
                     self.activityIndicator.stopAnimating()
                     self.performSegueWithIdentifier("SignInToProfileSegue", sender: nil)
                 })
