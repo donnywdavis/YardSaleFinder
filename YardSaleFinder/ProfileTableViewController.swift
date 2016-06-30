@@ -139,6 +139,13 @@ extension ProfileTableViewController {
     @IBAction func profileTapGesture(sender: UITapGestureRecognizer) {
         if isEditingProfile {
             let imageOptions = UIAlertController(title: nil, message: "Profile Photo Options", preferredStyle: .ActionSheet)
+            let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (action) in
+                if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+                    self.imagePicker.sourceType = .Camera
+                    self.imagePicker.allowsEditing = true
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+            }
             let choosePhoto = UIAlertAction(title: "Choose Photo", style: .Default) { (action) in
                 self.imagePicker.sourceType = .PhotoLibrary
                 self.imagePicker.allowsEditing = true
@@ -154,6 +161,7 @@ extension ProfileTableViewController {
             })
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             
+            imageOptions.addAction(takePhoto)
             imageOptions.addAction(choosePhoto)
             imageOptions.addAction(removePhoto)
             imageOptions.addAction(cancel)
@@ -230,7 +238,7 @@ extension ProfileTableViewController {
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = false
-        editPhotoLabel.hidden = false
+        editPhotoLabel.hidden = true
         allowTextFieldsToBeEditable(false)
         cancelBarButtonItem?.enabled = false
         navigationItem.setRightBarButtonItem(updatingBarButtonItem, animated: true)
