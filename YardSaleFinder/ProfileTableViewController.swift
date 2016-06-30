@@ -19,6 +19,7 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
+    @IBOutlet weak var editPhotoLabel: UILabel!
     
     // MARK: Properties
     
@@ -26,6 +27,7 @@ class ProfileTableViewController: UITableViewController {
     var userProfile: Profile?
     
     var isEditingProfile = false
+    var isDeletingImage = false
     
     var editBarButtonItem: UIBarButtonItem?
     var doneBarButtonItem: UIBarButtonItem?
@@ -50,6 +52,7 @@ class ProfileTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = doneBarButtonItem
         
         imagePicker.delegate = self
+        editPhotoLabel.hidden = true
         
         streetTextField.delegate = self
         aptSuiteTextField.delegate = self
@@ -103,7 +106,13 @@ class ProfileTableViewController: UITableViewController {
     
     // MARK: Utility Functions
     func loadProfileData() {
-        profileImageView.image = UIImage(contentsOfFile: DirectoryServices.getImagePath())
+        if DirectoryServices.tempProfileImageExists() {
+            profileImageView.image = UIImage(contentsOfFile: DirectoryServices.getTempImagePath())
+        } else if DirectoryServices.profileImageExists() {
+            profileImageView.image = UIImage(contentsOfFile: DirectoryServices.getImagePath())
+        } else {
+            profileImageView.image = UIImage(named: "profile100")
+        }
         nameTextField.text = userProfile?.name
         streetTextField.text = userProfile?.address?.street
         aptSuiteTextField.text = userProfile?.address?.aptSuite
@@ -130,6 +139,13 @@ extension ProfileTableViewController {
     @IBAction func profileTapGesture(sender: UITapGestureRecognizer) {
         if isEditingProfile {
             let imageOptions = UIAlertController(title: nil, message: "Profile Photo Options", preferredStyle: .ActionSheet)
+            let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (action) in
+                if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+                    self.imagePicker.sourceType = .Camera
+                    self.imagePicker.allowsEditing = true
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+            }
             let choosePhoto = UIAlertAction(title: "Choose Photo", style: .Default) { (action) in
                 self.imagePicker.sourceType = .PhotoLibrary
                 self.imagePicker.allowsEditing = true
@@ -139,13 +155,13 @@ extension ProfileTableViewController {
                 self.presentViewController(self.imagePicker, animated: true, completion: nil)
             }
             let removePhoto = UIAlertAction(title: "Remove Photo", style: .Default, handler: { (action) in
-                DirectoryServices.removeImage()
-                DataServices.removeRemoteProfileImage(self.userProfile!.id!, completion: { (error) in
-                })
-                self.tableView.reloadData()
+                self.profileImageView.image = UIImage(named: "profile100")
+                self.isDeletingImage = true
+                
             })
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             
+            imageOptions.addAction(takePhoto)
             imageOptions.addAction(choosePhoto)
             imageOptions.addAction(removePhoto)
             imageOptions.addAction(cancel)
@@ -185,12 +201,16 @@ extension ProfileTableViewController: UIImagePickerControllerDelegate, UINavigat
 extension ProfileTableViewController {
     
     @IBAction func logoutButtonTapped(sender: UIButton) {
+        if DirectoryServices.profileImageExists() {
+            DirectoryServices.removeImage()
+        }
         DataServices.signOut()
         performSegueWithIdentifier("UnwindToMapSegue", sender: nil)
     }
     
     @IBAction func editButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = true
+        editPhotoLabel.hidden = false
         allowTextFieldsToBeEditable(true)
         navigationItem.setLeftBarButtonItem(cancelBarButtonItem, animated: true)
         navigationItem.setRightBarButtonItem(saveBarButtonItem, animated: true)
@@ -207,6 +227,7 @@ extension ProfileTableViewController {
         }
         loadProfileData()
         isEditingProfile = false
+        editPhotoLabel.hidden = true
         allowTextFieldsToBeEditable(false)
         navigationItem.setLeftBarButtonItem(editBarButtonItem, animated: true)
         navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: true)
@@ -217,6 +238,7 @@ extension ProfileTableViewController {
     
     @IBAction func saveButtonTapped(sender: UIBarButtonItem) {
         isEditingProfile = false
+        editPhotoLabel.hidden = true
         allowTextFieldsToBeEditable(false)
         cancelBarButtonItem?.enabled = false
         navigationItem.setRightBarButtonItem(updatingBarButtonItem, animated: true)
@@ -231,19 +253,37 @@ extension ProfileTableViewController {
             DirectoryServices.removeTempImage()
         }
         
+        if DirectoryServices.profileImageExists() && isDeletingImage {
+            DirectoryServices.removeImage()
+            DataServices.removeRemoteProfileImage(self.userProfile!.id!, completion: { (error) in
+            })
+        }
+        
         DataServices.updateUserProfile(userProfile!)
         DataServices.updateRemoteUserProfile(userProfile!)
         
         if DirectoryServices.profileImageExists() {
             DataServices.uploadProfileImage(userProfile!.id!, fromPath: NSURL(fileURLWithPath: DirectoryServices.getImagePath()), completion: { (metadata, error) in
-                self.activityIndicator.stopAnimating()
-                self.cancelBarButtonItem?.enabled = true
-                self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
-                self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
-                self.view.endEditing(true)
-                self.tableView.reloadData()
+                if error != nil {
+                    MessageServices.displayMessage("Upload Error", message: "There was an issue uploading your profile photo. Please try again.", presentingViewController: self)
+                } else {
+                    self.activityIndicator.stopAnimating()
+                    self.cancelBarButtonItem?.enabled = true
+                    self.navigationItem.setLeftBarButtonItem(self.editBarButtonItem, animated: true)
+                    self.navigationItem.setRightBarButtonItem(self.doneBarButtonItem, animated: true)
+                    self.view.endEditing(true)
+                    self.tableView.reloadData()
+                }
             })
+        } else {
+            activityIndicator.stopAnimating()
+            cancelBarButtonItem?.enabled = true
+            navigationItem.setLeftBarButtonItem(editBarButtonItem, animated: true)
+            navigationItem.setRightBarButtonItem(doneBarButtonItem, animated: true)
+            view.endEditing(true)
+            tableView.reloadData()
         }
+        
     }
     
 }

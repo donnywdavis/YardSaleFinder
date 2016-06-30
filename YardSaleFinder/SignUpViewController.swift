@@ -13,6 +13,7 @@ class SignUpViewController: UIViewController {
 
     // MARK: IBOutlets
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
@@ -27,19 +28,26 @@ class SignUpViewController: UIViewController {
         emailTextField.text = ""
         passwordTextField.text = ""
         confirmPasswordTextField.text = ""
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
         
         signUpButton.layer.cornerRadius = 5
         signUpButton.enabled = true
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
         // Set up a gesture to dismiss the keyboard when tapping outside of a text field
         let dismissKeyboardTap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOnTap(_:)))
         dismissKeyboardTap.numberOfTapsRequired = 1
         view.addGestureRecognizer(dismissKeyboardTap)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 }
@@ -54,6 +62,12 @@ extension SignUpViewController {
     
     @IBAction func signUpButtonTapped() {
         guard let email = emailTextField.text, let password = passwordTextField.text, let passwordConfirmation = confirmPasswordTextField.text else {
+            MessageServices.displayMessage("Incorrect email or password field", message: "Please check that the email and password fields have valid info entered and try again.", presentingViewController: self)
+            return
+        }
+        
+        guard email != "" && password != "" && passwordConfirmation != "" else {
+            MessageServices.displayMessage("Invalid Entry", message: "Email and/or password fields cannot be blank. Enter valid values and try again.", presentingViewController: self)
             return
         }
         
@@ -70,6 +84,7 @@ extension SignUpViewController {
             guard error == nil else {
                 self.activityIndicator.stopAnimating()
                 MessageServices.displayMessage("Error on Create", message: "There was a problem creating the account.", presentingViewController: self)
+                self.signUpButton.setTitle("Sign Up", forState: .Normal)
                 return
             }
             
@@ -78,6 +93,7 @@ extension SignUpViewController {
                 
                 guard error == nil else {
                     MessageServices.displayMessage("Invalid Signin", message: "Could not sign in. Please check your email and password.", presentingViewController: self)
+                    self.signUpButton.setTitle("Sign Up", forState: .Normal)
                     return
                 }
                 
@@ -119,6 +135,40 @@ extension SignUpViewController: UITextFieldDelegate {
             signUpButtonTapped()
         }
         return true
+    }
+    
+}
+
+// MARK: Keyboard Notifications
+
+extension SignUpViewController {
+    
+    func keyboardWillShow(notification: NSNotification) {
+        
+        guard let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue().size else {
+            return
+        }
+        
+        let contentInsets = UIEdgeInsetsMake(0.0, 0.0, keyboardSize.height, 0.0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+        
+        if emailTextField.isFirstResponder() {
+            scrollView.scrollRectToVisible(emailTextField.frame, animated: true)
+        } else if passwordTextField.isFirstResponder() {
+            scrollView.scrollRectToVisible(passwordTextField.frame, animated: true)
+        } else if confirmPasswordTextField.isFirstResponder() {
+            scrollView.scrollRectToVisible(confirmPasswordTextField.frame, animated: true)
+        }
+        
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        
+        let contentInsets = UIEdgeInsetsZero
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+        
     }
     
 }
