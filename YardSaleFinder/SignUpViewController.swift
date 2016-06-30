@@ -67,7 +67,7 @@ extension SignUpViewController {
         }
         
         guard email != "" && password != "" && passwordConfirmation != "" else {
-            MessageServices.displayMessage("Invalid Entries", message: "Email and password fields cannot be blank. Enter valid values and try again.", presentingViewController: self)
+            MessageServices.displayMessage("Invalid Entry", message: "Email and/or password fields cannot be blank. Enter valid values and try again.", presentingViewController: self)
             return
         }
         
