@@ -191,6 +191,9 @@ extension ProfileTableViewController: UIImagePickerControllerDelegate, UINavigat
 extension ProfileTableViewController {
     
     @IBAction func logoutButtonTapped(sender: UIButton) {
+        if DirectoryServices.profileImageExists() {
+            DirectoryServices.removeImage()
+        }
         DataServices.signOut()
         performSegueWithIdentifier("UnwindToMapSegue", sender: nil)
     }
