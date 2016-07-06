@@ -56,10 +56,6 @@ class SignUpViewController: UIViewController {
 
 extension SignUpViewController {
     
-    @IBAction func cancelButtonTapped(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     @IBAction func signUpButtonTapped() {
         guard let email = emailTextField.text, let password = passwordTextField.text, let passwordConfirmation = confirmPasswordTextField.text else {
             MessageServices.displayMessage("Incorrect email or password field", message: "Please check that the email and password fields have valid info entered and try again.", presentingViewController: self)
