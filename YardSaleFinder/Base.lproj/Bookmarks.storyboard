@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9wg-Ok-P5Z">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Bookmarks View Controller-->
+        <scene sceneID="WFQ-tC-nZX">
+            <objects>
+                <viewController id="wPg-g1-JZL" userLabel="Bookmarks View Controller" customClass="BookmarksViewController" customModule="YardSaleFinder" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="npW-4p-deq"/>
+                        <viewControllerLayoutGuide type="bottom" id="AJ5-Sw-4GD"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Zv-KJ-YnS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OHo-Gf-62z">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BookmarkCell" rowHeight="50" id="NDn-rZ-lns" customClass="BookmarkTableViewCell" customModule="YardSaleFinder" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NDn-rZ-lns" id="5sD-Nv-aDB">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBi-Sw-TVa">
+                                                    <rect key="frame" x="521" y="14" width="38" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfT-8D-U0A">
+                                                    <rect key="frame" x="16" y="14" width="497" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="fBi-Sw-TVa" firstAttribute="leading" secondItem="NfT-8D-U0A" secondAttribute="trailing" constant="8" id="4aP-hE-yD5"/>
+                                                <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="NfT-8D-U0A" secondAttribute="bottom" id="GEG-2q-fXc"/>
+                                                <constraint firstItem="NfT-8D-U0A" firstAttribute="leading" secondItem="5sD-Nv-aDB" secondAttribute="leadingMargin" constant="8" id="aeP-yR-u3E"/>
+                                                <constraint firstItem="fBi-Sw-TVa" firstAttribute="trailing" secondItem="5sD-Nv-aDB" secondAttribute="trailingMargin" id="cBz-3N-IXA"/>
+                                                <constraint firstItem="NfT-8D-U0A" firstAttribute="top" secondItem="5sD-Nv-aDB" secondAttribute="topMargin" constant="6" id="dRX-xT-NEx"/>
+                                                <constraint firstItem="fBi-Sw-TVa" firstAttribute="top" secondItem="NfT-8D-U0A" secondAttribute="top" id="eb7-4n-KR5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="tintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="NfT-8D-U0A" id="EAB-B3-XGh"/>
+                                            <outlet property="timeLabel" destination="fBi-Sw-TVa" id="O6c-8H-unJ"/>
+                                            <segue destination="AcL-VR-oHi" kind="show" identifier="BookmarkstoDetailSegue" id="k0y-WZ-fnl"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="wPg-g1-JZL" id="ysu-VR-tMf"/>
+                                    <outlet property="delegate" destination="wPg-g1-JZL" id="qqD-sM-bRs"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OHo-Gf-62z" firstAttribute="leading" secondItem="3Zv-KJ-YnS" secondAttribute="leading" id="8Lq-JV-olP"/>
+                            <constraint firstAttribute="trailing" secondItem="OHo-Gf-62z" secondAttribute="trailing" id="SqD-W9-D33"/>
+                            <constraint firstItem="OHo-Gf-62z" firstAttribute="top" secondItem="3Zv-KJ-YnS" secondAttribute="top" id="T66-DN-WqX"/>
+                            <constraint firstItem="AJ5-Sw-4GD" firstAttribute="top" secondItem="OHo-Gf-62z" secondAttribute="bottom" id="WLk-Bv-QPS"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Bookmarks" id="EfN-8U-5Pv">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="l51-9y-XRa">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="0Ye-k5-na8">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="doneButtonTapped:" destination="wPg-g1-JZL" id="1ks-aR-cPi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="OHo-Gf-62z" id="qsn-hL-A51"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T3t-lZ-bPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2812" y="1159"/>
+        </scene>
+        <!--Bookmarks Navigation Controller-->
+        <scene sceneID="rgy-CF-bEZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9wg-Ok-P5Z" userLabel="Bookmarks Navigation Controller" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YOj-DX-bKv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.0" green="0.69803921570000005" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wPg-g1-JZL" kind="relationship" relationship="rootViewController" id="JvP-3c-GNO"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HWh-LP-Bpl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2000" y="1159"/>
+        </scene>
+        <!--DetailTableViewController-->
+        <scene sceneID="h6T-T3-fyI">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="DetailTableViewController" id="AcL-VR-oHi" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Bh-to-KLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3561" y="806"/>
+        </scene>
+    </scenes>
+</document>

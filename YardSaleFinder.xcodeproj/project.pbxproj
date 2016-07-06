@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		410840EB1D2D4DCD00188FD4 /* SignInSignUp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 410840E91D2D4DCD00188FD4 /* SignInSignUp.storyboard */; };
 		410840ED1D2D770C00188FD4 /* SignInSignUpPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 410840EC1D2D770C00188FD4 /* SignInSignUpPageViewController.swift */; };
+		410840F01D2DB42E00188FD4 /* Bookmarks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 410840EE1D2DB42E00188FD4 /* Bookmarks.storyboard */; };
 		41116E271D2147C1005E8231 /* StateCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41116E261D2147C1005E8231 /* StateCodes.swift */; };
 		41116E2A1D21CC25005E8231 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41116E291D21CC25005E8231 /* FilterTableViewController.swift */; };
 		4193CD521D075497008685AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4193CD511D075497008685AF /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		410840EA1D2D4DCD00188FD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SignInSignUp.storyboard; sourceTree = "<group>"; };
 		410840EC1D2D770C00188FD4 /* SignInSignUpPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInSignUpPageViewController.swift; sourceTree = "<group>"; };
+		410840EF1D2DB42E00188FD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Bookmarks.storyboard; sourceTree = "<group>"; };
 		41116E261D2147C1005E8231 /* StateCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateCodes.swift; sourceTree = "<group>"; };
 		41116E291D21CC25005E8231 /* FilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
 		4193CD4E1D075497008685AF /* YardSaleFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YardSaleFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -143,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				4193CD551D075497008685AF /* Main.storyboard */,
+				410840EE1D2DB42E00188FD4 /* Bookmarks.storyboard */,
 				410840E91D2D4DCD00188FD4 /* SignInSignUp.storyboard */,
 				4193CD5A1D075497008685AF /* LaunchScreen.storyboard */,
 			);
@@ -308,6 +311,7 @@
 				41AD58011D0A01DD00E26DF8 /* GoogleService-Info.plist in Resources */,
 				4193CD591D075497008685AF /* Assets.xcassets in Resources */,
 				4193CD571D075497008685AF /* Main.storyboard in Resources */,
+				410840F01D2DB42E00188FD4 /* Bookmarks.storyboard in Resources */,
 				410840EB1D2D4DCD00188FD4 /* SignInSignUp.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,6 +410,14 @@
 				410840EA1D2D4DCD00188FD4 /* Base */,
 			);
 			name = SignInSignUp.storyboard;
+			sourceTree = "<group>";
+		};
+		410840EE1D2DB42E00188FD4 /* Bookmarks.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				410840EF1D2DB42E00188FD4 /* Base */,
+			);
+			name = Bookmarks.storyboard;
 			sourceTree = "<group>";
 		};
 		4193CD551D075497008685AF /* Main.storyboard */ = {

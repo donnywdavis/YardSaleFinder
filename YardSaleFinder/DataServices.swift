@@ -154,6 +154,22 @@ class DataServices: AnyObject {
         completion()
     }
     
+    class func getRemoteYardSaleInfo(uid: String, completion: (YardSale?) -> Void) {
+        DataReference.sharedInstance.yardSalesRef.child(uid).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
+            guard let json = snapshot.value as? JSON, let yardSale = YardSale(json: json) else {
+                completion(nil)
+                return
+            }
+            
+            completion(yardSale)
+        }
+    }
+}
+
+// MARK: Bookmark Methods
+
+extension DataServices {
+    
     class func bookmarkForUser(yardSaleID: String, action: BookmarkActions) {
         if !currentUserHasBookmarks() {
             userProfile?.bookmarks = [String: Bool]()
@@ -173,7 +189,7 @@ class DataServices: AnyObject {
         guard let bookmarks = DataServices.userProfile?.bookmarks else {
             return false
         }
-        return bookmarks.isEmpty
+        return !bookmarks.isEmpty
     }
     
     class func yardSaleIsBookmarked(uid: String) -> Bool {
@@ -183,14 +199,4 @@ class DataServices: AnyObject {
         return bookmark.boolValue
     }
     
-    class func getRemoteYardSaleInfo(uid: String, completion: (YardSale?) -> Void) {
-        DataReference.sharedInstance.yardSalesRef.child(uid).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
-            guard let json = snapshot.value as? JSON, let yardSale = YardSale(json: json) else {
-                completion(nil)
-                return
-            }
-            
-            completion(yardSale)
-        }
-    }
 }
