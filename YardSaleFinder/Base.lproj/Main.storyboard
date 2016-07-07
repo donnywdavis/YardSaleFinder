@@ -747,13 +747,13 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem image="locationArrow" id="CWX-am-Myg">
+                        <barButtonItem image="currentLocation" id="CWX-am-Myg">
                             <connections>
                                 <action selector="currentLocationButtonPressed:" destination="Kuc-in-UX0" id="bnG-h7-m4c"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Yfe-NM-AGg"/>
-                        <barButtonItem image="distanceMenu" id="EEg-5p-GM7">
+                        <barButtonItem image="settings32" id="EEg-5p-GM7">
                             <connections>
                                 <segue destination="CvX-iP-Ub7" kind="presentation" identifier="MapToFilterSegue" modalPresentationStyle="formSheet" id="0Wk-af-hZS"/>
                             </connections>
@@ -1228,10 +1228,10 @@
     </scenes>
     <resources>
         <image name="background" width="2048" height="1150"/>
-        <image name="bookmark_unchecked" width="16" height="16"/>
-        <image name="distanceMenu" width="16" height="16"/>
-        <image name="locationArrow" width="16" height="16"/>
-        <image name="profile32" width="16" height="16"/>
+        <image name="bookmark_unchecked" width="32" height="32"/>
+        <image name="currentLocation" width="32" height="32"/>
+        <image name="profile32" width="32" height="32"/>
+        <image name="settings32" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZCT-9U-JZu"/>
