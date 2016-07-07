@@ -74,9 +74,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Bookmarks" id="EfN-8U-5Pv">
-                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="l51-9y-XRa">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="0Ye-k5-na8">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
