@@ -56,7 +56,6 @@
                                         <connections>
                                             <outlet property="addressLabel" destination="NfT-8D-U0A" id="EAB-B3-XGh"/>
                                             <outlet property="timeLabel" destination="fBi-Sw-TVa" id="O6c-8H-unJ"/>
-                                            <segue destination="AcL-VR-oHi" kind="show" identifier="BookmarkstoDetailSegue" id="k0y-WZ-fnl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -87,6 +86,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="OHo-Gf-62z" id="qsn-hL-A51"/>
+                        <segue destination="AcL-VR-oHi" kind="show" identifier="BookmarkstoDetailSegue" id="tIC-qG-f4h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T3t-lZ-bPh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -124,7 +124,7 @@
                 <viewControllerPlaceholder storyboardName="Main" referencedIdentifier="DetailTableViewController" id="AcL-VR-oHi" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Bh-to-KLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3561" y="806"/>
+            <point key="canvasLocation" x="3513" y="988"/>
         </scene>
     </scenes>
 </document>
