@@ -58,10 +58,14 @@ class DetailTableViewController: UITableViewController {
             return
         }
         
-        if DataServices.yardSaleIsBookmarked(yardSale.id!) {
-            navigationItem.rightBarButtonItem = bookmarkCheckedBarButtonItem
+        if DataServices.isUserLoggedIn() {
+            if DataServices.yardSaleIsBookmarked(yardSale.id!) {
+                navigationItem.rightBarButtonItem = bookmarkCheckedBarButtonItem
+            } else {
+                navigationItem.rightBarButtonItem = bookmarkUncheckedBarButtonItem
+            }
         } else {
-            navigationItem.rightBarButtonItem = bookmarkUncheckedBarButtonItem
+            navigationItem.rightBarButtonItem = nil
         }
         
         mapView.addAnnotation(yardSale.annotation!)

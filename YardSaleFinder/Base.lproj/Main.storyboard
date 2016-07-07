@@ -262,7 +262,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5752" y="387"/>
+            <point key="canvasLocation" x="5510" y="438"/>
         </scene>
         <!--Yard Sales View Controller-->
         <scene sceneID="gOE-SA-8ed">
@@ -338,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fTF-D7-Uk7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6526" y="387"/>
+            <point key="canvasLocation" x="6302" y="438"/>
         </scene>
         <!--Yard Sales Detail Table View Controller-->
         <scene sceneID="nQk-dx-0NO">
@@ -715,7 +715,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XWI-DF-7XL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="EYn-d3-3RX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7363" y="837"/>
+            <point key="canvasLocation" x="7193" y="888"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="kwI-L3-ts7">
@@ -783,11 +783,6 @@
                         </textField>
                         <barButtonItem key="rightBarButtonItem" systemItem="bookmarks" id="So9-Ha-Qes">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="Tju-T1-iDp" kind="popoverPresentation" identifier="BookmarksPopoverSegue" popoverAnchorBarButtonItem="So9-Ha-Qes" id="Hcu-ON-Hil">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -797,6 +792,9 @@
                         <segue destination="1U0-tb-1PV" kind="presentation" identifier="MapToSignInSegue" modalPresentationStyle="formSheet" id="0EG-0h-KtX"/>
                         <segue destination="PrY-Vh-0Xg" kind="presentation" identifier="MapToProfileSegue" modalPresentationStyle="formSheet" id="T8x-Ey-K1I"/>
                         <segue destination="Afe-jC-T4i" kind="show" identifier="MapToDetailSegue" id="JHp-hn-BIc"/>
+                        <segue destination="Tju-T1-iDp" kind="popoverPresentation" identifier="MapToBookmarksSegue" popoverAnchorBarButtonItem="So9-Ha-Qes" id="zg0-uH-W9h">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYo-yk-jrm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1064,7 +1062,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXr-Ln-D8C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5043" y="702"/>
+            <point key="canvasLocation" x="4575" y="634"/>
         </scene>
         <!--Filter Table View Controller-->
         <scene sceneID="s0F-pg-UyA">
@@ -1189,7 +1187,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xL7-ag-sU6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ysT-GV-Z0Y" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3626" y="-301"/>
+            <point key="canvasLocation" x="4356" y="-309"/>
         </scene>
         <!--Filter Navigation Controller-->
         <scene sceneID="IYI-4s-Tyc">
@@ -1209,7 +1207,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UMY-d4-cpd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2814" y="-301"/>
+            <point key="canvasLocation" x="3592" y="-309"/>
         </scene>
         <!--SignInSignUp-->
         <scene sceneID="5Hx-MH-aGz">
@@ -1217,7 +1215,7 @@
                 <viewControllerPlaceholder storyboardName="SignInSignUp" id="1U0-tb-1PV" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3v-LQ-SSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4373" y="-86"/>
+            <point key="canvasLocation" x="4377" y="164"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="VSq-g9-gFb">

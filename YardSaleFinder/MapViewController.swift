@@ -60,6 +60,12 @@ class MapViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+        if DataServices.isUserLoggedIn() {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Bookmarks, target: self, action: #selector(bookmarksButtonTapped(_:)))
+        } else {
+            navigationItem.rightBarButtonItem = nil
+        }
+        
         setProfileButtonImage()
     }
     
@@ -125,6 +131,10 @@ extension MapViewController {
     
     @IBAction func currentLocationButtonPressed(sender: UIBarButtonItem) {
         locationManager.requestLocation()
+    }
+    
+    @IBAction func bookmarksButtonTapped(sender: UIBarButtonItem) {
+        performSegueWithIdentifier("MapToBookmarksSegue", sender: nil)
     }
     
 }
