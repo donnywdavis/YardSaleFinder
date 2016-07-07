@@ -115,8 +115,8 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lOS-pP-Kx7">
-                                                <rect key="frame" x="10" y="10" width="32" height="32"/>
-                                                <state key="normal" image="close32"/>
+                                                <rect key="frame" x="10" y="10" width="37" height="37"/>
+                                                <state key="normal" image="close75"/>
                                                 <connections>
                                                     <segue destination="NwN-RC-fIN" kind="unwind" unwindAction="unwindToMapViewController:" id="0Oa-bo-nS5"/>
                                                 </connections>
@@ -238,8 +238,8 @@
                                                 <textInputTraits key="textInputTraits" returnKeyType="go" secureTextEntry="YES"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcj-rB-eJq">
-                                                <rect key="frame" x="10" y="10" width="32" height="32"/>
-                                                <state key="normal" image="close32"/>
+                                                <rect key="frame" x="10" y="10" width="37" height="37"/>
+                                                <state key="normal" image="close75"/>
                                                 <connections>
                                                     <segue destination="rPb-L0-TyP" kind="unwind" unwindAction="unwindToMapViewController:" id="hCp-UO-MWT"/>
                                                 </connections>
@@ -320,9 +320,9 @@
     </scenes>
     <resources>
         <image name="background" width="2048" height="1150"/>
-        <image name="close32" width="32" height="32"/>
+        <image name="close75" width="37" height="37"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AiY-n8-dEt"/>
+        <segue reference="xCE-4N-vd4"/>
     </inferredMetricsTieBreakers>
 </document>
