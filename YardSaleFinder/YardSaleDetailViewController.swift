@@ -23,6 +23,7 @@ class YardSaleDetailTableViewController: UITableViewController {
     @IBOutlet weak var startTimePicker: UIDatePicker!
     @IBOutlet weak var endTimePicker: UIDatePicker!
     @IBOutlet weak var itemsTextView: UITextView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: Properties
     
@@ -38,6 +39,9 @@ class YardSaleDetailTableViewController: UITableViewController {
     var activityIndicator = UIActivityIndicatorView()
     var statePickerView = UIPickerView()
     
+    var imagePicker = UIImagePickerController()
+    var itemImages = [UIImage]()
+    
     // MARK: View Lifecycle
     
     override func viewDidLoad() {
@@ -46,6 +50,8 @@ class YardSaleDetailTableViewController: UITableViewController {
         saveBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(saveButtonTapped(_:)))
         updatingBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         navigationItem.rightBarButtonItem = saveBarButtonItem
+        
+        imagePicker.delegate = self
         
         streetTextField.delegate = self
         aptSuiteTextField.delegate = self
@@ -380,6 +386,95 @@ extension YardSaleDetailTableViewController: UITextFieldDelegate {
         }
         
         return true
+    }
+    
+}
+
+// MARK: Collection View Delegates
+
+extension YardSaleDetailTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return itemImages.count + 1
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ItemImageCell", forIndexPath: indexPath) as! ItemCollectionViewCell
+        
+        if indexPath.row >= itemImages.count {
+            cell.itemImage.hidden = true
+            cell.addImageButton.hidden = false
+        } else {
+            cell.addImageButton.hidden = true
+            cell.itemImage.hidden = false
+            cell.itemImage.image = itemImages[indexPath.row]
+        }
+        
+        return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        imageSelectionOptions()
+    }
+    
+}
+
+// MARK: Image Picker
+
+extension YardSaleDetailTableViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imageSelectionOptions() {
+        let imageOptions = UIAlertController(title: nil, message: "Image Options", preferredStyle: .ActionSheet)
+        let takePhoto = UIAlertAction(title: "Take Photo", style: .Default) { (action) in
+            if UIImagePickerController.availableCaptureModesForCameraDevice(.Rear) != nil {
+                self.imagePicker.sourceType = .Camera
+                self.imagePicker.allowsEditing = true
+                self.presentViewController(self.imagePicker, animated: true, completion: nil)
+            }
+        }
+        let choosePhoto = UIAlertAction(title: "Choose Photo", style: .Default) { (action) in
+            self.imagePicker.sourceType = .PhotoLibrary
+            self.imagePicker.allowsEditing = true
+            self.imagePicker.modalPresentationStyle = .CurrentContext
+            self.imagePicker.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+            self.imagePicker.navigationBar.barTintColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
+            self.presentViewController(self.imagePicker, animated: true, completion: nil)
+        }
+        let removePhoto = UIAlertAction(title: "Remove Photo", style: .Default, handler: { (action) in
+            let indexPath = self.collectionView.indexPathsForSelectedItems()
+            let cell = self.collectionView.cellForItemAtIndexPath(indexPath![0]) as! ItemCollectionViewCell
+            if !cell.itemImage.hidden {
+                let itemImageIndex = self.itemImages.indexOf(cell.itemImage.image!)
+                self.itemImages.removeAtIndex(itemImageIndex!)
+            }
+        })
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        imageOptions.addAction(takePhoto)
+        imageOptions.addAction(choosePhoto)
+        imageOptions.addAction(removePhoto)
+        imageOptions.addAction(cancel)
+        
+        presentViewController(imageOptions, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let editedPhoto = info[UIImagePickerControllerEditedImage] as? UIImage {
+//            DirectoryServices.writeTempImageToDirectory(editedPhoto)
+            itemImages.append(editedPhoto)
+            collectionView.reloadData()
+        } else if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            DirectoryServices.writeTempImageToDirectory(photo)
+            itemImages.append(photo)
+            collectionView.reloadData()
+        } else {
+            MessageServices.displayMessage("Image Error", message: "There was an error selecting the photo. Please try again.", presentingViewController: self)
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
 }

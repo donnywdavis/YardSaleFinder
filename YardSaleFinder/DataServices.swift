@@ -60,39 +60,6 @@ class DataServices: AnyObject {
         self.userProfile = userProfile
     }
     
-    class func getRemoteProfileData(uid: String, completion: (Profile?) -> Void) {
-        DataReference.sharedInstance.usersRef.child(uid).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
-            guard let json = snapshot.value as? JSON else {
-                completion(Profile())
-                return
-            }
-            
-            completion(Profile(json: json))
-        }
-    }
-    
-    class func downloadProfileImage(uid: String, toPath: NSURL, completion: (NSURL?, NSError?) -> Void) {
-        DataReference.sharedInstance.profileImageRef(uid).writeToFile(toPath) { (url, error) in
-            if error != nil && DirectoryServices.profileImageExists() {
-                DirectoryServices.removeImage()
-            }
-            
-            completion(url, error)
-        }
-    }
-    
-    class func uploadProfileImage(uid: String, fromPath: NSURL, completion: (FIRStorageMetadata?, NSError?) -> Void) {
-        DataReference.sharedInstance.profileImageRef(uid).putFile(fromPath, metadata: .None) { (metadata, error) in
-            completion(metadata, error)
-        }
-    }
-    
-    class func removeRemoteProfileImage(uid: String, completion: (NSError?) -> Void) {
-        DataReference.sharedInstance.profileImageRef(uid).deleteWithCompletion { (error) in
-            completion(error)
-        }
-    }
-    
     class func updateRemoteUserProfile(userProfile: Profile) {
         DataReference.sharedInstance.usersRef.child(userProfile.id!).updateChildValues(userProfile.toJSON()!)
     }
@@ -197,6 +164,45 @@ extension DataServices {
             return false
         }
         return bookmark.boolValue
+    }
+    
+}
+
+// MARK: Image Methods
+
+extension DataServices {
+    
+    class func getRemoteProfileData(uid: String, completion: (Profile?) -> Void) {
+        DataReference.sharedInstance.usersRef.child(uid).observeSingleEventOfType(.Value) { (snapshot: FIRDataSnapshot) in
+            guard let json = snapshot.value as? JSON else {
+                completion(Profile())
+                return
+            }
+            
+            completion(Profile(json: json))
+        }
+    }
+    
+    class func downloadProfileImage(uid: String, toPath: NSURL, completion: (NSURL?, NSError?) -> Void) {
+        DataReference.sharedInstance.profileImageRef(uid).writeToFile(toPath) { (url, error) in
+            if error != nil && DirectoryServices.profileImageExists() {
+                DirectoryServices.removeImage()
+            }
+            
+            completion(url, error)
+        }
+    }
+    
+    class func uploadProfileImage(uid: String, fromPath: NSURL, completion: (FIRStorageMetadata?, NSError?) -> Void) {
+        DataReference.sharedInstance.profileImageRef(uid).putFile(fromPath, metadata: .None) { (metadata, error) in
+            completion(metadata, error)
+        }
+    }
+    
+    class func removeRemoteProfileImage(uid: String, completion: (NSError?) -> Void) {
+        DataReference.sharedInstance.profileImageRef(uid).deleteWithCompletion { (error) in
+            completion(error)
+        }
     }
     
 }
