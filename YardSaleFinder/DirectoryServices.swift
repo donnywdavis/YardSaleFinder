@@ -15,11 +15,11 @@ class DirectoryServices: AnyObject {
     }
     
     class func getImagePath() -> String {
-        return getDocumentsDirectory().URLByAppendingPathComponent("profile.jpg").path!
+        return getDocumentsDirectory().URLByAppendingPathComponent("profile.jpg")!.path!
     }
     
     class func getTempImagePath() -> String {
-        return getDocumentsDirectory().URLByAppendingPathComponent("temp_profile.jpg").path!
+        return getDocumentsDirectory().URLByAppendingPathComponent("temp_profile.jpg")!.path!
     }
     
     class func writeImageToDirectory(image: UIImage) {
