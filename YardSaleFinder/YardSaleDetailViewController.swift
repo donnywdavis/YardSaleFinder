@@ -139,14 +139,27 @@ extension YardSaleDetailTableViewController {
         header.contentView.backgroundColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
     }
     
+    override func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        let footer = view as! UITableViewHeaderFooterView
+        footer.contentView.backgroundColor = UIColor(red: 0/255.0, green: 178/255.0, blue: 51/255.0, alpha: 1.0)
+    }
+    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 0, 4 where yardSale == nil:
+        case 0, 5 where yardSale == nil:
             return 0.0
-        case 4:
-            return 10.0
+
         default:
             return 35.0
+        }
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+        case 4, 5:
+            return 0.0
+        default:
+            return 10.0
         }
     }
     
@@ -161,6 +174,9 @@ extension YardSaleDetailTableViewController {
         case 3:
             return "Items"
             
+        case 4:
+            return "Photos"
+            
         default:
             return nil
         }
@@ -168,7 +184,7 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (2, 1) where !isDatePickerVisible, (2, 3) where !isStartTimePickerVisible, (2, 5) where !isEndTimePickerVisible, (4, 0) where yardSale == nil:
+        case (2, 1) where !isDatePickerVisible, (2, 3) where !isStartTimePickerVisible, (2, 5) where !isEndTimePickerVisible, (5, 0) where yardSale == nil:
             return 0
             
         default:
