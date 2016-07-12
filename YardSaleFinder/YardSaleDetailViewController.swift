@@ -75,6 +75,8 @@ class YardSaleDetailTableViewController: UITableViewController {
         if let yardSale = yardSale {
             loadDetailData(yardSale)
         } else if DataServices.userProfile?.address != nil {
+            yardSale = YardSale()
+            yardSale?.photos = [String]()
             streetTextField.text = DataServices.userProfile?.address?.street
             aptSuiteTextField.text = DataServices.userProfile?.address?.aptSuite
             cityTextField.text = DataServices.userProfile?.address?.city
