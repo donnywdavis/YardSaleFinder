@@ -40,7 +40,9 @@ class YardSaleDetailTableViewController: UITableViewController {
     var statePickerView = UIPickerView()
     
     var imagePicker = UIImagePickerController()
-    var itemImages = [UIImage]()
+    var itemImages = [Photo]()
+    var originalItemImages = [Photo]()
+
     
     // MARK: View Lifecycle
     
@@ -105,6 +107,18 @@ class YardSaleDetailTableViewController: UITableViewController {
         dateCell?.detailTextLabel?.text = dateFormatter.formatDate(yardSale.startTime)
         startTimeCell?.detailTextLabel?.text = dateFormatter.formatTime(yardSale.startTime)!
         endTimeCell?.detailTextLabel?.text = dateFormatter.formatTime(yardSale.endTime)
+        
+        downloadImages(yardSale) { (photo, error) in
+            guard error == nil else {
+                return
+            }
+            
+            if let photo = photo {
+                self.itemImages.append(photo)
+                self.originalItemImages.append(photo)
+                self.collectionView.reloadData()
+            }
+        }
     }
 
 }
@@ -295,13 +309,21 @@ extension YardSaleDetailTableViewController {
         geoCoder.geocodeAddressString(yardSale.address!.oneLineDescription) { (placemarks, error) in
             let placemark = placemarks?.last
             yardSale.location = CLLocationCoordinate2DMake((placemark?.location?.coordinate.latitude)!, (placemark?.location?.coordinate.longitude)!)
+
             if self.yardSale == nil {
+                if !self.itemImages.isEmpty {
+                    yardSale.photos = self.itemImages.flatMap({ photo in
+                        return photo.name
+                    })
+                }
                 DataServices.addNewYardSale(yardSale) {
+                    self.updatePhotos(yardSale)
                     self.activityIndicator.stopAnimating()
                     self.performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
                 }
             } else {
                 DataServices.updateYardSale(yardSale) {
+                    self.updatePhotos(yardSale)
                     self.activityIndicator.stopAnimating()
                     self.performSegueWithIdentifier("UnwindToYardSalesList", sender: nil)
                 }
@@ -411,19 +433,34 @@ extension YardSaleDetailTableViewController: UITextFieldDelegate {
 extension YardSaleDetailTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return itemImages.count + 1
+        guard let count = yardSale?.photos?.count else {
+            return 1
+        }
+        guard count + 1 <= 6 else {
+            return 6
+        }
+        return count + 1
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ItemImageCell", forIndexPath: indexPath) as! ItemCollectionViewCell
         
-        if indexPath.row >= itemImages.count {
+        guard let count = yardSale?.photos?.count where indexPath.row < count else {
             cell.itemImage.hidden = true
             cell.addImageButton.hidden = false
+            cell.activityIndicator.stopAnimating()
+            return cell
+        }
+        
+        cell.addImageButton.hidden = true
+        if indexPath.row > itemImages.count - 1 {
+            cell.activityIndicator.startAnimating()
+            cell.itemImage.hidden = true
         } else {
-            cell.addImageButton.hidden = true
             cell.itemImage.hidden = false
-            cell.itemImage.image = itemImages[indexPath.row]
+            cell.activityIndicator.stopAnimating()
+            let photo = itemImages[indexPath.row]
+            cell.itemImage.image = photo.image
         }
         
         return cell
@@ -460,8 +497,9 @@ extension YardSaleDetailTableViewController: UIImagePickerControllerDelegate, UI
             let indexPath = self.collectionView.indexPathsForSelectedItems()
             let cell = self.collectionView.cellForItemAtIndexPath(indexPath![0]) as! ItemCollectionViewCell
             if !cell.itemImage.hidden {
-                let itemImageIndex = self.itemImages.indexOf(cell.itemImage.image!)
-                self.itemImages.removeAtIndex(itemImageIndex!)
+                self.itemImages = self.itemImages.flatMap({ photo in
+                    return photo.image != cell.itemImage.image ? photo : nil
+                })
             }
         })
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
@@ -476,12 +514,14 @@ extension YardSaleDetailTableViewController: UIImagePickerControllerDelegate, UI
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let editedPhoto = info[UIImagePickerControllerEditedImage] as? UIImage {
-//            DirectoryServices.writeTempImageToDirectory(editedPhoto)
-            itemImages.append(editedPhoto)
+            let newPhoto = Photo(image: editedPhoto, name: DataReference.sharedInstance.yardSalesRef.childByAutoId().key)
+            itemImages.append(newPhoto)
+            yardSale?.photos?.append(newPhoto.name!)
             collectionView.reloadData()
         } else if let photo = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            DirectoryServices.writeTempImageToDirectory(photo)
-            itemImages.append(photo)
+            let newPhoto = Photo(image: photo, name: DataReference.sharedInstance.yardSalesRef.childByAutoId().key)
+            itemImages.append(newPhoto)
+            yardSale?.photos?.append(newPhoto.name!)
             collectionView.reloadData()
         } else {
             MessageServices.displayMessage("Image Error", message: "There was an error selecting the photo. Please try again.", presentingViewController: self)
@@ -491,6 +531,24 @@ extension YardSaleDetailTableViewController: UIImagePickerControllerDelegate, UI
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+}
+
+// MARK: Image Handler
+
+extension YardSaleDetailTableViewController: ImageHandler {
+    
+    func updatePhotos(yardSale: YardSale) {
+        if !itemImages.isEmpty {
+            for item in itemImages {
+                if (!originalItemImages.contains { $0.name == item.name}) {
+                    updloadImage(yardSale, photo: item, imageType: ImageUploadType.YardSale, completion: { (metadata, error) in
+                    })
+                }
+            }
+        }
+        originalItemImages = itemImages
     }
     
 }

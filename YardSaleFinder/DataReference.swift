@@ -58,16 +58,20 @@ class DataReference {
     
     // MARK: Reference Methods
     
-    func userImagesRef(uid: String) -> FIRStorageReference {
+    func imagesRef(uid: String) -> FIRStorageReference {
         return baseStorageRef.child(uid).child("images")
     }
     
     func profileImageRef(uid: String) -> FIRStorageReference {
-        return userImagesRef(uid).child("profile").child("profile.jpg")
+        return imagesRef(uid).child("profile").child("profile.jpg")
     }
     
-    func yardSaleImagesRef(uid: String) -> FIRStorageReference {
-        return userImagesRef(uid).child("yardSale")
+    func yardSaleImagesRef(uid: String, yardSaleID: String) -> FIRStorageReference {
+        return imagesRef(uid).child("yardSale").child(yardSaleID)
+    }
+    
+    func photoRef(uid: String, yardSaleID: String, imageID: String) -> FIRStorageReference {
+        return yardSaleImagesRef(uid, yardSaleID: yardSaleID).child(imageID)
     }
     
 }

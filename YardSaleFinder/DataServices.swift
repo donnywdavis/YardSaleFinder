@@ -193,6 +193,10 @@ extension DataServices {
         }
     }
     
+    class func uploadImage(uid: String, image: UIImage) {
+        
+    }
+    
     class func uploadProfileImage(uid: String, fromPath: NSURL, completion: (FIRStorageMetadata?, NSError?) -> Void) {
         DataReference.sharedInstance.profileImageRef(uid).putFile(fromPath, metadata: .None) { (metadata, error) in
             completion(metadata, error)

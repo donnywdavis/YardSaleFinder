@@ -12,6 +12,9 @@
 		410840F01D2DB42E00188FD4 /* Bookmarks.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 410840EE1D2DB42E00188FD4 /* Bookmarks.storyboard */; };
 		41116E271D2147C1005E8231 /* StateCodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41116E261D2147C1005E8231 /* StateCodes.swift */; };
 		41116E2A1D21CC25005E8231 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41116E291D21CC25005E8231 /* FilterTableViewController.swift */; };
+		412A835D1D34416D00433EF8 /* ImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412A835C1D34416D00433EF8 /* ImageHandler.swift */; };
+		412A83601D34456900433EF8 /* ImageUploadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412A835F1D34456900433EF8 /* ImageUploadType.swift */; };
+		412A83621D3455AA00433EF8 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412A83611D3455AA00433EF8 /* Photo.swift */; };
 		4193CD521D075497008685AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4193CD511D075497008685AF /* AppDelegate.swift */; };
 		4193CD571D075497008685AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD551D075497008685AF /* Main.storyboard */; };
 		4193CD591D075497008685AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4193CD581D075497008685AF /* Assets.xcassets */; };
@@ -51,6 +54,9 @@
 		410840EF1D2DB42E00188FD4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Bookmarks.storyboard; sourceTree = "<group>"; };
 		41116E261D2147C1005E8231 /* StateCodes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateCodes.swift; sourceTree = "<group>"; };
 		41116E291D21CC25005E8231 /* FilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
+		412A835C1D34416D00433EF8 /* ImageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageHandler.swift; sourceTree = "<group>"; };
+		412A835F1D34456900433EF8 /* ImageUploadType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUploadType.swift; sourceTree = "<group>"; };
+		412A83611D3455AA00433EF8 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		4193CD4E1D075497008685AF /* YardSaleFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YardSaleFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4193CD511D075497008685AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4193CD561D075497008685AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -101,6 +107,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		412A835B1D34415D00433EF8 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				412A835C1D34416D00433EF8 /* ImageHandler.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
+		412A835E1D34455700433EF8 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				412A835F1D34456900433EF8 /* ImageUploadType.swift */,
+			);
+			name = Enums;
+			sourceTree = "<group>";
+		};
 		4193CD451D075497008685AF = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +144,8 @@
 		4193CD501D075497008685AF /* YardSaleFinder */ = {
 			isa = PBXGroup;
 			children = (
+				412A835E1D34455700433EF8 /* Enums */,
+				412A835B1D34415D00433EF8 /* Protocols */,
 				41F199381D12E2DD00878AF0 /* Services */,
 				41AD580C1D0A080A00E26DF8 /* Custom Extensions */,
 				41AD58091D0A057600E26DF8 /* Models */,
@@ -201,6 +225,7 @@
 				41B20D831D0B38D200B6F988 /* Annotation.swift */,
 				41B603341D1AC25800BDE76E /* Address.swift */,
 				41116E261D2147C1005E8231 /* StateCodes.swift */,
+				412A83611D3455AA00433EF8 /* Photo.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -377,6 +402,7 @@
 			files = (
 				41AF3AAE1D1D769B00EB5BD6 /* BookmarksViewController.swift in Sources */,
 				41AD58101D0A140E00E26DF8 /* StringExtensions.swift in Sources */,
+				412A83621D3455AA00433EF8 /* Photo.swift in Sources */,
 				41AD580B1D0A058900E26DF8 /* Profile.swift in Sources */,
 				41AD580E1D0A082100E26DF8 /* DateExtensions.swift in Sources */,
 				41D717D91D147F6D003A9487 /* NSDateFormatterExtensions.swift in Sources */,
@@ -384,10 +410,12 @@
 				41A9AA9F1D1B73B900978684 /* ProfileTableViewController.swift in Sources */,
 				41AA2BFF1D1C6C44005FEB18 /* DetailTableViewController.swift in Sources */,
 				41E37CD51D14AD03001186F2 /* DataServices.swift in Sources */,
+				412A835D1D34416D00433EF8 /* ImageHandler.swift in Sources */,
 				4193CD521D075497008685AF /* AppDelegate.swift in Sources */,
 				41AA2BFD1D1C2717005FEB18 /* YardSaleDateTableViewCell.swift in Sources */,
 				41AF3AB01D1D79F500EB5BD6 /* BookmarkTableViewCell.swift in Sources */,
 				41C5DA141D0A46AA00C9570F /* YardSale.swift in Sources */,
+				412A83601D34456900433EF8 /* ImageUploadType.swift in Sources */,
 				41FA82201D30336700465719 /* ItemCollectionViewCell.swift in Sources */,
 				41B603351D1AC25800BDE76E /* Address.swift in Sources */,
 				410840ED1D2D770C00188FD4 /* SignInSignUpPageViewController.swift in Sources */,

@@ -14,5 +14,6 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var itemImage: UIImageView!
     @IBOutlet weak var addImageButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
 }
