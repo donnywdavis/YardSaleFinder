@@ -166,7 +166,7 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 0, 5 where yardSale == nil:
+        case 0, 5 where yardSale?.id == nil:
             return 0.0
 
         default:
@@ -204,7 +204,7 @@ extension YardSaleDetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch (indexPath.section, indexPath.row) {
-        case (2, 1) where !isDatePickerVisible, (2, 3) where !isStartTimePickerVisible, (2, 5) where !isEndTimePickerVisible, (5, 0) where yardSale == nil:
+        case (2, 1) where !isDatePickerVisible, (2, 3) where !isStartTimePickerVisible, (2, 5) where !isEndTimePickerVisible, (5, 0) where yardSale?.id == nil:
             return 0
             
         default:
