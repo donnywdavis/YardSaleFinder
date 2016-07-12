@@ -26,6 +26,10 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>May we pretty please check your location?</string>
+	<key>NSCameraUsageDescription</key>
+	<string>YES</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>YES</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

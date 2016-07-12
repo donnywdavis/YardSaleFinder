@@ -110,15 +110,19 @@ class YardSaleDetailTableViewController: UITableViewController {
         startTimeCell?.detailTextLabel?.text = dateFormatter.formatTime(yardSale.startTime)!
         endTimeCell?.detailTextLabel?.text = dateFormatter.formatTime(yardSale.endTime)
         
-        downloadImages(yardSale) { (photo, error) in
-            guard error == nil else {
-                return
-            }
-            
-            if let photo = photo {
-                self.itemImages.append(photo)
-                self.originalItemImages.append(photo)
-                self.collectionView.reloadData()
+        if yardSale.photos == nil {
+            self.yardSale?.photos = [String]()
+        } else {
+            downloadImages(yardSale) { (photo, error) in
+                guard error == nil else {
+                    return
+                }
+                
+                if let photo = photo {
+                    self.itemImages.append(photo)
+                    self.originalItemImages.append(photo)
+                    self.collectionView.reloadData()
+                }
             }
         }
     }
@@ -312,7 +316,7 @@ extension YardSaleDetailTableViewController {
             let placemark = placemarks?.last
             yardSale.location = CLLocationCoordinate2DMake((placemark?.location?.coordinate.latitude)!, (placemark?.location?.coordinate.longitude)!)
 
-            if self.yardSale == nil {
+            if self.yardSale?.id == nil {
                 if !self.itemImages.isEmpty {
                     yardSale.photos = self.itemImages.flatMap({ photo in
                         return photo.name
