@@ -11,7 +11,7 @@ import MapKit
 import Firebase
 import Gloss
 
-class DetailTableViewController: UITableViewController {
+class DetailTableViewController: UITableViewController, ImageHandler {
     
     // MARK: IBOutlets
     
@@ -20,6 +20,7 @@ class DetailTableViewController: UITableViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var itemsLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: Properties
     
@@ -28,6 +29,8 @@ class DetailTableViewController: UITableViewController {
     
     var bookmarkUncheckedBarButtonItem: UIBarButtonItem?
     var bookmarkCheckedBarButtonItem: UIBarButtonItem?
+    
+    var itemImages = [Photo]()
     
     // MARK: View Lifecycle
 
@@ -74,6 +77,21 @@ class DetailTableViewController: UITableViewController {
         dateLabel.text = yardSale.formattedDate
         timeLabel.text = yardSale.formattedTime
         itemsLabel.text = yardSale.items
+        
+        if yardSale.photos != nil {
+            downloadImages(yardSale) { (photo, error) in
+                guard error == nil else {
+                    return
+                }
+                
+                if let photo = photo {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self.itemImages.append(photo)
+                        self.collectionView.reloadData()
+                    }
+                }
+            }
+        }
     }
 
 }
@@ -108,11 +126,16 @@ extension DetailTableViewController {
 extension DetailTableViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        switch indexPath.section {
+        case 5:
+            return 100.0
+        default:
+            return UITableViewAutomaticDimension
+        }
     }
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50.0
+        return 100.0
     }
     
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -147,6 +170,9 @@ extension DetailTableViewController {
         case 4:
             return "Items"
             
+        case 5:
+            return "Photos"
+            
         default:
             return nil
         }
@@ -180,6 +206,36 @@ extension DetailTableViewController: MKMapViewDelegate {
         pin?.canShowCallout = false
         
         return pin
+    }
+    
+}
+
+// MARK: Collection View Delegates
+
+extension DetailTableViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let count = yardSale?.photos?.count else {
+            return 0
+        }
+
+        return count
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! ItemCollectionViewCell
+        
+        if indexPath.row > itemImages.count - 1 {
+            cell.activityIndicator.startAnimating()
+            cell.itemImage.hidden = true
+        } else {
+            cell.itemImage.hidden = false
+            cell.activityIndicator.stopAnimating()
+            let photo = itemImages[indexPath.row]
+            cell.itemImage.image = photo.image
+        }
+        
+        return cell
     }
     
 }
